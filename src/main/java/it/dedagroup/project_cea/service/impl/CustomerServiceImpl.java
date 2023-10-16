@@ -70,12 +70,6 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	}
 
 	@Override
-	public Customer findCustomerByCellphone(String cellphone) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Customer findCustomerByApartments_Id(long apartment_id) {
 		// TODO Auto-generated method stub
 		return null;
