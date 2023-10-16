@@ -10,24 +10,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Administrator {
+@EqualsAndHashCode(callSuper=false)
+public class Administrator extends User{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Column(nullable = false)
-	private String name;
-	@Column(nullable = false)
-	private String surname;
-	@Column(nullable = false, unique = true)
-	private String username;
-	@Column(nullable = false)
-	private String password;
 	@OneToMany(mappedBy = "administrator")
 	private List<Secretary> secretaries;
 	@OneToMany(mappedBy = "administrator")
