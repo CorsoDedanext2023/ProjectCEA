@@ -13,9 +13,9 @@ public interface TechnicianServiceDef {
 	Technician update(Technician t);
 	boolean removeTechnician (TechnicianRequest request);
 	
-	Technician findByIntervention(long idIntervention);
 	Technician findById(long idTechnician);
 	Technician findByUsername(String username);
 	List<Technician> findAll();
 	List<Technician> findFree();
+	Technician findByIntervention(long idIntervention);
 }
