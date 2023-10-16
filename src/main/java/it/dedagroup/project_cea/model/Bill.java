@@ -30,5 +30,5 @@ public class Bill {
 	@Column(nullable = false)
 	private boolean isAvailable = true;
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Meter meter;
+	private Scan meter;
 }
