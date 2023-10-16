@@ -31,6 +31,5 @@ public class Secretary extends User {
 	private List<Technician> technicians;
 	@Column(nullable = false)
 	private Role role = Role.SECRETARY;
-	@Column(nullable = false)
 	private boolean isAvailable = true;
 }
