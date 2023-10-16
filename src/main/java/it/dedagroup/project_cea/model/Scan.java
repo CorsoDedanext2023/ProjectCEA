@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Meter {
+public class Scan {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
