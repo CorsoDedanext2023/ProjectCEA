@@ -23,7 +23,7 @@ public class Scan {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@Column(nullable = false)
-	private double liter = 0;
+	private double mcLiter = 0;
 	@OneToOne(mappedBy = "meter")
 	private Apartment apartment;
 	@Column(nullable = false)
