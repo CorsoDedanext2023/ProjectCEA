@@ -1,5 +1,6 @@
 package it.dedagroup.project_cea.facade;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.dedagroup.project_cea.dto.response.CustomerDto;
+import it.dedagroup.project_cea.model.Bill;
 import it.dedagroup.project_cea.model.Customer;
+import it.dedagroup.project_cea.model.Intervention;
+import it.dedagroup.project_cea.model.Scan;
 import it.dedagroup.project_cea.service.def.CustomerServiceDef;
 @Service
 public class CustomerFacade {
@@ -22,6 +26,22 @@ public class CustomerFacade {
 	}
 	public void deleteCustomer(long customer_id){
 
+	}
+	
+	public Intervention bookIntervention(long user_id, LocalDate interventionDate) {
+		return null;
+	}
+
+	public List<Bill> getBills(long user_id) {
+		return null;
+	}
+
+	public Bill payBill(long bill_id, LocalDate paymentDate) {
+		return null;
+	}
+
+	public Scan meterScan(long apartment_id, Bill lastBill) {
+		return null;
 	}
 	
 	public CustomerDto findCustomerById(long customer_id){
