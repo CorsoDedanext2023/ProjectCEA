@@ -27,6 +27,8 @@ public class Administrator extends User{
 	@OneToMany(mappedBy = "administrator")
 	private List<Condominium> condominiums;
 	@Column(nullable = false)
+	private Role role = Role.ADMIN;
+	@Column(nullable = false)
 	private boolean isAvailable = true;
 	
 }

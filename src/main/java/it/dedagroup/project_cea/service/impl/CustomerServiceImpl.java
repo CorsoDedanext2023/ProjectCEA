@@ -31,7 +31,18 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	@Override
 	public void deleteCustomer(long customer_id) {
 		// TODO Auto-generated method stub
-		
+	}
+	
+	@Override
+	public Customer findCustomerById(long customer_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Customer findAllCustomer() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -69,5 +80,4 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
