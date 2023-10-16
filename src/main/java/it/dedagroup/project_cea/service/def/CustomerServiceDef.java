@@ -10,6 +10,8 @@ public interface CustomerServiceDef {
 	public Customer modifyCustomer(Customer customer);
 	public void deleteCustomer(long customer_id);
 	
+	public Customer findCustomerById(long customer_id);
+	public Customer findAllCustomer();
 	public Customer findCustomerByUsernameAndPassword(String username, String password);
 	public Optional<Customer> findCustomerByUsername(String username);
 	public Customer findCustomerByTax_Code(String taxCode);
