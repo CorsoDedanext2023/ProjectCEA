@@ -28,6 +28,5 @@ public class Customer extends User{
 	private List<Apartment> apartments;
 	@Column(nullable = false)
 	private Role role = Role.CUSTOMER;
-	@Column(nullable = false)
 	private boolean isAvailable = true;
 } 
