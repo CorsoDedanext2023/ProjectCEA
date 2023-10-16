@@ -28,7 +28,6 @@ public class Administrator extends User{
 	private List<Condominium> condominiums;
 	@Column(nullable = false)
 	private Role role = Role.ADMIN;
-	@Column(nullable = false)
 	private boolean isAvailable = true;
 	
 }
