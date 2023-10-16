@@ -30,5 +30,7 @@ public class Secretary extends User {
 	@OneToMany(mappedBy = "secretary")
 	private List<Technician> technicians;
 	@Column(nullable = false)
+	private Role role = Role.SECRETARY;
+	@Column(nullable = false)
 	private boolean isAvailable = true;
 }

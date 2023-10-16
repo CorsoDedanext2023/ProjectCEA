@@ -30,8 +30,9 @@ public class Technician extends User{
 	@OneToMany(mappedBy = "technician")
 	private List<Intervention> interventions;
 	@Column(nullable = false)
+	private Role role = Role.TECHNICIAN;
+	@Column(nullable = false)
 	private boolean isAvailable = true;
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Secretary secretary;
-	
 }
