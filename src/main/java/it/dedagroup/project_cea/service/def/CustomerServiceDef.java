@@ -1,13 +1,22 @@
 package it.dedagroup.project_cea.service.def;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import it.dedagroup.project_cea.model.Bill;
 import it.dedagroup.project_cea.model.Customer;
+import it.dedagroup.project_cea.model.Intervention;
+import it.dedagroup.project_cea.model.Scan;
 
 public interface CustomerServiceDef {
 	public Customer saveCustomer(Customer customer);
 	public Customer modifyCustomer(Customer customer);
 	public void deleteCustomer(long customer_id);
+	
+	public Intervention bookIntervention(long user_id, LocalDate interventionDate);
+	public List<Bill> getBills(long user_id);
+	public Bill payBill(long bill_id, LocalDate paymentDate);
+	public Scan meterScan(long apartment_id, Bill lastBill);
 	
 	public Customer findCustomerById(long customer_id);
 	public Customer findAllCustomer();
