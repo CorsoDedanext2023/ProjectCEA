@@ -52,25 +52,19 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	}
 
 	@Override
-	public Optional<Customer> findCustomerByUsername(String username) {
+	public Customer findCustomerByUsername(String username) {
 		// TODO Auto-generated method stub
-		return Optional.empty();
+		return null;
 	}
 
 	@Override
-	public Customer findCustomerByTax_Code(String taxCode) {
+	public Customer findCustomerByTaxCode(String taxCode) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Customer> findAllCustomerByNameAndSurname(String name, String surname) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Customer findCustomerByCellphone(String cellphone) {
 		// TODO Auto-generated method stub
 		return null;
 	}
