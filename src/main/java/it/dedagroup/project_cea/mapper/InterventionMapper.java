@@ -12,14 +12,14 @@ public class InterventionMapper {
 	
 	public InterventionDTOResponse toInterventionDTOResponse(Intervention i) {
 		InterventionDTOResponse intDTOResp = new InterventionDTOResponse();
-		intDTOResp.setDate(i.getDate());
+		intDTOResp.setDate(i.getInterventionDate());
 		intDTOResp.setType(i.getType());
 		intDTOResp.setStatus(i.getStatus());
 		intDTOResp.setCondominiumAddress(i.getApartment().getCondominium().getAddress());
 		intDTOResp.setUnitNumber(i.getApartment().getUnitNumber());
 		intDTOResp.setFloorNumber(i.getApartment().getFloorNumber());
 		intDTOResp.setCustomerName(i.getApartment().getCustomer().getName());
-		intDTOResp.setCustomerName(i.getApartment().getCustomer().getSurname());
+		intDTOResp.setCustomerSurname(i.getApartment().getCustomer().getSurname());
 		intDTOResp.setTechnicianName(i.getTechnician().getName());
 		intDTOResp.setTechnicianSurname(i.getTechnician().getSurname());
 		return intDTOResp;
