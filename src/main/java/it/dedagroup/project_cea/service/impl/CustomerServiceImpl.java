@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import it.dedagroup.project_cea.model.Apartment;
 import it.dedagroup.project_cea.model.Bill;
@@ -49,7 +51,7 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	
 	@Override
 	public Intervention bookIntervention(long user_id, LocalDate interventionDate) {
-		Apartment apartment=apartmentRepo.findApartmentByCustomer_id(user_id);
+		Apartment apartment=apartmentRepo.findApartmentByCustomer_id(user_id));
 		Intervention intervention=new Intervention();
 		intervention.setApartment(apartment);
 		intervention.setStatus(StatusIntervention.PENDING);
@@ -90,7 +92,7 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	public Customer findCustomerByUsernameAndPassword(String username, String password) {
 		return customerRepo.findCustomerByUsernameAndPassword(username, password).get();
 	}
-
+	//aDCXZZCXZ
 	@Override
 	public Customer findCustomerByUsername(String username) {
 		return customerRepo.findCustomerByUsername(username).get();

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.dedagroup.project_cea.dto.response.BillDTOResponse;
 import it.dedagroup.project_cea.dto.response.InterventionDTOResponse;
+import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
 import it.dedagroup.project_cea.facade.SecretaryFacade;
 import it.dedagroup.project_cea.model.TypeOfIntervention;
 
@@ -30,6 +31,11 @@ public class SecretaryController {
 	@GetMapping("/getInterventionListPerType/{interv}")
 	public ResponseEntity<List<InterventionDTOResponse>> getInterventionListPerType(@PathVariable TypeOfIntervention interv){
 		return ResponseEntity.status(HttpStatus.OK).body(secFac.getInterventionListPerType(interv));
+	}
+	
+	@GetMapping("/getScans")
+	public ResponseEntity<List<ScanDTOResponse>> getScans(){
+		return ResponseEntity.status(HttpStatus.OK).body(secFac.getScans());
 	}
 
 }

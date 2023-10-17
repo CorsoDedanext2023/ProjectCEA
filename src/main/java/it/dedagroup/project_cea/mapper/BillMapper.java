@@ -17,6 +17,8 @@ public class BillMapper {
 		billDTOResp.setPaymentDay(b.getPaymentDay());
 		billDTOResp.setName(b.getMeter().getApartment().getCustomer().getName());
 		billDTOResp.setSurname(b.getMeter().getApartment().getCustomer().getSurname());
+		billDTOResp.setUnitNumber(b.getMeter().getApartment().getUnitNumber());
+		billDTOResp.setFloorNumber(b.getMeter().getApartment().getFloorNumber());
 		return billDTOResp;
 	}
 	
