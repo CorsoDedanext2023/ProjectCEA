@@ -13,7 +13,7 @@ public interface CustomerServiceDef {
 	public Customer modifyCustomer(Customer customer);
 	public void deleteCustomer(long customer_id);
 	
-	public Intervention bookIntervention(long user_id, LocalDate interventionDate);
+	public Intervention bookIntervention(long user_id, long apartment_id, LocalDate interventionDate);
 	public List<Bill> getBills(long user_id);
 	public Bill payBill(long bill_id, LocalDate paymentDate);
 	public Scan meterScan(long apartment_id, Bill lastBill);
