@@ -47,7 +47,7 @@ public class CustomerFacade {
 	public CustomerDto findCustomerById(long customer_id){
 		return null;
 	}
-	public CustomerDto findAllCustomer(){
+	public List<CustomerDto> findAllCustomer(){
 		return null;
 	}
 	public CustomerDto findCustomerByUsernameAndPassword(String username, String password){
