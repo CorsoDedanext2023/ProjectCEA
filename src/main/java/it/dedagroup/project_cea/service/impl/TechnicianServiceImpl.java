@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.dedagroup.project_cea.dto.request.TechnicianRequest;
+import it.dedagroup.project_cea.exception.model.UserNotFoundException;
 import it.dedagroup.project_cea.model.Technician;
 import it.dedagroup.project_cea.repository.TechnicianRepository;
 import it.dedagroup.project_cea.service.def.TechnicianServiceDef;
@@ -36,22 +37,19 @@ public class TechnicianServiceImpl implements TechnicianServiceDef{
 
 	@Override
 	public Technician findByIntervention(long idIntervention) {
-		//aggiungere orElseThrow
-		techRepo.findByIntervention_Id(idIntervention);
+		techRepo.findByIntervention_Id(idIntervention).orElseThrow(()->new UserNotFoundException("Nessun tecnico trovato con ID intervento: " + idIntervention));
 		return null;
 	}
 
 	@Override
 	public Technician findById(long idTechnician) {
-		//aggiungere orElseThrow
-		techRepo.findById(idTechnician);
+		techRepo.findById(idTechnician).orElseThrow(()->new UserNotFoundException("Nessun tecnico trovato con ID utente: " + idTechnician));
 		return null;
 	}
 
 	@Override
 	public Technician findByUsername(String username) {
-		//aggiungere orElseThrow
-		techRepo.findByUsername(username);
+		techRepo.findByUsername(username).orElseThrow(()->new UserNotFoundException("Nessun tecnico trovato con username: " +username));
 		return null;
 	}
 
