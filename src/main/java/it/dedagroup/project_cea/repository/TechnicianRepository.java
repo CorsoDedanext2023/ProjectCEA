@@ -13,7 +13,7 @@ public interface TechnicianRepository extends JpaRepository<Technician, Long> {
 //	public Optional<Technician> findById(Long id);
 	public Optional<Technician> findByUsername(String username);
 //	public List<Technician> findAll();
-	@Query("SELECT t FROM Technician t WHERE t.max_intervention_for_technician < :n")
-	public Optional<List<Technician>> findFreeTechnicians(int n);
-	public Optional<Technician> findByIntervention_Id(Long id);
+//	@Query("SELECT t FROM Technician t WHERE t.max_intervention_for_technician < :n")
+//	public Optional<List<Technician>> findFreeTechnicians(int n);
+	public Optional<Technician> findByInterventions_Id(Long id);
 }

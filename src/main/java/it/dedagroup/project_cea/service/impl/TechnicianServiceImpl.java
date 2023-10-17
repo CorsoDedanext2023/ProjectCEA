@@ -37,7 +37,7 @@ public class TechnicianServiceImpl implements TechnicianServiceDef{
 
 	@Override
 	public Technician findByIntervention(long idIntervention) {
-		techRepo.findByIntervention_Id(idIntervention).orElseThrow(()->new UserNotFoundException("Nessun tecnico trovato con ID intervento: " + idIntervention));
+		techRepo.findByInterventions_Id(idIntervention).orElseThrow(()->new UserNotFoundException("Nessun tecnico trovato con ID intervento: " + idIntervention));
 		return null;
 	}
 
