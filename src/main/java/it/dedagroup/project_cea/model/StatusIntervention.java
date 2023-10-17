@@ -1,7 +1,7 @@
 package it.dedagroup.project_cea.model;
 
 public enum StatusIntervention {
-
+	
 	COMPLETED("COMPLETED"),
 	POSTPONED("POSTPONED"),
 	PENDING("PENDING"),

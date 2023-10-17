@@ -29,7 +29,6 @@ public class ApartmentServiceImpl implements ApartmentServiceDef {
 	@Override
 	public void deleteApartment(String username, Apartment apartment) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
