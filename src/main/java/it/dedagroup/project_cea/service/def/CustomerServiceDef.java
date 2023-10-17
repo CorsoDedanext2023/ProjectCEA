@@ -19,7 +19,7 @@ public interface CustomerServiceDef {
 	public Scan meterScan(long apartment_id, Bill lastBill);
 	
 	public Customer findCustomerById(long customer_id);
-	public Customer findAllCustomer();
+	public List<Customer> findAllCustomer();
 	public Customer findCustomerByUsernameAndPassword(String username, String password);
 	public Customer findCustomerByUsername(String username);
 	public Customer findCustomerByTaxCode(String taxCode);
