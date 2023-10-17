@@ -90,7 +90,7 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	public Customer findCustomerByUsernameAndPassword(String username, String password) {
 		return customerRepo.findCustomerByUsernameAndPassword(username, password).get();
 	}
-
+	//aDCXZZCXZ
 	@Override
 	public Customer findCustomerByUsername(String username) {
 		return customerRepo.findCustomerByUsername(username).get();
