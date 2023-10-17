@@ -24,10 +24,11 @@ public class Scan {
 	private long id;
 	@Column(nullable = false)
 	private double mcLiter = 0;
-	@OneToOne(mappedBy = "meter")
-	private Apartment apartment;
 	@Column(nullable = false)
 	private boolean isAvailable = true;
+	
+	@OneToOne(mappedBy = "meter")
+	private Apartment apartment;
 	@OneToMany(mappedBy = "meter")
 	private List<Bill> bills;
 
