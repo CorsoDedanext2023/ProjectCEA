@@ -100,7 +100,7 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	public Customer findCustomerByUsernameAndPassword(String username, String password) {
 		return customerRepo.findCustomerByUsernameAndPassword(username, password).orElseThrow(() -> new NotValidDataException("Customer's username and/or password invalid"));
 	}
-
+	//aDCXZZCXZ
 	@Override
 	public Customer findCustomerByUsername(String username) {
 		return customerRepo.findCustomerByUsername(username).orElseThrow(() -> new NotValidDataException("Customer not found with username: "+username));
