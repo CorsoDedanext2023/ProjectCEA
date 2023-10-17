@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import it.dedagroup.project_cea.dto.response.CustomerDto;
 import it.dedagroup.project_cea.exception.model.NotValidDataException;
 import it.dedagroup.project_cea.model.Customer;
-import it.dedagroup.project_cea.repository.CustomerRepository;
 
 @Component
 public class CustomerMapper {

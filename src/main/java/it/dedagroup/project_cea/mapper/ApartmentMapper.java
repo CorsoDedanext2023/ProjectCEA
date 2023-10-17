@@ -13,7 +13,7 @@ public class ApartmentMapper {
 	public ApartmentDto toDto(Apartment a) {
 		if (a == null)throw new NotValidDataException("Apartment is empty: "+a);
 		ApartmentDto apart = new ApartmentDto();
-		//Da implementare
+		//TODO Da implementare
 		return apart;
 	}
 	public List<ApartmentDto> toListDto(List<Apartment> apart){
