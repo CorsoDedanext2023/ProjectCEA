@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import it.dedagroup.project_cea.dto.response.CustomerDto;
-import it.dedagroup.project_cea.exception.model.DatiNonValidiException;
+import it.dedagroup.project_cea.exception.model.NotValidDataException;
 import it.dedagroup.project_cea.model.Customer;
 import it.dedagroup.project_cea.repository.CustomerRepository;
 
@@ -15,7 +15,7 @@ public class CustomerMapper {
 	@Autowired
 	ApartmentMapper mapperApart;
 	public CustomerDto toDto(Customer c) {
-		if (c==null)throw new DatiNonValidiException("Customer is empty: "+c);
+		if (c==null)throw new NotValidDataException("Customer is empty: "+c);
 		CustomerDto customer = new CustomerDto();
 		customer.setName(c.getName());
 		customer.setSurname(c.getSurname());
@@ -28,7 +28,7 @@ public class CustomerMapper {
 	}
 	
 	public List<CustomerDto> toListDto(List<Customer> c){
-		if(c == null || c.isEmpty())throw new DatiNonValidiException("List of customers is empty: "+c);
+		if(c == null || c.isEmpty())throw new NotValidDataException("List of customers is empty: "+c);
 		return c.stream().map(this::toDto).toList();
 	}
 }
