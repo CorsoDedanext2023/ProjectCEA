@@ -59,7 +59,7 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 
 	@Override
 	public List<Bill> getBills(long user_id) {
-		return billRepo.findAllBillByCustomer_id(user_id);
+		return billRepo.findAllBillByCustomer_Id(user_id);
 	}
 
 	@Override
