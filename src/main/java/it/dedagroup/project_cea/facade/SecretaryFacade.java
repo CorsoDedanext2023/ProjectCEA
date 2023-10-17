@@ -107,7 +107,7 @@ public class SecretaryFacade {
     maintenance.setStatus(StatusIntervention.ACCEPTED);
     maintenance.setType(type);
 
-    Secretary secretary = secretaryService.findById(idSecretary);
+    //Secretary secretary = secretaryService.findById(idSecretary);
     Technician technician = technicianService.findById(idTechnician);
 
     if (secretary == null) {
