@@ -9,15 +9,19 @@ import org.springframework.web.server.ResponseStatusException;
 
 import it.dedagroup.project_cea.dto.response.BillDTOResponse;
 import it.dedagroup.project_cea.dto.response.InterventionDTOResponse;
+import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
 import it.dedagroup.project_cea.mapper.BillMapper;
 import it.dedagroup.project_cea.mapper.InterventionMapper;
+import it.dedagroup.project_cea.mapper.ScanMapper;
 import it.dedagroup.project_cea.model.Bill;
 import it.dedagroup.project_cea.model.Condominium;
 import it.dedagroup.project_cea.model.Intervention;
+import it.dedagroup.project_cea.model.Scan;
 import it.dedagroup.project_cea.model.TypeOfIntervention;
 import it.dedagroup.project_cea.service.def.BillServiceDef;
 import it.dedagroup.project_cea.service.def.CondominiumServiceDef;
 import it.dedagroup.project_cea.service.def.InterventionServiceDef;
+import it.dedagroup.project_cea.service.def.ScanServiceDef;
 
 @Service
 public class SecretaryFacade {
@@ -36,6 +40,12 @@ public class SecretaryFacade {
 	
 	@Autowired
 	InterventionMapper intMap;
+	
+	@Autowired
+	ScanServiceDef scanServ;
+	
+	@Autowired
+	ScanMapper scanMap;
 	
 	//metodo per vedere tutte le bollette di un determinato condominio tramite il suo id
 	public List<BillDTOResponse> getAllBillsOfCondominium(long idCondominium){
@@ -57,6 +67,16 @@ public class SecretaryFacade {
 		}
 		else {
 			return intMap.toInterventionDTOResponseList(interventionsOfType);
+		}
+	}
+	
+	public List<ScanDTOResponse> getScans(){
+		List<Scan> allScans = scanServ.findAll().stream().filter(sc -> sc.isAvailable() == true).toList();
+		if(allScans.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "no scans found in database");
+		}
+		else {
+			return scanMap.toScanDTOResponseList(allScans);
 		}
 	}
 }

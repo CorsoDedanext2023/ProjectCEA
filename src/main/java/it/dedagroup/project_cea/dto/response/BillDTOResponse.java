@@ -12,5 +12,7 @@ public class BillDTOResponse {
 	private LocalDate DeliveringDay;
 	private String name;
 	private String surname;
+	private int unitNumber;
+	private int floorNumber;
 
 }
