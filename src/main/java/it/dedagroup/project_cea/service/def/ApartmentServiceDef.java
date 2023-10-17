@@ -13,6 +13,6 @@ public interface ApartmentServiceDef {
 	public Apartment findApartmentByInterventionsId(long intervention_id);
 	public Apartment findApartmentByMeterId(long meter_id);
 	public Apartment findApartmentByUnitNumberAndFloorNumberAndCondominiumId(int unit_number, int floor_number, int condominium_id);
-	public Apartment findAllApartmentByCondominiumId(long condominium_id);
+	public List<Apartment> findAllApartmentByCondominiumId(long condominium_id);
 	public List<Apartment> findAllApartmentByCustomerId(long customer_id);
 }

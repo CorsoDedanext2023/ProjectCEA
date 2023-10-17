@@ -17,8 +17,8 @@ public class AdministratorServiceImpl implements AdministratorServiceDef{
 	
 
 	@Override
-	public void addAdministrator(Administrator administrator) {
-		AdministratorRepository.save(administrator);
+	public Administrator addAdministrator(Administrator administrator) {
+		return AdministratorRepository.save(administrator);
 	}
 
 	@Override
@@ -28,9 +28,8 @@ public class AdministratorServiceImpl implements AdministratorServiceDef{
 
 	
 	@Override
-	public void updateAdministrator(long id) {
-		//TODO perchè update??
-		return;
+	public Administrator updateAdministrator(Administrator administrator) {
+		return AdministratorRepository.save(administrator);
 	}
 
 	@Override
