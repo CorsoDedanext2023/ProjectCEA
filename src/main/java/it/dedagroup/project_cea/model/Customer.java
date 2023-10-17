@@ -2,6 +2,7 @@ package it.dedagroup.project_cea.model;
 
 import java.util.List;
 
+import it.dedagroup.project_cea.exception.model.NotValidDataException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,4 +30,11 @@ public class Customer extends User{
 	@Column(nullable = false)
 	private Role role = Role.CUSTOMER;
 	private boolean isAvailable = true;
+	
+	public Apartment findApartmentById(long apartment_id) {
+		return this.apartments.stream()
+		.filter(a -> a.getId()  == apartment_id)
+		.findFirst()
+		.orElseThrow(() -> new NotValidDataException("Apartment not found with id: "+apartment_id));
+	}
 } 
