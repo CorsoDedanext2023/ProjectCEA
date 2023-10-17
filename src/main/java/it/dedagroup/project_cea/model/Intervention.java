@@ -24,7 +24,7 @@ public class Intervention {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@Column(nullable = false)
-	private LocalDate date;
+	private LocalDate interventionDate;
 	@Column(nullable = false)
 	private boolean isAvailable;
 	@Column(nullable = false)
