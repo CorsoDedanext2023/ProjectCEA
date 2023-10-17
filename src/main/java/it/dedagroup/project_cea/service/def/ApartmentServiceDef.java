@@ -8,7 +8,9 @@ public interface ApartmentServiceDef {
 	public Apartment modifyApartment(Apartment apartment);
 	public void deleteApartment(String username, Apartment apartment);
 	
-	public Apartment findApartmentByInterventionsId(long Intervention_id);
+	public Apartment findById(long apartment_id);
+	public List<Apartment> findAll();
+	public Apartment findApartmentByInterventionsId(long intervention_id);
 	public Apartment findApartmentByMeterId(long meter_id);
 	public Apartment findApartmentByUnitNumberAndFloorNumberAndCondominiumId(int unit_number, int floor_number, int condominium_id);
 	public Apartment findAllApartmentByCondominiumId(long condominium_id);

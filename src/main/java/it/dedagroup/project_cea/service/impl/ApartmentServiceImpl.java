@@ -31,6 +31,18 @@ public class ApartmentServiceImpl implements ApartmentServiceDef {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public Apartment findById(long apartment_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Apartment> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public Apartment findApartmentByInterventionsId(long Intervention_id) {
@@ -62,5 +74,4 @@ public class ApartmentServiceImpl implements ApartmentServiceDef {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
