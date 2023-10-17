@@ -24,10 +24,10 @@ public class Apartment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Column(nullable = false)
-	private int unit_number;
-	@Column(nullable = false)
-	private int floor_number;
+	@Column(name = "unit_number", nullable = false)
+	private int unitNumber;
+	@Column(name = "floor_number", nullable = false)
+	private int floorNumber;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn
 	private Customer customer;
