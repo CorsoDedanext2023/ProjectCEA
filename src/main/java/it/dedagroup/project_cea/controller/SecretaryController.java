@@ -1,4 +1,4 @@
-package it.dedagroup.project_cea.businesslogic;
+package it.dedagroup.project_cea.controller;
 
 import java.util.List;
 

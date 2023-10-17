@@ -24,9 +24,9 @@ public class Bill {
 	@Column(nullable = false)
 	private double cost;
 	@Column(nullable = false)
-	private LocalDate paymentDay;
+	private LocalDate paymentDate;
 	@Column(nullable = false)
-	private LocalDate DeliveringDay;
+	private LocalDate deliveringDate;
 	@Column(nullable = false)
 	private boolean isAvailable = true;
 	@ManyToOne(fetch = FetchType.LAZY)

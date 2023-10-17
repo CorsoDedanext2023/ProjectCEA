@@ -1,5 +1,6 @@
 package it.dedagroup.project_cea.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -27,7 +28,7 @@ public class Scan {
 	@OneToOne(mappedBy = "meter")
 	private Apartment apartment;
 	@Column(nullable = false)
-	private boolean isAvailable = true;
+    private LocalDate scanDate;
 	@OneToMany(mappedBy = "meter")
 	private List<Bill> bills;
 

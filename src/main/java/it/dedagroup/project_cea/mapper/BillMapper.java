@@ -13,8 +13,8 @@ public class BillMapper {
 	public BillDTOResponse toBillDTOResponse(Bill b) {
 		BillDTOResponse billDTOResp = new BillDTOResponse();
 		billDTOResp.setCost(b.getCost());
-		billDTOResp.setDeliveringDay(b.getDeliveringDay());
-		billDTOResp.setPaymentDay(b.getPaymentDay());
+		billDTOResp.setDeliveringDate(b.getDeliveringDate());
+		billDTOResp.setPaymentDate(b.getPaymentDate());
 		billDTOResp.setName(b.getMeter().getApartment().getCustomer().getName());
 		billDTOResp.setSurname(b.getMeter().getApartment().getCustomer().getSurname());
 		return billDTOResp;

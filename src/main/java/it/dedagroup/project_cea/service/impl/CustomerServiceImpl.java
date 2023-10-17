@@ -49,7 +49,7 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	
 	@Override
 	public Intervention bookIntervention(long user_id, LocalDate interventionDate) {
-		Apartment apartment=apartmentRepo.findApartmentByCustomer_id(user_id);
+		Apartment apartment=apartmentRepo.findApartmentByCustomerId(user_id);
 		Intervention intervention=new Intervention();
 		intervention.setApartment(apartment);
 		intervention.setStatus(StatusIntervention.PENDING);
@@ -59,7 +59,7 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 
 	@Override
 	public List<Bill> getBills(long user_id) {
-		return billRepo.findAllBillByCustomer_Id(user_id);
+		return billRepo.findAllBillByCustomerId(user_id);
 	}
 
 	@Override

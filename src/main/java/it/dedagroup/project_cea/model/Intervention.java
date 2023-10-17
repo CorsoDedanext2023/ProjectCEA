@@ -26,7 +26,7 @@ public class Intervention {
 	@Column(nullable = false)
 	private LocalDate date;
 	@Column(nullable = false)
-	private boolean isAvailable;
+	private String desctiption;
 	@Column(nullable = false)
 	private TypeOfIntervention type;
 	@Column(nullable = false)

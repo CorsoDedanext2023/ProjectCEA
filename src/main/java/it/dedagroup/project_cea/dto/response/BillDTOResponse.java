@@ -8,8 +8,8 @@ import lombok.Data;
 public class BillDTOResponse {
 	
 	private double cost;
-	private LocalDate paymentDay;
-	private LocalDate DeliveringDay;
+	private LocalDate paymentDate;
+	private LocalDate deliveringDate;
 	private String name;
 	private String surname;
 
