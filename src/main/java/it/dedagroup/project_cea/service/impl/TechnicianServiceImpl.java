@@ -2,17 +2,20 @@ package it.dedagroup.project_cea.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.dedagroup.project_cea.dto.request.TechnicianRequest;
-import it.dedagroup.project_cea.model.Intervention;
-import it.dedagroup.project_cea.model.Secretary;
 import it.dedagroup.project_cea.model.Technician;
+import it.dedagroup.project_cea.repository.TechnicianRepository;
 import it.dedagroup.project_cea.service.def.TechnicianServiceDef;
 
 @Service
 public class TechnicianServiceImpl implements TechnicianServiceDef{
-
+	
+	@Autowired
+	TechnicianRepository techRepo;
+	
 	@Override
 	public void save(Technician t) {
 		// TODO Auto-generated method stub
@@ -33,26 +36,28 @@ public class TechnicianServiceImpl implements TechnicianServiceDef{
 
 	@Override
 	public Technician findByIntervention(long idIntervention) {
-		// TODO Auto-generated method stub
+		//aggiungere orElseThrow
+		techRepo.findByIntervention_Id(idIntervention);
 		return null;
 	}
 
 	@Override
 	public Technician findById(long idTechnician) {
-		// TODO Auto-generated method stub
+		//aggiungere orElseThrow
+		techRepo.findById(idTechnician);
 		return null;
 	}
 
 	@Override
 	public Technician findByUsername(String username) {
-		// TODO Auto-generated method stub
+		//aggiungere orElseThrow
+		techRepo.findByUsername(username);
 		return null;
 	}
 
 	@Override
 	public List<Technician> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return techRepo.findAll();
 	}
 
 	@Override
