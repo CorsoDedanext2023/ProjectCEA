@@ -1,5 +1,11 @@
 package it.dedagroup.project_cea.service.def;
 
-public interface InterventionServiceDef {
+import java.util.List;
 
+import it.dedagroup.project_cea.model.Intervention;
+import it.dedagroup.project_cea.model.TypeOfIntervention;
+
+public interface InterventionServiceDef {
+	
+	public List<Intervention> findAllByType(TypeOfIntervention type);
 }
