@@ -1,5 +1,6 @@
 package it.dedagroup.project_cea.facade;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,13 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import it.dedagroup.project_cea.businesslogic.ScanDtoRequest;
-import it.dedagroup.project_cea.dto.request.InterventionRequest;
+import it.dedagroup.project_cea.dto.request.ScanDtoRequest;
 import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
 import it.dedagroup.project_cea.mapper.InterventionMapper;
 import it.dedagroup.project_cea.mapper.ScanMapper;
 import it.dedagroup.project_cea.model.Intervention;
 import it.dedagroup.project_cea.model.Scan;
+import it.dedagroup.project_cea.service.def.ApartmentServiceDef;
 import it.dedagroup.project_cea.service.def.InterventionServiceDef;
 import it.dedagroup.project_cea.service.def.ScanServiceDef;
 import it.dedagroup.project_cea.service.def.TechnicianServiceDef;
@@ -31,6 +32,9 @@ public class TechnicianFacade {
 	InterventionServiceDef intervServ;
 	
 	@Autowired
+	ApartmentServiceDef apartmentServ;
+	
+	@Autowired
 	InterventionMapper intMapper;
 	
 	@Autowired
@@ -46,10 +50,9 @@ public class TechnicianFacade {
 		}
 	}
 	
-	public void setScanApartment(ScanDtoRequest scanRequest, InterventionRequest intRequest) {
-//		Intervention interventionTech = new Intervention(intRequest.getInterventionDate(), intRequest.getType(), intRequest.getApartment());
-		Intervention interventionTech = intervServ.findById(intRequest.getId());
-		Scan scan=new Scan(scanRequest.getMcLiter(), scanRequest.getApartmentId(), scanRequest.getScanDate());
-		scanServ.insertScan(scan);
+	public ScanDTOResponse addScanApartment(ScanDtoRequest scanRequest, long idIntervention) {
+		Intervention interventionTech = intervServ.findById(idIntervention);
+		Scan scan1 = scanMap.toScanFromDtoRequest(scanRequest);
+		return scanMap.toScanDTOResponse(scan1);
 	}
 }

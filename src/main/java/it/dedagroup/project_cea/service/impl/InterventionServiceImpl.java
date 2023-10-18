@@ -23,7 +23,8 @@ public class InterventionServiceImpl implements InterventionServiceDef {
 
 	@Override
 	public Intervention findById(Long idIntervention) {
-		intervRepo.findById(idIntervention).orElseThrow(()->new NotValidDataException("No intervention found with ID: " +idIntervention));
+		//TODO aggiungere orElseThrow
+		intervRepo.findById(idIntervention);
 		return null;
 	}
 
