@@ -12,9 +12,9 @@ import it.dedagroup.project_cea.model.Technician;
 public interface TechnicianRepository extends JpaRepository<Technician, Long> {
 	
 //	public Optional<Technician> findById(Long id);
-	public Optional<Technician> findByUsername(String username);
+	Optional<Technician> findByUsername(String username);
 //	public List<Technician> findAll();
 //	@Query("SELECT COUNT (*) FROM INTERVENTION i WHERE i.interventionDate  = :x")
 //	public Optional<List<Technician>> findFreeTechnicians(LocalDate x);
-	public Optional<Technician> findByInterventions_Id(Long id);
+	Optional<Technician> findByInterventions_Id(Long id);
 }
