@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.dedagroup.project_cea.dto.request.AddCustomerDto;
+import it.dedagroup.project_cea.dto.request.BookInterventionDto;
+import it.dedagroup.project_cea.dto.request.EditCustomerDto;
+import it.dedagroup.project_cea.dto.request.MeterScanDto;
+import it.dedagroup.project_cea.dto.request.PayBillDto;
 import it.dedagroup.project_cea.dto.response.CustomerDto;
 import it.dedagroup.project_cea.exception.model.NotValidDataException;
 import it.dedagroup.project_cea.mapper.CustomerMapper;
@@ -36,27 +40,56 @@ public class CustomerFacade {
 		}
 		throw new NotValidDataException("Error existing user with username: "+request.getUsername());
 	}
-	public void modifyCustomer(Customer customer){
+	public void modifyCustomer(EditCustomerDto request){
+		try {
+			Customer customer=customerServiceDef.findCustomerById(request.getId());
+			if(!customer.getName().equals(request.getName())) {
+				customer.setName(request.getName());
+			}
+			if(!customer.getSurname().equals(request.getSurname())) {
+				customer.setSurname(request.getSurname());
+			}
+			if(customerServiceDef.findCustomerByUsername(request.getUsername())!=null) {
+				throw new NotValidDataException("Existing username!");
+			}else if(!customer.getUsername().equals(request.getUsername())) {
+				customer.setUsername(request.getUsername());
+			}
+			if(!customer.getPassword().equals(request.getOldPassword())) {
+				throw new NotValidDataException("Wrong password!");
+			}else if(!request.getNewPassword().equals(request.getRepeatNewPassword())) {
+				throw new NotValidDataException("Repeated password doesn't match!");
+			}else if(request.getNewPassword().equals(request.getRepeatNewPassword())&&
+					request.getNewPassword().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")) {
+				customer.setPassword(request.getNewPassword());
+			}
+			if(!customer.getTaxCode().equals(request.getTaxCode()) &&
+					customer.getTaxCode().matches("[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]")) {
+				customer.setTaxCode(request.getTaxCode());
+			}
+			customerServiceDef.modifyCustomer(customer);
+		}catch(NotValidDataException e) {
+			e.getMessage();
+		}
 	}
 	
 	public void deleteCustomer(long id_customer){
-
+		customerServiceDef.deleteCustomer(id_customer);
 	}
 	
-	public Intervention bookIntervention(long id_user, LocalDate interventionDate) {
-		return null;
-	}
 
+	public Intervention bookIntervention(BookInterventionDto request) {
+		return customerServiceDef.bookIntervention(request.getIdCustomer(), request.getIdApartment(), request.getInterventionDate());
+	}
+	
 	public List<Bill> getBills(long id_user) {
 		return null;
 	}
-
-	public Bill payBill(long id_bill, LocalDate paymentDate) {
-		return null;
+	public Bill payBill(PayBillDto request) {
+		return customerServiceDef.payBill(request.getIdBill(), request.getPaymentDate());
 	}
 
-	public Scan meterScan(long id_apartment, Bill lastBill) {
-		return null;
+	public Scan meterScan(MeterScanDto request) {
+		return customerServiceDef.meterScan(request.getIdApartment(), request.getMcLiter());
 	}
 	
 	public CustomerDto findCustomerById(long id_customer){
