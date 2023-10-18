@@ -47,16 +47,16 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	}
 
 	@Override
-	public void deleteCustomer(long customer_id) {
-		Customer customer = findCustomerById(customer_id);
+	public void deleteCustomer(long id_customer) {
+		Customer customer = findCustomerById(id_customer);
 		customer.setAvailable(false);
 		customerRepo.save(customer);
 	}
 	
 	@Override
-	public Intervention bookIntervention(long user_id, long apartment_id, LocalDate interventionDate) {
-		Customer customer = findCustomerById(user_id);
-		Apartment customerApart = customer.findApartmentById(apartment_id);
+	public Intervention bookIntervention(long id_user, long id_apartment, LocalDate interventionDate) {
+		Customer customer = findCustomerById(id_user);
+		Apartment customerApart = customer.findApartmentById(id_apartment);
 		Intervention intervention=new Intervention();
 		intervention.setApartment(customerApart);
 		intervention.setStatus(StatusIntervention.PENDING);
@@ -65,28 +65,28 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	}
 
 	@Override
-	public List<Bill> getBills(long user_id) {
+	public List<Bill> getBills(long id_user) {
 		//return billRepo.findAllBillByCustomer_Id(user_id);
 		return null;
 	}
 
 	@Override
-	public Bill payBill(long bill_id, LocalDate paymentDate) {
-		Bill bill=billRepo.findById(bill_id).get();
+	public Bill payBill(long id_bill, LocalDate paymentDate) {
+		Bill bill=billRepo.findById(id_bill).orElseThrow();
 		bill.setPaymentDay(paymentDate);
 		return billRepo.save(bill);
 		
 	}
 
 	@Override
-	public Scan meterScan(long apartment_id, Bill lastBill) {
+	public Scan meterScan(long id_apartment, Bill lastBill) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
-	public Customer findCustomerById(long customer_id) {
-		return customerRepo.findById(customer_id).orElseThrow(() -> new NotValidDataException("Customer not found with id: "+customer_id));
+	public Customer findCustomerById(long id_customer) {
+		return customerRepo.findById(id_customer).orElseThrow(() -> new NotValidDataException("Customer not found with id: "+id_customer));
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	public Customer findCustomerByUsernameAndPassword(String username, String password) {
 		return customerRepo.findCustomerByUsernameAndPassword(username, password).orElseThrow(() -> new NotValidDataException("Customer's username and/or password invalid"));
 	}
-	//aDCXZZCXZ
+	
 	@Override
 	public Customer findCustomerByUsername(String username) {
 		return customerRepo.findCustomerByUsername(username).orElseThrow(() -> new NotValidDataException("Customer not found with username: "+username));
@@ -115,8 +115,8 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	}
 
 	@Override
-	public Customer findCustomerByApartments_Id(long apartment_id) {
-		return customerRepo.findCustomerByApartments_Id(apartment_id)
-				.orElseThrow(() -> new NotValidDataException("Customer not found with Apartment's id: "+apartment_id));
+	public Customer findCustomerByApartments_Id(long id_apartment) {
+		return customerRepo.findCustomerByApartments_Id(id_apartment)
+				.orElseThrow(() -> new NotValidDataException("Customer not found with Apartment's id: "+id_apartment));
 	}
 }
