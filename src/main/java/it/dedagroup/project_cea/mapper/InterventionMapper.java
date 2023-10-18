@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import it.dedagroup.project_cea.dto.request.InterventionRequest;
 import it.dedagroup.project_cea.dto.response.InterventionDTOResponse;
 import it.dedagroup.project_cea.model.Intervention;
 
@@ -28,5 +29,16 @@ public class InterventionMapper {
 	public List<InterventionDTOResponse> toInterventionDTOResponseList(List<Intervention> interventions){
 		return interventions.stream().map(this::toInterventionDTOResponse).toList();
 	}
+	
+	public Intervention toIntervention(InterventionRequest i) {
+		Intervention intervention = new Intervention();
+		intervention.setInterventionDate(i.getInterventionDate());
+		intervention.setType(i.getType());
+		intervention.setStatus(i.getStatus());
+		intervention.setApartment(i.getApartment());
+		intervention.setTechnician(i.getTechnician());
+		return intervention;
+	}
+	
 
 }

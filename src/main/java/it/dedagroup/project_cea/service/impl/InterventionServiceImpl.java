@@ -21,4 +21,11 @@ public class InterventionServiceImpl implements InterventionServiceDef {
 		return intervRepo.findAllByType(type);
 	}
 
+	@Override
+	public Intervention findById(Long idIntervention) {
+		//TODO aggiungere orElseThrow
+		intervRepo.findById(idIntervention);
+		return null;
+	}
+
 }

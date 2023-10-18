@@ -53,3 +53,4 @@ VALUES (TRUE, '2023-12-15', 1, 1, 2, 1, 1);
 
 INSERT INTO intervention (is_available, intervention_date, status, type, apartment_id, secretary_id, technician_id)
 VALUES (TRUE, '2023-12-14', 2, 0, 1, 1, 1);
+>>>>>>> branch 'master' of https://github.com/giulioniale/ProjectCEA_forkTechnician-giulioni.git
