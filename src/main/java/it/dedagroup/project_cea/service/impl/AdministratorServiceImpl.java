@@ -1,5 +1,7 @@
 package it.dedagroup.project_cea.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,26 +14,28 @@ public class AdministratorServiceImpl implements AdministratorServiceDef{
 	
 	@Autowired
 	private AdministratorRepository AdministratorRepository;
+	
 
 	@Override
-	public void addAdministrator(Administrator administrator) {
-		AdministratorRepository.save(administrator);
+	public Administrator addAdministrator(Administrator administrator) {
+		return AdministratorRepository.save(administrator);
 	}
 
 	@Override
 	public void deleteAdministrator(long id) {
-		AdministratorRepository.delete(null);
+		AdministratorRepository.deleteById(id);
+	}
+
+	
+	@Override
+	public Administrator updateAdministrator(Administrator administrator) {
+		return AdministratorRepository.save(administrator);
 	}
 
 	@Override
-	public void modifyAdministrator(long id) {
-		
+	public Optional<Administrator> findById(long id) {
+		return AdministratorRepository.findById(id);
 	}
-
-	@Override
-	public Administrator findById(long id) {
-		
-		return null;
-	}
-
+	
+	
 }
