@@ -20,4 +20,9 @@ public class ScanServiceImpl implements ScanServiceDef {
 		return scanRepo.findAll();
 	}
 
+	@Override
+	public void insertScan(Scan scan) {
+		scanRepo.save(scan);
+	}
+
 }

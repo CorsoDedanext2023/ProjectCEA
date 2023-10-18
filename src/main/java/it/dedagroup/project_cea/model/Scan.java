@@ -1,5 +1,6 @@
 package it.dedagroup.project_cea.model;
 
+
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -28,7 +29,7 @@ public class Scan {
 	private double mcLiter = 0;
 	@Column(nullable = false)
 	private boolean isAvailable = true;
-	@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
 	private Apartment apartment;
 	@OneToMany(mappedBy = "scan")
 	private List<Bill> bills;
