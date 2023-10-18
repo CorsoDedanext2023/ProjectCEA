@@ -30,11 +30,4 @@ public class Customer extends User{
 	@Column(nullable = false)
 	private Role role = Role.CUSTOMER;
 	private boolean isAvailable = true;
-	
-	public Apartment findApartmentById(long apartment_id) {
-		return this.apartments.stream()
-		.filter(a -> a.getId()  == apartment_id)
-		.findFirst()
-		.orElseThrow(() -> new NotValidDataException("Apartment not found with id: "+apartment_id));
-	}
 } 

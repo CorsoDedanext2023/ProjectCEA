@@ -8,6 +8,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,8 @@ public class Scan {
 	private double mcLiter = 0;
 	@Column(nullable = false)
 	private boolean isAvailable = true;
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn
 	private Apartment apartment;
 	@OneToMany(mappedBy = "meter")
 	private List<Bill> bills;

@@ -55,8 +55,7 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	
 	@Override
 	public Intervention bookIntervention(long id_user, long id_apartment, LocalDate interventionDate) {
-		Customer customer = findCustomerById(id_user);
-		Apartment customerApart = customer.findApartmentById(id_apartment);
+		Apartment customerApart = apartmentRepo.findApartmentByCustomer_id(id_user).orElseThrow(() -> new NotValidDataException("Apartment not found to book an intervention with user id: "+id_user));
 		Intervention intervention=new Intervention();
 		intervention.setApartment(customerApart);
 		intervention.setStatus(StatusIntervention.PENDING);
@@ -65,9 +64,10 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	}
 
 	@Override
-	public List<Bill> getBills(long id_apartment) {
-		Apartment a=apartmentRepo.findById(id_apartment).get();
-		return a.getMeter().getBills();
+	public List<Bill> getBills(long id_user) {
+//		Apartment apart = apartmentRepo.findApartmentByCustomer_id(id_user).orElseThrow();
+//		apart.getMeter().get
+		return null;
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 		Scan s=new Scan();
 		s.setMcLiter(mcLiter);
 		Apartment ap=apartmentRepo.findById(id_apartment).get();
-		ap.setMeter(s);
+		ap.getMeter().add(s);
 		return null;
 	}
 	
