@@ -25,7 +25,7 @@ public class ScanMapper {
 		ScanDTOResponse scDTOResp = new ScanDTOResponse();
 		scDTOResp.setMcLiter(sc.getMcLiter());
 		scDTOResp.setCondominiumAddress(sc.getApartment().getCondominium().getAddress());
-		List<Bill> billsOfCondominium = billServ.findAll().stream().filter(b -> b.getMeter().getId() == sc.getId()).toList();
+		List<Bill> billsOfCondominium = billServ.findAll().stream().filter(b -> b.getScan().getId() == sc.getId()).toList();
 		scDTOResp.setBills(billMap.toBillDTOResponseList(billsOfCondominium));
 		return scDTOResp;
 	}
