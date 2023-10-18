@@ -1,5 +1,6 @@
 package it.dedagroup.project_cea.facade;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +13,11 @@ import it.dedagroup.project_cea.dto.request.ScanDtoRequest;
 import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
 import it.dedagroup.project_cea.mapper.InterventionMapper;
 import it.dedagroup.project_cea.mapper.ScanMapper;
+import it.dedagroup.project_cea.model.Condominium;
 import it.dedagroup.project_cea.model.Intervention;
 import it.dedagroup.project_cea.model.Scan;
 import it.dedagroup.project_cea.service.def.ApartmentServiceDef;
+import it.dedagroup.project_cea.service.def.CondominiumServiceDef;
 import it.dedagroup.project_cea.service.def.InterventionServiceDef;
 import it.dedagroup.project_cea.service.def.ScanServiceDef;
 import it.dedagroup.project_cea.service.def.TechnicianServiceDef;
@@ -33,6 +36,9 @@ public class TechnicianFacade {
 	
 	@Autowired
 	ApartmentServiceDef apartmentServ;
+	
+	@Autowired
+	CondominiumServiceDef condominiumServ;
 	
 	@Autowired
 	InterventionMapper intMapper;
@@ -54,5 +60,12 @@ public class TechnicianFacade {
 		Intervention interventionTech = intervServ.findById(idIntervention);
 		Scan scan1 = scanMap.toScanFromDtoRequest(scanRequest);
 		return scanMap.toScanDTOResponse(scan1);
+	}
+	
+	public List<Condominium> getCondominiumListByInterventions(long idTechnician, LocalDate interventionDate){
+		
+		intervServ.findCondominiumByApartment_id();
+		
+		return null;
 	}
 }
