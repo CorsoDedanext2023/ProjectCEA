@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Secretary extends User {
-	
+	//TODO Implementare la relazione Bill
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;

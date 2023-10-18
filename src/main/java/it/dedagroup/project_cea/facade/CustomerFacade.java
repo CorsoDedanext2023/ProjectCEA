@@ -2,12 +2,13 @@ package it.dedagroup.project_cea.facade;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.dedagroup.project_cea.dto.request.AddCustomerDto;
 import it.dedagroup.project_cea.dto.response.CustomerDto;
+import it.dedagroup.project_cea.exception.model.NotValidDataException;
 import it.dedagroup.project_cea.model.Bill;
 import it.dedagroup.project_cea.model.Customer;
 import it.dedagroup.project_cea.model.Intervention;
@@ -18,12 +19,23 @@ public class CustomerFacade {
 	@Autowired
 	CustomerServiceDef customerServiceDef;
 	//TODO CustomerFacade da implementare + controlli
-	public CustomerDto saveCustomer(Customer customer) {
-		return null;
+	public void saveCustomer(AddCustomerDto request) {
+		try {
+			customerServiceDef.findCustomerByUsername(request.getUsername());
+		} catch (NotValidDataException e) {
+			Customer customerAdd = new Customer();
+			customerAdd.setName(request.getName());
+			customerAdd.setSurname(request.getSurname());
+			customerAdd.setUsername(request.getSurname());
+			customerAdd.setPassword(request.getPassword());
+			customerAdd.setTaxCode(request.getTaxCode());
+			customerServiceDef.saveCustomer(customerAdd);
+		}
+		throw new NotValidDataException("Error in insert a new customer");
 	}
-	public CustomerDto modifyCustomer(Customer customer){
-		return null;
+	public void modifyCustomer(Customer customer){
 	}
+	
 	public void deleteCustomer(long customer_id){
 
 	}
