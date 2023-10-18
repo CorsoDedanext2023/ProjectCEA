@@ -6,9 +6,9 @@ import it.dedagroup.project_cea.model.Administrator;
 
 public interface AdministratorServiceDef {
 	
-	void addAdministrator(Administrator administrator);
+	Administrator addAdministrator(Administrator administrator);
 	void deleteAdministrator(long id);
-	void updateAdministrator(long id);
+	public Administrator updateAdministrator(Administrator administrator);
 	Optional<Administrator> findById(long id);
 	
 }

@@ -63,7 +63,7 @@ public class ApartmentServiceImpl implements ApartmentServiceDef {
 	}
 
 	@Override
-	public Apartment findAllApartmentByCondominiumId(long condominium_id) {
+	public List<Apartment> findAllApartmentByCondominiumId(long condominium_id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
