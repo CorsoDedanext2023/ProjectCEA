@@ -3,7 +3,6 @@ package it.dedagroup.project_cea.service.impl;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import it.dedagroup.project_cea.exception.model.NotValidDataException;
 import it.dedagroup.project_cea.model.Apartment;
@@ -80,8 +79,11 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	}
 
 	@Override
-	public Scan meterScan(long id_apartment, Bill lastBill) {
-		// TODO Da implementare per generare lo scan
+	public Scan meterScan(long id_apartment,double mcLiter) {
+		Scan s=new Scan();
+		s.setMcLiter(mcLiter);
+		Apartment ap=apartmentRepo.findById(id_apartment).get();
+		ap.getMeter().add(s);
 		return null;
 	}
 	
