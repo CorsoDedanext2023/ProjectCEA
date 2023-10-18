@@ -1,6 +1,5 @@
 package it.dedagroup.project_cea.service.impl;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,8 +32,13 @@ public class AdministratorServiceImpl implements AdministratorServiceDef{
 	}
 
 	@Override
-	public Optional<Administrator> findById(long id) {
-		return AdministratorRepository.findById(id);
+	public Administrator findById(long id) {
+		return AdministratorRepository.findById(id).orElseThrow(()-> new RuntimeException("Non esiste nessun amministratore con questo id"));
+	}
+
+	@Override
+	public Administrator findByCondominiums_Id(long id) {
+		return AdministratorRepository.findByCondominiums_Id(id).orElseThrow(()-> new RuntimeException("Non esiste nessun condominio con questo id"));
 	}
 	
 	
