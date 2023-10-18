@@ -7,5 +7,6 @@ import it.dedagroup.project_cea.model.Condominium;
 public interface CondominiumServiceDef {
 	
 	public Condominium findById(long id);
+	void addCondominium(Condominium condominium);
 
 }

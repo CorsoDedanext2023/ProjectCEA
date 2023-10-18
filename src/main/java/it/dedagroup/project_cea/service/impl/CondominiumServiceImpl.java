@@ -1,7 +1,5 @@
 package it.dedagroup.project_cea.service.impl;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,6 +18,11 @@ public class CondominiumServiceImpl implements CondominiumServiceDef {
 	@Override
 	public Condominium findById(long id) {
 		return condRepo.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "no condominium found with this id"));
+	}
+
+	@Override
+	public void addCondominium(Condominium condominium) {
+		condRepo.save(condominium);
 	}
 
 	

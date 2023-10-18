@@ -5,10 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.dedagroup.project_cea.dto.request.AdministratorUpdateRequest;
+import it.dedagroup.project_cea.dto.request.BillRequestDto;
+import it.dedagroup.project_cea.dto.request.CondominiumDto;
 import it.dedagroup.project_cea.dto.request.RegisterUserDto;
 import it.dedagroup.project_cea.dto.response.AdministratorDtoResponse;
 import it.dedagroup.project_cea.mapper.AdministratorMapper;
+import it.dedagroup.project_cea.mapper.BillMapper;
+import it.dedagroup.project_cea.mapper.CondominiumMapper;
 import it.dedagroup.project_cea.model.Administrator;
+import it.dedagroup.project_cea.service.def.BillServiceDef;
 import it.dedagroup.project_cea.service.impl.AdministratorServiceImpl;
 import it.dedagroup.project_cea.service.impl.CondominiumServiceImpl;
 
@@ -21,6 +26,12 @@ public class AdministratorFacade {
 	AdministratorMapper mapper;
 	@Autowired
 	CondominiumServiceImpl condominiumService;
+	@Autowired
+	private CondominiumMapper condominiumMapper;
+	@Autowired
+	private BillServiceDef billService;
+	@Autowired
+	private BillMapper billMapper;
 	
 	public AdministratorDtoResponse findById(long id) {
 		if(id<0) throw new RuntimeException("L'id deve essere maggiore di 0");
@@ -52,6 +63,16 @@ public class AdministratorFacade {
 	
 	public void billSplitter() {
 		
+	}
+	
+	public String insertCondominium(CondominiumDto dto) {
+		condominiumService.addCondominium(condominiumMapper.toCondominium(dto));
+		return "Condominio aggiunto con successo";
+	}
+	
+	public String insertBill(BillRequestDto dto) {
+		billService.addBill(billMapper.toBill(dto));
+		return "bolletta inserita con successo";
 	}
 	
 }
