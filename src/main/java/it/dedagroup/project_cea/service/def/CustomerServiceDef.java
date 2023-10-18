@@ -27,3 +27,5 @@ public interface CustomerServiceDef {
 	public Customer findCustomerByApartments_Id(long id_apartment);
 	
 }
+
+//metodi del Customer vuoti, li definiamo nell implementation
