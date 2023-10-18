@@ -26,7 +26,7 @@ public class ApartmentServiceImpl implements ApartmentServiceDef {
 		apartmodify.setUnitNumber(apartment.getUnitNumber());
 		apartmodify.setFloorNumber(apartment.getFloorNumber());
 		apartmodify.setCustomer(apartment.getCustomer());
-		apartmodify.setMeter(apartment.getMeter());
+		apartmodify.setScans(apartment.getScans());
 		apartmodify.setCondominium(apartment.getCondominium());
 		apartmodify.setInterventions(apartment.getInterventions());
 		apartmodify.setAvailable(apartment.isAvailable());

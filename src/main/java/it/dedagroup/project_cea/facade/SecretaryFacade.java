@@ -49,7 +49,7 @@ public class SecretaryFacade {
 	//metodo per vedere tutte le bollette di un determinato condominio tramite il suo id
 	public List<BillDTOResponse> getAllBillsOfCondominium(long idCondominium){
 		//stream per filtrare le bollette e ottenere solo quelle che appartengono al condominio desiderato
-		List<Bill> billsOfCondominium = billServ.findAll().stream().filter(b -> b.getMeter().getApartment().getCondominium().getId() == idCondominium).toList();
+		List<Bill> billsOfCondominium = billServ.findAll().stream().filter(b -> b.getScan().getApartment().getCondominium().getId() == idCondominium).toList();
 		if(billsOfCondominium.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "no bills found for this condominium");
 		}

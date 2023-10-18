@@ -83,7 +83,7 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 		Scan s=new Scan();
 		s.setMcLiter(mcLiter);
 		Apartment ap=apartmentRepo.findById(id_apartment).get();
-		ap.getMeter().add(s);
+		ap.getScans().add(s);
 		return null;
 	}
 	
