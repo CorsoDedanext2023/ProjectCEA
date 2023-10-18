@@ -5,10 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import it.dedagroup.project_cea.dto.response.BillDTOResponse;
 import it.dedagroup.project_cea.dto.response.InterventionDTOResponse;
@@ -36,6 +33,11 @@ public class SecretaryController {
 	@GetMapping("/getScans")
 	public ResponseEntity<List<ScanDTOResponse>> getScans(){
 		return ResponseEntity.status(HttpStatus.OK).body(secFac.getScans());
+	}
+
+	@PostMapping("/acceptPendingIntervention/{idApartment}/{idIntervention}")
+	public ResponseEntity<InterventionDTOResponse> acceptPendingIntervention(@PathVariable long idApartment, @PathVariable long idIntervention){
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(secFac.acceptPendingIntervention(idApartment, idIntervention));
 	}
 
 }
