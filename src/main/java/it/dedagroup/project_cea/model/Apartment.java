@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,7 +30,7 @@ public class Apartment {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn
 	private Customer customer;
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="apartment")
 	private Scan meter;
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Condominium condominium;

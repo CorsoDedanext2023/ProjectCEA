@@ -16,7 +16,7 @@ public interface CustomerServiceDef {
 	public Intervention bookIntervention(long user_id, long apartment_id, LocalDate interventionDate);
 	public List<Bill> getBills(long user_id);
 	public Bill payBill(long bill_id, LocalDate paymentDate);
-	public Scan meterScan(long apartment_id, Bill lastBill);
+	public Scan meterScan(long apartment_id, double mcLiter);
 	
 	public Customer findCustomerById(long customer_id);
 	public List<Customer> findAllCustomer();

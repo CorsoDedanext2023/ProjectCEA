@@ -65,9 +65,9 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	}
 
 	@Override
-	public List<Bill> getBills(long id_user) {
-		//return billRepo.findAllBillByCustomer_Id(user_id);
-		return null;
+	public List<Bill> getBills(long id_apartment) {
+		Apartment a=apartmentRepo.findById(id_apartment).get();
+		return a.getMeter().getBills();
 	}
 
 	@Override
@@ -79,8 +79,11 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	}
 
 	@Override
-	public Scan meterScan(long id_apartment, Bill lastBill) {
-		// TODO Auto-generated method stub
+	public Scan meterScan(long id_apartment,double mcLiter) {
+		Scan s=new Scan();
+		s.setMcLiter(mcLiter);
+		Apartment ap=apartmentRepo.findById(id_apartment).get();
+		ap.setMeter(s);
 		return null;
 	}
 	
