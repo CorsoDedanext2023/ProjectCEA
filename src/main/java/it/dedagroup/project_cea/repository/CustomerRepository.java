@@ -14,3 +14,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 	public List<Customer> findAllCustomerByNameAndSurname(String name, String surname);
 	public Optional<Customer> findCustomerByApartments_Id(long apartment_id);
 }
+
+//classe che interagisce con il db, facciamo una CRUD personalizzata...questa interfaccia deve essere istanziata nell implementation
