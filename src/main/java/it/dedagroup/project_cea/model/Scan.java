@@ -14,7 +14,7 @@ import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+//TODO Implementare la relazione con Condominium
 @Entity
 @Data
 @NoArgsConstructor

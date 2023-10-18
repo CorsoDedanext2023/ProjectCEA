@@ -9,7 +9,7 @@ import it.dedagroup.project_cea.model.Apartment;
 
 public interface ApartmentRepository extends JpaRepository<Apartment, Long> {
 	public Optional<Apartment> findApartmentByInterventionsId(long id_intervention);
-	public Optional<Apartment> findApartmentByMeterId(long id_meter);
+	public Optional<Apartment> findApartmentByScansId(long id_meter);
 	public Optional<Apartment> findApartmentByUnitNumberAndFloorNumberAndCondominiumId(int unit_number, int floor_number, long id_condominium);
 	public List<Apartment> findAllApartmentByCondominiumId(long id_condominium);
 	public List<Apartment> findAllApartmentByCustomerId(long id_customer);

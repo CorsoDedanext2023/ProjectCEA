@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 //@NoArgsConstructor
 //@AllArgsConstructor
 public class ApartmentDto {
-//	private long id;
-//	private int unitNumber;
-//	private int floorNumber;
-//	private CustomerDto customer;
-//	private ScanDto meter;
-//	private CondominiumDto condominium;
+	private long id;
+	private int unitNumber;
+	private int floorNumber;
+	private long id_customer;
+	private long id_condominium;
 }

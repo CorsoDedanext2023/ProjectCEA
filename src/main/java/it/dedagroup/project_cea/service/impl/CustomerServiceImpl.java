@@ -1,6 +1,7 @@
 package it.dedagroup.project_cea.service.impl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,18 +33,18 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	ApartmentRepository apartmentRepo;
 	
 	@Override
-	public Customer saveCustomer(Customer customer) {
-		return customerRepo.save(customer);
+	public void saveCustomer(Customer customer) {
+		customerRepo.save(customer);
 	}
 
 	@Override
-	public Customer modifyCustomer(Customer customer) {
+	public void modifyCustomer(Customer customer) {
 		Customer customerModify = findCustomerById(customer.getId());
 		customerModify.setName(customer.getName());
 		customerModify.setSurname(customer.getSurname());
 		customerModify.setUsername(customer.getUsername());
 		customerModify.setRole(Role.CUSTOMER);
-		return customerRepo.save(customer);
+		customerRepo.save(customer);
 	}
 
 	@Override
@@ -64,9 +65,9 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	}
 
 	@Override
-	public List<Bill> getBills(long id_user) {
-//		Apartment apart = apartmentRepo.findApartmentByCustomer_id(id_user).orElseThrow();
-//		apart.getMeter().get
+	public List<Bill> getBills(long id_user, long id_scan) {
+		//Apartment apart = apartmentRepo.findApartmentByCustomer_id(id_user).orElseThrow();
+		//TODO Inserisci una lista di bills basandosi sull'id dello scan;
 		return null;
 	}
 
@@ -82,9 +83,9 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	public Scan meterScan(long id_apartment,double mcLiter) {
 		Scan s=new Scan();
 		s.setMcLiter(mcLiter);
-		Apartment ap=apartmentRepo.findById(id_apartment).get();
+		Apartment ap=apartmentRepo.findById(id_apartment).orElseThrow(()-> new NotValidDataException("Apartment not found with apartment id: "+id_apartment));
 		ap.getScans().add(s);
-		return null;
+		return s;
 	}
 	
 	@Override

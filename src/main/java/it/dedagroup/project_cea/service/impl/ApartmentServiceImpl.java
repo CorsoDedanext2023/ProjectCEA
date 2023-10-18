@@ -16,12 +16,12 @@ public class ApartmentServiceImpl implements ApartmentServiceDef {
 	ApartmentRepository repo; 
 	
 	@Override
-	public Apartment saveApartment(String username, Apartment apartment) {
-		return repo.save(apartment);
+	public void saveApartment(Apartment apartment) {
+		repo.save(apartment);
 	}
 
 	@Override
-	public Apartment modifyApartment(Apartment apartment) {
+	public void modifyApartment(Apartment apartment) {
 		Apartment apartmodify = findById(apartment.getId());
 		apartmodify.setUnitNumber(apartment.getUnitNumber());
 		apartmodify.setFloorNumber(apartment.getFloorNumber());
@@ -30,11 +30,11 @@ public class ApartmentServiceImpl implements ApartmentServiceDef {
 		apartmodify.setCondominium(apartment.getCondominium());
 		apartmodify.setInterventions(apartment.getInterventions());
 		apartmodify.setAvailable(apartment.isAvailable());
-		return apartmodify;
+		repo.save(apartment);
 	}
 
 	@Override
-	public void deleteApartment(String username, long id_apartment) {
+	public void deleteApartment(long id_apartment) {
 		Apartment apartdelete = findById(id_apartment);
 		apartdelete.setAvailable(false);
 		repo.save(apartdelete);
@@ -56,8 +56,8 @@ public class ApartmentServiceImpl implements ApartmentServiceDef {
 	}
 
 	@Override
-	public Apartment findApartmentByMeterId(long id_meter) {
-		return repo.findApartmentByMeterId(id_meter).orElseThrow(() -> new NotValidDataException("Apartment not found with meter id: "+id_meter));
+	public Apartment findApartmentByScansId(long id_meter) {
+		return repo.findApartmentByScansId(id_meter).orElseThrow(() -> new NotValidDataException("Apartment not found with meter id: "+id_meter));
 	}
 
 	@Override

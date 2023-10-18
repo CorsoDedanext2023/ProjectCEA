@@ -13,7 +13,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+//TODO Implementare la relazione con Segretaria(Secretary)
 @Entity
 @Data
 @NoArgsConstructor
