@@ -1,5 +1,6 @@
 package it.dedagroup.project_cea.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,11 @@ public class BillServiceImpl implements BillServiceDef {
 	@Override
 	public List<Bill> findAll() {
 		return billRepo.findAll();
+	}
+
+	@Override
+	public List<Bill> findAllByDeliveryDate(LocalDate deliveryDate) {
+		return billRepo.findAllBillByDeliveringDay(deliveryDate);
 	}
 
 }

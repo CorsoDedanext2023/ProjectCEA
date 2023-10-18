@@ -15,10 +15,10 @@ public class BillMapper {
 		billDTOResp.setCost(b.getCost());
 		billDTOResp.setDeliveringDay(b.getDeliveringDay());
 		billDTOResp.setPaymentDay(b.getPaymentDay());
-		billDTOResp.setName(b.getMeter().getApartment().getCustomer().getName());
-		billDTOResp.setSurname(b.getMeter().getApartment().getCustomer().getSurname());
-		billDTOResp.setUnitNumber(b.getMeter().getApartment().getUnitNumber());
-		billDTOResp.setFloorNumber(b.getMeter().getApartment().getFloorNumber());
+		billDTOResp.setName(b.getScan().getApartment().getCustomer().getName());
+		billDTOResp.setSurname(b.getScan().getApartment().getCustomer().getSurname());
+		billDTOResp.setUnitNumber(b.getScan().getApartment().getUnitNumber());
+		billDTOResp.setFloorNumber(b.getScan().getApartment().getFloorNumber());
 		return billDTOResp;
 	}
 	
