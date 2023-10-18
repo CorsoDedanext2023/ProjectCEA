@@ -16,12 +16,20 @@ public class CondominiumMapper {
 	@Autowired
 	private AdministratorServiceDef administratorService;
 
+	@Autowired
+	private ApartmentMapper apartmentMapper;
+
 	public CondominiumDtoResponse toDto(Condominium c) {
-		return null;
+		CondominiumDtoResponse response=new CondominiumDtoResponse();
+		response.setId(c.getId());
+		response.setAddress(c.getAddress());
+		response.setAdministratorName(c.getAdministrator().getName());
+		response.setApartments(apartmentMapper.toApartmentForCondoiminiumListDto(c.getApartments()));
+		return response;
 	}
 	
 	public List<CondominiumDtoResponse> toListDto(List<Condominium>condominiums){
-		return null;
+		return condominiums.stream().map(this::toDto).toList();
 	}
 	
 	public Condominium toCondominium(CondominiumDto dto) {

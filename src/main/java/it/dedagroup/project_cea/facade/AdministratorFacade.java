@@ -1,14 +1,18 @@
 package it.dedagroup.project_cea.facade;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.dedagroup.project_cea.dto.request.AdministratorIdDtoRequest;
 import it.dedagroup.project_cea.dto.request.AdministratorUpdateRequest;
 import it.dedagroup.project_cea.dto.request.BillRequestDto;
 import it.dedagroup.project_cea.dto.request.CondominiumDto;
 import it.dedagroup.project_cea.dto.request.RegisterUserDto;
 import it.dedagroup.project_cea.dto.response.AdministratorDtoResponse;
+import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
 import it.dedagroup.project_cea.mapper.AdministratorMapper;
 import it.dedagroup.project_cea.mapper.BillMapper;
 import it.dedagroup.project_cea.mapper.CondominiumMapper;
@@ -27,11 +31,12 @@ public class AdministratorFacade {
 	@Autowired
 	CondominiumServiceImpl condominiumService;
 	@Autowired
-	private CondominiumMapper condominiumMapper;
+	BillServiceDef billService;
 	@Autowired
-	private BillServiceDef billService;
+	BillMapper billMapper;
 	@Autowired
-	private BillMapper billMapper;
+	CondominiumMapper condominiumMapper;
+
 	
 	public AdministratorDtoResponse findById(long id) {
 		if(id<0) throw new RuntimeException("L'id deve essere maggiore di 0");
@@ -63,6 +68,10 @@ public class AdministratorFacade {
 	
 	public void billSplitter() {
 		
+	}
+
+	public List<CondominiumDtoResponse> getCondominiumByAdministratorId(AdministratorIdDtoRequest request){
+			return condominiumMapper.toListDto(condominiumService.findCondominiumByAdministrator_id(request.getId()));
 	}
 	
 	public String insertCondominium(CondominiumDto dto) {
