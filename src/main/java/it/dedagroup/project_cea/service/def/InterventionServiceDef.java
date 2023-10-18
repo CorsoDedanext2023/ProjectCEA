@@ -7,6 +7,9 @@ import it.dedagroup.project_cea.model.TypeOfIntervention;
 
 public interface InterventionServiceDef {
 	
-	public List<Intervention> findAllByType(TypeOfIntervention type);
 	public Intervention findById(Long idIntervention);
+	public List<Intervention> findAll();
+	public List<Intervention>findAllByStatus(String status);
+	public List<Intervention> findAllByType(TypeOfIntervention type);
+	
 }
