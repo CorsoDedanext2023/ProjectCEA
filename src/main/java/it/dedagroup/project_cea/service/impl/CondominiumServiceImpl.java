@@ -20,4 +20,5 @@ public class CondominiumServiceImpl implements CondominiumServiceDef {
 		return condRepo.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "no condominium found with this id"));
 	}
 
+	
 }

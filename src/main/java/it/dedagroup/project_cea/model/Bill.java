@@ -31,6 +31,5 @@ public class Bill {
 	@Column(nullable = false)
 	private boolean isAvailable = true;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn
-	private Scan meter;
+	private Scan scan;
 }

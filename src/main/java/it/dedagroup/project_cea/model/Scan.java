@@ -31,7 +31,7 @@ public class Scan {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn
 	private Apartment apartment;
-	@OneToMany(mappedBy = "meter")
+	@OneToMany(mappedBy = "scan")
 	private List<Bill> bills;
 
 }

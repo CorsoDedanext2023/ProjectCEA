@@ -29,8 +29,7 @@ public class Secretary extends User {
 	private Role role = Role.SECRETARY;
 	private boolean isAvailable = true;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Administrator administrator;
+	
 	@OneToMany(mappedBy = "secretary")
 	private List<Intervention> intervention;
 	

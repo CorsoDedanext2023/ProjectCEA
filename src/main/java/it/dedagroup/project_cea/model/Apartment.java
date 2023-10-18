@@ -31,7 +31,7 @@ public class Apartment {
 	@JoinColumn
 	private Customer customer;
 	@OneToMany(mappedBy = "apartment")
-	private List<Scan> meter;
+	private List<Scan> scans;
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Condominium condominium;
 	@OneToMany(mappedBy = "apartment")
