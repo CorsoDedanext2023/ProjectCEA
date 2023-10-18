@@ -1,12 +1,10 @@
 package it.dedagroup.project_cea.mapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import it.dedagroup.project_cea.dto.response.BillDTOResponse;
 import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
 import it.dedagroup.project_cea.model.Bill;
 import it.dedagroup.project_cea.model.Scan;
