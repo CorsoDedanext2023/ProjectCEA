@@ -19,20 +19,20 @@ public class TechnicianServiceImpl implements TechnicianServiceDef{
 	
 	@Override
 	public void save(Technician t) {
-		// TODO Auto-generated method stub
+		techRepo.save(t);
 		
 	}
 
 	@Override
 	public Technician update(Technician t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean removeTechnician(TechnicianRequest request) {
-		// TODO Auto-generated method stub
-		return false;
+		Technician tech = techRepo.findById(t.getId()).orElse(null);
+		t.setName(t.getName());
+		t.setSurname(t.getSurname());
+		t.setUsername(t.getUsername());
+		t.setPassword(t.getPassword());
+		t.setRole(t.getRole());
+		techRepo.save(tech);
+		return tech;
 	}
 
 	@Override
@@ -62,6 +62,18 @@ public class TechnicianServiceImpl implements TechnicianServiceDef{
 	public List<Technician> findFree() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void remove(long id) {
+		techRepo.deleteById(id);
+	}
+
+	@Override
+	public void removeTechncianByUsername(String username) {
+		Technician tech = findByUsername(username);
+		techRepo.delete(tech);
+		
 	}
 
 
