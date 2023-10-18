@@ -3,7 +3,6 @@ package it.dedagroup.project_cea.service.impl;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import it.dedagroup.project_cea.exception.model.NotValidDataException;
 import it.dedagroup.project_cea.model.Apartment;
@@ -55,7 +54,6 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	}
 	
 	@Override
-
 	public Intervention bookIntervention(long user_id, long apartment_id, LocalDate interventionDate) {
 		Customer customer = findCustomerById(user_id);
 		Apartment customerApart = customer.findApartmentById(apartment_id);
