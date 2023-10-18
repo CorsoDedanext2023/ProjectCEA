@@ -28,4 +28,16 @@ public class InterventionServiceImpl implements InterventionServiceDef {
 		return null;
 	}
 
+	@Override
+	public List<Intervention> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Intervention> findAllByStatus(String status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
