@@ -1,5 +1,6 @@
 package it.dedagroup.project_cea.businesslogic;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.dedagroup.project_cea.dto.request.ScanDtoRequest;
 import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
 import it.dedagroup.project_cea.facade.TechnicianFacade;
+import it.dedagroup.project_cea.model.Condominium;
 import it.dedagroup.project_cea.model.Scan;
 
 @RestController
@@ -29,5 +31,10 @@ public class TechnicianController {
 	@GetMapping("setScan")
 	public ResponseEntity<ScanDTOResponse> setScanApartment(ScanDtoRequest request, long idIntervention){
 		return ResponseEntity.status(HttpStatus.OK).body(techFac.addScanApartment(request, idIntervention));
+	}
+	
+	@GetMapping("getCondominiumsList")
+	public ResponseEntity<Condominium> getCondominiumsListByInterventions(long idTechnician, LocalDate interventionDate){
+		return ResponseEntity.status(HttpStatus.OK).body(techFac.getCondominiumListByInterventions(long idTechnician, LocalDate interventionDate));
 	}
 }
