@@ -1,5 +1,6 @@
 package it.dedagroup.project_cea.model;
 
+
 import java.util.List;
 
 import jakarta.persistence.Column;

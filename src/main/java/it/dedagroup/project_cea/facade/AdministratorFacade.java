@@ -10,6 +10,7 @@ import it.dedagroup.project_cea.dto.response.AdministratorDtoResponse;
 import it.dedagroup.project_cea.mapper.AdministratorMapper;
 import it.dedagroup.project_cea.model.Administrator;
 import it.dedagroup.project_cea.service.impl.AdministratorServiceImpl;
+import it.dedagroup.project_cea.service.impl.CondominiumServiceImpl;
 
 @Service
 public class AdministratorFacade {
@@ -18,11 +19,12 @@ public class AdministratorFacade {
 	AdministratorServiceImpl service;
 	@Autowired
 	AdministratorMapper mapper;
-	
+	@Autowired
+	CondominiumServiceImpl condominiumService;
 	
 	public AdministratorDtoResponse findById(long id) {
 		if(id<0) throw new RuntimeException("L'id deve essere maggiore di 0");
-		Administrator a=service.findById(id).orElseThrow(()->new RuntimeException("Non esiste nessun amministratore con questo id"));
+		Administrator a=service.findById(id);
 		return mapper.toDto(a);
 	}
 	
@@ -37,11 +39,19 @@ public class AdministratorFacade {
 	}
 	
 	public AdministratorDtoResponse updateAdministrator(AdministratorUpdateRequest request) {
-		Administrator a=service.findById(request.getId()).orElseThrow(()-> new RuntimeException("Impossibile trovare un amministratore con questo id"));
+		Administrator a=service.findById(request.getId());
 		if(request.getUsername()!=null) a.setUsername(request.getUsername());
 		if(request.getPassword()!=null) a.setPassword(request.getPassword());
 		return mapper.toDto(service.updateAdministrator(a));
 	}
 	
+	public AdministratorDtoResponse findByCondominiums_Id(long id) {
+		if(id<0) throw new RuntimeException("L'id non può essere minore di 0");
+		return mapper.toDto(service.findByCondominiums_Id(id));
+	}
+	
+	public void billSplitter() {
+		
+	}
 	
 }
