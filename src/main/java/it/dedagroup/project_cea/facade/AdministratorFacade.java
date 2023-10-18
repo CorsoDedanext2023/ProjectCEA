@@ -1,6 +1,9 @@
 package it.dedagroup.project_cea.facade;
 
 
+import it.dedagroup.project_cea.dto.request.AdministratorIdDtoRequest;
+import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
+import it.dedagroup.project_cea.mapper.CondominiumMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,8 @@ import it.dedagroup.project_cea.model.Administrator;
 import it.dedagroup.project_cea.service.impl.AdministratorServiceImpl;
 import it.dedagroup.project_cea.service.impl.CondominiumServiceImpl;
 
+import java.util.List;
+
 @Service
 public class AdministratorFacade {
 		
@@ -21,6 +26,8 @@ public class AdministratorFacade {
 	AdministratorMapper mapper;
 	@Autowired
 	CondominiumServiceImpl condominiumService;
+	@Autowired
+	CondominiumMapper condominiumMapper;
 	
 	public AdministratorDtoResponse findById(long id) {
 		if(id<0) throw new RuntimeException("L'id deve essere maggiore di 0");
@@ -52,6 +59,10 @@ public class AdministratorFacade {
 	
 	public void billSplitter() {
 		
+	}
+
+	public List<CondominiumDtoResponse> getCondominiumByAdministratorId(AdministratorIdDtoRequest request){
+			return condominiumMapper.toListDto(condominiumService.findCondominiumByAdministrator_id(request.getId()));
 	}
 	
 }
