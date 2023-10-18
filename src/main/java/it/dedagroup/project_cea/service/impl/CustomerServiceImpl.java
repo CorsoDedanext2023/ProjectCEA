@@ -1,7 +1,6 @@
 package it.dedagroup.project_cea.service.impl;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,16 +75,15 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 		Bill bill=billRepo.findById(id_bill).orElseThrow();
 		bill.setPaymentDay(paymentDate);
 		return billRepo.save(bill);
-		
 	}
 
 	@Override
 	public Scan meterScan(long id_apartment,double mcLiter) {
-		Scan s=new Scan();
-		s.setMcLiter(mcLiter);
-		Apartment ap=apartmentRepo.findById(id_apartment).orElseThrow(()-> new NotValidDataException("Apartment not found with apartment id: "+id_apartment));
-		ap.getScans().add(s);
-		return s;
+		Scan scan=new Scan();
+		scan.setMcLiter(mcLiter);
+		Apartment apartment=apartmentRepo.findById(id_apartment).orElseThrow(()-> new NotValidDataException("Apartment not found with apartment id: "+id_apartment));
+		apartment.getScans().add(scan);
+		return scan;
 	}
 	
 	@Override
