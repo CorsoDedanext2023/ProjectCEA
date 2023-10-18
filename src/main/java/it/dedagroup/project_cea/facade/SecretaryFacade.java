@@ -2,6 +2,7 @@ package it.dedagroup.project_cea.facade;
 
 import java.util.List;
 
+import it.dedagroup.project_cea.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,6 @@ import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
 import it.dedagroup.project_cea.mapper.BillMapper;
 import it.dedagroup.project_cea.mapper.InterventionMapper;
 import it.dedagroup.project_cea.mapper.ScanMapper;
-import it.dedagroup.project_cea.model.Bill;
-import it.dedagroup.project_cea.model.Condominium;
-import it.dedagroup.project_cea.model.Intervention;
-import it.dedagroup.project_cea.model.Scan;
-import it.dedagroup.project_cea.model.TypeOfIntervention;
 import it.dedagroup.project_cea.service.def.BillServiceDef;
 import it.dedagroup.project_cea.service.def.CondominiumServiceDef;
 import it.dedagroup.project_cea.service.def.InterventionServiceDef;
@@ -79,4 +75,19 @@ public class SecretaryFacade {
 			return scanMap.toScanDTOResponseList(allScans);
 		}
 	}
+
+	public InterventionDTOResponse acceptPendingIntervention(long idApartment, long idIntervention){
+		Intervention interv = intervServ.findById(idIntervention); //caso intervention null gestito in serviceImpl
+		if(interv.getApartment().getId() != idApartment){
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "the id of the apartment doesn't match");
+		}
+		if(!interv.getStatus().equals(StatusIntervention.PENDING)) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "can't accept an intervention which is not pending");
+		}
+		interv.setStatus(StatusIntervention.ACCEPTED);
+		intervServ.save(interv);
+		return intMap.toInterventionDTOResponse(interv);
+	}
+
+
 }
