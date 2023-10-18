@@ -23,7 +23,7 @@ import it.dedagroup.project_cea.service.def.CustomerServiceDef;
 public class CustomerServiceImpl implements CustomerServiceDef{
 	
 	@Autowired
-	CustomerRepository customerRepo;
+	CustomerRepository customerRepo;         //istanziato le repository(contenenti i metodi find)
 	@Autowired
 	InterventionRepository interventionRepo;
 	@Autowired

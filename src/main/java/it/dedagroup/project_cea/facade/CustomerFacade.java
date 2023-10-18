@@ -13,6 +13,7 @@ import it.dedagroup.project_cea.dto.request.MeterScanDto;
 import it.dedagroup.project_cea.dto.request.PayBillDto;
 import it.dedagroup.project_cea.dto.response.CustomerDto;
 import it.dedagroup.project_cea.exception.model.NotValidDataException;
+import it.dedagroup.project_cea.mapper.CustomerMapper;
 import it.dedagroup.project_cea.model.Bill;
 import it.dedagroup.project_cea.model.Customer;
 import it.dedagroup.project_cea.model.Intervention;
@@ -23,6 +24,8 @@ public class CustomerFacade {
 	@Autowired
 	CustomerServiceDef customerServiceDef;
 	//TODO CustomerFacade da implementare + controlli
+	@Autowired
+	CustomerMapper CustomerMapper;
 	public void saveCustomer(AddCustomerDto request) {
 		try {
 			customerServiceDef.findCustomerByUsername(request.getUsername());
@@ -99,10 +102,18 @@ public class CustomerFacade {
 		return null;
 	}
 	public CustomerDto findCustomerByUsername(String username){
-		return null;
+		String regexUsername = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+		if (username==null || username.trim().isEmpty() || !username.matches(regexUsername)) {
+			throw new NotValidDataException("Error, insert a valid tax code");
+		}
+		return CustomerMapper.toDto(customerServiceDef.findCustomerByUsername(regexUsername));
 	}
 	public CustomerDto findCustomerByTax_Code(String taxCode){
-		return null;
+		String regexParametri = "^[A-Z]{6}\\d{2}[A-Z]\\d{2}[A-Z]\\d{3}[A-Z]$";
+		if (!taxCode.matches(regexParametri)) {
+			throw new NotValidDataException("Error, insert a valid tax code");
+		}
+		return CustomerMapper.toDto(customerServiceDef.findCustomerByTaxCode(taxCode));
 	}
 	public List<CustomerDto> findAllCustomerByNameAndSurname(String name, String surname){
 		return null;
