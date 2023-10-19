@@ -2,7 +2,7 @@ package it.dedagroup.project_cea.mapper;
 
 import org.springframework.stereotype.Component;
 
-import it.dedagroup.project_cea.dto.request.RegisterUserDto;
+import it.dedagroup.project_cea.dto.request.RegisterUserDTORequest;
 import it.dedagroup.project_cea.model.Administrator;
 import it.dedagroup.project_cea.model.Customer;
 import it.dedagroup.project_cea.model.Role;
@@ -13,7 +13,7 @@ import it.dedagroup.project_cea.model.User;
 @Component
 public class UserMapper {
 	
-	public User toUser(RegisterUserDto user) {
+	public User toUser(RegisterUserDTORequest user) {
 		if(user.getRole().equals(Role.ADMINISTRATOR)) {
 			Administrator admin = new Administrator();
 			admin.setName(user.getName());

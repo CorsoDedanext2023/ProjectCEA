@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class AdministratorUpdateRequest {
+public class AdministratorUpdateDTORequest {
 	
 		private long id;
 		private String username;

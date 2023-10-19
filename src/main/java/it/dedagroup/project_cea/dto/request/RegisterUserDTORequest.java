@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterUserDto {
+public class RegisterUserDTORequest {
 
 
     @NotBlank(message = "Il nome non può essere vuoto")

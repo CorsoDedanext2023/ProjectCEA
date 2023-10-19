@@ -1,7 +1,5 @@
 package it.dedagroup.project_cea.facade;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import it.dedagroup.project_cea.dto.request.InterventionRequest;
 import it.dedagroup.project_cea.dto.request.ScanDtoRequest;
-import it.dedagroup.project_cea.dto.request.TechnicianRequest;
+import it.dedagroup.project_cea.dto.request.TechnicianDTORequest;
 import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
-import it.dedagroup.project_cea.dto.response.TechnicianDTO;
+import it.dedagroup.project_cea.dto.response.TechnicianDTOResponse;
 import it.dedagroup.project_cea.exception.model.UserNotFoundException;
 import it.dedagroup.project_cea.mapper.InterventionMapper;
 import it.dedagroup.project_cea.mapper.ScanMapper;
 import it.dedagroup.project_cea.mapper.TechnicianMapper;
-import it.dedagroup.project_cea.model.Condominium;
 import it.dedagroup.project_cea.model.Intervention;
 import it.dedagroup.project_cea.model.Scan;
 import it.dedagroup.project_cea.model.Technician;
@@ -71,13 +67,13 @@ public class TechnicianFacade {
 		return scanMap.toScanDTOResponse(newScan);
 	}
 	
-	public TechnicianDTO update(TechnicianRequest request) {
+	public TechnicianDTOResponse update(TechnicianDTORequest request) {
 		techServ.findById(request.getId());
 		Technician newTech = techServ.update(techMapper.toTechnicianFromDto(request));
 		return techMapper.toDTO(newTech);
 	}
 	
-	public Technician findByInterventionId(TechnicianRequest request) {
+	public Technician findByInterventionId(TechnicianDTORequest request) {
 		if(request.getInterventions()==null) {
 			throw new UserNotFoundException(request, "Non esistono Tecnici per questo Intervento");
 		} else {
@@ -87,7 +83,7 @@ public class TechnicianFacade {
 		
 	}
 	
-	public Technician findById(TechnicianRequest request ) {
+	public Technician findById(TechnicianDTORequest request ) {
 		if(request.getId()==0) {
 			throw new UserNotFoundException(request, "Non esistono Tecnici con questo ID");
 		} else {
@@ -96,7 +92,7 @@ public class TechnicianFacade {
 		}
 	}
 	
-	public TechnicianDTO findByUsername(TechnicianRequest request) {
+	public TechnicianDTOResponse findByUsername(TechnicianDTORequest request) {
 		if(request.getUsername()==null) {
 			throw new UserNotFoundException(request, "Non esistono Tecnici con questa Username");
 		} else {
@@ -113,7 +109,7 @@ public class TechnicianFacade {
 		return lista;
 	}
 	
-	public String removeTechnicianById(TechnicianRequest request) {
+	public String removeTechnicianById(TechnicianDTORequest request) {
 		Technician t = techServ.findById(request.getId());
 		if(t==null) {
 			throw new UserNotFoundException("Non esistono Tecnici con questo ID");
@@ -123,7 +119,7 @@ public class TechnicianFacade {
 		}
 	}
 	
-	public String removeTechnicianByUsername(TechnicianRequest request) {
+	public String removeTechnicianByUsername(TechnicianDTORequest request) {
 		Technician t = techServ.findByUsername(request.getUsername());
 		if(t==null) {
 			throw new UserNotFoundException("Non esistono Tecnici con questo Username");

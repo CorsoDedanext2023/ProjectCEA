@@ -7,10 +7,8 @@ import java.util.List;
 @Data
 public class CondominiumDtoResponse {
 
-
-    private long id;
     private String address;
-    private String administratorName;
-    private List<ApartmentForCondominiumDtoResponse> apartments;
-
+    private String admName;
+    private String admSurname;
+    List<ApartmentForCondominiumDtoResponse> apartments;
 }

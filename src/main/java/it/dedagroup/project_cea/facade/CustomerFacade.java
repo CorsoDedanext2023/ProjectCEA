@@ -48,6 +48,7 @@ public class CustomerFacade {
 			customerServiceDef.saveCustomer(customerAdd);
 		}
 		throw new NotValidDataException("Error existing user with username: " + request.getUsername());
+
 	}
 
 	public void modifyCustomer(EditCustomerDto request) {
