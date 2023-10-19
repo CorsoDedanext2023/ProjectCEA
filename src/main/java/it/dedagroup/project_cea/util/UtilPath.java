@@ -1,5 +1,54 @@
 package it.dedagroup.project_cea.util;
 
 public class UtilPath {
+
+    private static final String ADMINISTRATOR_PATH = "/administrator";
+    public static final String INSERT_CONDOMINIUM_PATH=ADMINISTRATOR_PATH+"/condominium/insert";
+    public static final String INSERT_BILL_PATH=ADMINISTRATOR_PATH+"/bill/insert";
+    public static final String CREATE_APARTMENT_PATH=ADMINISTRATOR_PATH+"/create/apartment";
+    public static final String GET_CONDOMINIUM_PATH=ADMINISTRATOR_PATH+"/getcondominium";
+    public static final String GET_CUSTOMER_PATH=ADMINISTRATOR_PATH+"/getcustomer";
+
+    private static final String TECHNICIAN_PATH="/technician";
+    public static final String GET_SCAN_PATH=TECHNICIAN_PATH+"/getScans";
+    public static final String SET_SCAN_PATH=TECHNICIAN_PATH+"/setScan";
+    public static   final String FIND_BY_ID_PATH=TECHNICIAN_PATH+"/findById";
+    public static   final String FIND_BY_USER_PATH=TECHNICIAN_PATH+"/findByUser";
+    public static  final String FIND_BY_INTERVENTIONS_PATH=TECHNICIAN_PATH+"/findByIntervention";
+    public static  final String FIND_ALL_PATH=TECHNICIAN_PATH+"/findAll";
+    public static  final String UPDATE_PATH=TECHNICIAN_PATH+"/update";
+    public static  final String REMOVE_BY_USER_PATH=TECHNICIAN_PATH+"/removeByUser";
+    public static  final String REMOVE_BY_ID_PATH=TECHNICIAN_PATH+"/removeById";
+
+    private static final String ALL_PATH="/all";
+    public static final String LOGIN_PATH=ALL_PATH+"/login";
+    public static final String REGISTER_PATH=ALL_PATH+"registeruser";
+
+    private static final String CUSTOMER_PATH="/customer";
+    public static final String SAVE_PATH=CUSTOMER_PATH+"/save";
+    public static final String MODIFY_PATH=CUSTOMER_PATH+"/modify";
+    public static final String DELETE_PATH=CUSTOMER_PATH+"/delete/";
+    public static final String BOOK_INTERVENTIONS_PATH=CUSTOMER_PATH+"/book/intervention";
+    public static final String BILL_PAYMENT_PATH=CUSTOMER_PATH+"/bill/pay";
+    public static final String AUTO_SCAN_PATH=CUSTOMER_PATH+"/scan/auto";
+    public static final String GET_BILLS_PATH=CUSTOMER_PATH+"/get/bills";
+    public static final String GET_CUSTOMER_BY_ID_PATH=CUSTOMER_PATH+"/get/";
+    public static final String GET_ALL_CUSTOMER_PATH=CUSTOMER_PATH+"/get/all";
+    public static final String GET_CUSTOMER_BY_USERNAME_PATH=CUSTOMER_PATH+"/get/username";
+    public static final String GET_CUSTOMER_BY_TAX_CODE_PATH=CUSTOMER_PATH+"/get/taxCode";
+    public static final String FIND_ALL_BY_NAME_AND_SURNAME_PATH=CUSTOMER_PATH+"/get/all/name&surname";
+    public static final String FIND_CUSTOMER_BY_APARTMENT_ID_PATH=CUSTOMER_PATH+"/get/apartment/";
+
+
+
+    private static final String SECRETARY_PATH="/secretary";
+    public static final String GET_ALL_BILLS_OF_CONDOMINIUM_PATH=SECRETARY_PATH+"/getAllBillsOfCondominium/";
+    public static final String GET_INTERVENTION_LIST_PER_TYPE_PATH=SECRETARY_PATH+"/getInterventionListPerType/";
+    public static final String GET_SCANS_PATH=SECRETARY_PATH+"/getScans";
+    public static final String REMOTE_SCAN_PATH=SECRETARY_PATH+"/remotescan/";
+    public static final String WORKLOAD_PATH=SECRETARY_PATH+"/workload/";
+    public static final String ACCEPT_PENDING_INTERVENTION_PATH=SECRETARY_PATH+"/acceptPendingIntervention/";
+    public static final String LIST_OF_CONDOMINIUM_OF_TECHNICIAN_INTERVENTIONS_PATH=SECRETARY_PATH+"/listOfCondominiumOfInterventionsOfTechnician/";
+
 	
 }

@@ -3,21 +3,15 @@ package it.dedagroup.project_cea.facade;
 
 import java.util.List;
 
+import it.dedagroup.project_cea.dto.request.*;
+import it.dedagroup.project_cea.mapper.*;
+import it.dedagroup.project_cea.service.impl.ApartmentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.dedagroup.project_cea.dto.request.AdministratorIdDtoRequest;
-import it.dedagroup.project_cea.dto.request.AdministratorUpdateDTORequest;
-import it.dedagroup.project_cea.dto.request.BillDTORequest;
-import it.dedagroup.project_cea.dto.request.CondominiumDTORequest;
-import it.dedagroup.project_cea.dto.request.RegisterUserDTORequest;
 import it.dedagroup.project_cea.dto.response.AdministratorDtoResponse;
 import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
 import it.dedagroup.project_cea.dto.response.CustomerExtendedInfoDTOResponse;
-import it.dedagroup.project_cea.mapper.AdministratorMapper;
-import it.dedagroup.project_cea.mapper.BillMapper;
-import it.dedagroup.project_cea.mapper.CondominiumMapper;
-import it.dedagroup.project_cea.mapper.CustomerMapper;
 import it.dedagroup.project_cea.model.Administrator;
 import it.dedagroup.project_cea.service.def.BillServiceDef;
 import it.dedagroup.project_cea.service.impl.AdministratorServiceImpl;
@@ -40,6 +34,10 @@ public class AdministratorFacade {
 	CondominiumMapper condominiumMapper;
 	@Autowired
 	CustomerMapper customerMapper;
+	@Autowired
+	ApartmentServiceImpl apartmentService;
+	@Autowired
+	ApartmentMapper apartmentMapper;
 
 	
 	public AdministratorDtoResponse findById(long id) {
@@ -90,6 +88,10 @@ public class AdministratorFacade {
 	
 	public List<CustomerExtendedInfoDTOResponse> getCustomerByCondominiumId(long condominiumId) {
 		return customerMapper.toListCustomersExtendedinfo(condominiumService.getConsumersByCondominiumId(condominiumId));
+	}
+
+	public void addApartment(AddApartmentDtoRequest request){
+		apartmentService.saveApartment(apartmentMapper.fromAddApartmentDtoRequestToApartment(request));
 	}
 	
 }

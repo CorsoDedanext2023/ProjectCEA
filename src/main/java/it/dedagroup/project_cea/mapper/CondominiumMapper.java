@@ -2,9 +2,9 @@ package it.dedagroup.project_cea.mapper;
 
 import java.util.List;
 
+import it.dedagroup.project_cea.dto.response.CondominiumForAdministratorDtoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import it.dedagroup.project_cea.dto.request.CondominiumDTORequest;
 import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
 import it.dedagroup.project_cea.model.Condominium;
@@ -39,4 +39,16 @@ public class CondominiumMapper {
 		c.setAdministrator(administratorService.findById(dto.getId_administrator()));
 		return c;
 	}
+
+	public CondominiumForAdministratorDtoResponse toCondominiumForAdministratorDto(Condominium c) {
+		CondominiumForAdministratorDtoResponse response=new CondominiumForAdministratorDtoResponse();
+		response.setId(c.getId());
+		response.setAddress(c.getAddress());
+		response.setAdministratorName(c.getAdministrator().getName());
+		response.setApartments(apartmentMapper.toApartmentForCondoiminiumListDto(c.getApartments()));
+		return response;
+	}
+	//TODO creare il tolistdto del metodo qui sopra
+
+
 }
