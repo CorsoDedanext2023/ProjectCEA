@@ -1,5 +1,6 @@
 package it.dedagroup.project_cea.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -21,12 +22,14 @@ public class Scan {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+    private Long id;
 	@Column(nullable = false)
 	private double mcLiter = 0;
 	@Column(nullable = false)
 	private boolean isAvailable = true;
-	
+    @Column(nullable = false)
+    private LocalDate scanDate;
+
 	@OneToOne(mappedBy = "meter")
 	private Apartment apartment;
 	@OneToMany(mappedBy = "meter")

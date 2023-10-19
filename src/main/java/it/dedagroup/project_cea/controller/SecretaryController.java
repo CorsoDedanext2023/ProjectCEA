@@ -1,7 +1,9 @@
-package it.dedagroup.project_cea.businesslogic;
+package it.dedagroup.project_cea.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import it.dedagroup.project_cea.model.Technician;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,4 +40,18 @@ public class SecretaryController {
 		return ResponseEntity.status(HttpStatus.OK).body(secFac.getScans());
 	}
 
+	@GetMapping("/remotescan/{idApartment}/{liters}/{scanDate}")
+	public ResponseEntity remoteScan(@PathVariable Long idApartment, double liters, LocalDate scanDate) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(secFac.RemoteScan(idApartment, liters, scanDate));
+	}
+
+	@GetMapping("/workload/{maxWorkload}")
+	public String setWorkload(@PathVariable int maxWorkload) {
+		if (maxWorkload >= 0) {
+			secFac.setWorkload(maxWorkload);
+			return "max: " + maxWorkload;
+		} else {
+			return "no negative!";
+		}
+	}
 }
