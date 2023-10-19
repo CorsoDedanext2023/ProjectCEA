@@ -126,8 +126,7 @@ public class CustomerFacade {
 	}
 
 	public List<CustomerDto> findAllCustomerByNameAndSurname(NameSurnameRequest request) {
-		return customerMapper
-				.toListDto(customerServiceDef.findAllCustomerByNameAndSurname(request.getName(), request.getSurname()));
+		return customerMapper.toListDto(customerServiceDef.findAllCustomerByNameAndSurname(request.getName(), request.getSurname()));
 	}
 
 	public CustomerDto findCustomerByApartments_Id(long id_apartment) {
