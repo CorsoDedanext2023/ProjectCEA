@@ -28,7 +28,7 @@ public class SecretaryController {
 	@Autowired
 	SecretaryFacade secFac;
 	
-	@GetMapping(GET_ALL_BILLS_OF_CONDOMINIUM_PATH)
+	@GetMapping(GET_ALL_BILLS_OF_CONDOMINIUM_PATH+"{idCondominium}")
 	public ResponseEntity<List<BillDTOResponse>> getAllBillsOfCondominium(@PathVariable long idCondominium){
 		return ResponseEntity.status(HttpStatus.OK).body(secFac.getAllBillsOfCondominium(idCondominium));
 	}
@@ -66,4 +66,11 @@ public class SecretaryController {
 		public ResponseEntity<List<CondominiumDtoResponse>> listOfCondominiumOfInterventionsOfTechnician(@PathVariable long idTechnician){
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(secFac.listaCondominiDiInterventiTecnico(idTechnician));
 		}
+
+	//ritorna la lista di interventi in carico a un determinato tecnico,
+	// ordinata per data e priorità di tipo di intervento(prima mostra le letture e poi la manutenzione)
+	@GetMapping("/interventionsOfTechnicianByDateAndPriority/{idTechnician}")
+	public ResponseEntity<List<InterventionDTOResponse>> interventionsOfTechnicianByDateAndPriority(@PathVariable long idTechnician){
+		return ResponseEntity.status(HttpStatus.OK).body(secFac.interventionsOfTechnicianByDateAndPriority(idTechnician));
+	}
 }
