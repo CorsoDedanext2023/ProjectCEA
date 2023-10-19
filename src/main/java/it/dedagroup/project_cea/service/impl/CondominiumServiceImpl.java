@@ -2,6 +2,8 @@ package it.dedagroup.project_cea.service.impl;
 
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import it.dedagroup.project_cea.exception.model.NotValidDataException;
 import it.dedagroup.project_cea.model.Apartment;
 import it.dedagroup.project_cea.model.Condominium;
+import it.dedagroup.project_cea.model.Customer;
 import it.dedagroup.project_cea.repository.AdministratorRepository;
 import it.dedagroup.project_cea.repository.ApartmentRepository;
 import it.dedagroup.project_cea.repository.CondominiumRepository;
@@ -46,6 +49,14 @@ public class CondominiumServiceImpl implements CondominiumServiceDef {
 
 	public List<Condominium> findCondominiumByAdministrator_id(long administratorId){
 		return condRepo.findAllByAdministrator_Id(administratorId);
+	}
+	
+	//VISUALIZZAZIONE DEI CUSTOMER DATO UN ID CONDOMINIO E ORDINATI IN ORDINE ALFABETICO
+	@Override
+	public List<Customer> getConsumersByCondominiumId(long id_condominium) {
+		return condRepo.findCustomersByCondominiumId(id_condominium).stream()
+				.sorted((o1, o2) -> o2.getSurname().compareTo(o1.getSurname()))
+				.collect(Collectors.toList());
 	}
 
 

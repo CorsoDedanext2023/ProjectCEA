@@ -13,9 +13,11 @@ import it.dedagroup.project_cea.dto.request.CondominiumDto;
 import it.dedagroup.project_cea.dto.request.RegisterUserDto;
 import it.dedagroup.project_cea.dto.response.AdministratorDtoResponse;
 import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
+import it.dedagroup.project_cea.dto.response.CustomerExtendedInfoDto;
 import it.dedagroup.project_cea.mapper.AdministratorMapper;
 import it.dedagroup.project_cea.mapper.BillMapper;
 import it.dedagroup.project_cea.mapper.CondominiumMapper;
+import it.dedagroup.project_cea.mapper.CustomerMapper;
 import it.dedagroup.project_cea.model.Administrator;
 import it.dedagroup.project_cea.service.def.BillServiceDef;
 import it.dedagroup.project_cea.service.impl.AdministratorServiceImpl;
@@ -36,6 +38,8 @@ public class AdministratorFacade {
 	BillMapper billMapper;
 	@Autowired
 	CondominiumMapper condominiumMapper;
+	@Autowired
+	CustomerMapper customerMapper;
 
 	
 	public AdministratorDtoResponse findById(long id) {
@@ -82,6 +86,10 @@ public class AdministratorFacade {
 	public String insertBill(BillRequestDto dto) {
 		billService.addBill(billMapper.toBill(dto));
 		return "bolletta inserita con successo";
+	}
+	
+	public List<CustomerExtendedInfoDto> getCustomerByCondominiumId(long condominiumId) {
+		return customerMapper.toListCustomersExtendedinfo(condominiumService.getConsumersByCondominiumId(condominiumId));
 	}
 	
 }
