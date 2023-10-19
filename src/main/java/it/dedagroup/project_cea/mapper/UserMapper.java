@@ -14,7 +14,7 @@ import it.dedagroup.project_cea.model.User;
 public class UserMapper {
 	
 	public User toUser(RegisterUserDto user) {
-		if(user.getRole().equals(Role.ADMIN)) {
+		if(user.getRole().equals(Role.ADMINISTRATOR)) {
 			Administrator admin = new Administrator();
 			admin.setName(user.getName());
 			admin.setPassword(user.getPassword());
