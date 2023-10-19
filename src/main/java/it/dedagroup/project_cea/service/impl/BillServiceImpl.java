@@ -26,4 +26,10 @@ public class BillServiceImpl implements BillServiceDef {
 		return billRepo.findAllBillByDeliveringDay(deliveryDate);
 	}
 
+	@Override
+	public List<Bill> findAllBillByScan_Apartment_Customer_Id(long customerId) {
+		return billRepo.findAllBillByScan_Apartment_Customer_Id(customerId);
+	}
+	
+	
 }
