@@ -12,5 +12,6 @@ public interface InterventionServiceDef {
 	public List<Intervention> findAllByTechnicianId(long idTechnician);
 	public List<Intervention> findAllByType(TypeOfIntervention type);
 	public Intervention findById(long idIntervention);
-	
+	public List<Intervention> findAll();
+	void save(Intervention interv);
 }

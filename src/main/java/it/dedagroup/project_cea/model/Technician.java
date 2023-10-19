@@ -24,7 +24,7 @@ public class Technician extends User{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@Column(nullable = false)
-	private static int max_intervention_for_technician = 5;
+    private int workload;
 	@Column(nullable = false)
 	private Role role = Role.TECHNICIAN;
 	private boolean isAvailable = true;

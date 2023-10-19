@@ -3,6 +3,7 @@ package it.dedagroup.project_cea.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import it.dedagroup.project_cea.model.Apartment;
@@ -13,6 +14,7 @@ import it.dedagroup.project_cea.repository.ApartmentRepository;
 import it.dedagroup.project_cea.repository.InterventionRepository;
 import it.dedagroup.project_cea.service.def.CondominiumServiceDef;
 import it.dedagroup.project_cea.service.def.InterventionServiceDef;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class InterventionServiceImpl implements InterventionServiceDef {
@@ -47,6 +49,21 @@ public class InterventionServiceImpl implements InterventionServiceDef {
 	@Override
 	public Intervention findById(long idIntervention) {
 		return intervRepo.findById(idIntervention).orElse(null);
+	}
+
+	@Override
+	public Intervention findById(long idIntervention) {
+		return intervRepo.findById(idIntervention).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "no intervention found for the intervention id given"));
+	}
+
+	@Override
+	public void save(Intervention interv) {
+		intervRepo.save(interv);
+	}
+
+	@Override
+	public List<Intervention> findAll() {
+		return intervRepo.findAll();
 	}
 
 }
