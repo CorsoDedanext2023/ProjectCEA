@@ -78,7 +78,7 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	}
 
 	@Override
-	public Scan meterScan(long id_apartment,double mcLiter) {
+	public Scan autoScan(long id_apartment,double mcLiter) {
 		Scan scan=new Scan();
 		scan.setMcLiter(mcLiter);
 		Apartment apartment=apartmentRepo.findById(id_apartment).orElseThrow(()-> new NotValidDataException("Apartment not found with apartment id: "+id_apartment));
