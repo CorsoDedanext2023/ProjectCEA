@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddApartmentDto {
+public class AddApartmentDtoRequest {
 	@Min(value = 1)
 	@NotNull(message = "Insert a value in field unit number")
 	private int unitNumber;
