@@ -82,10 +82,6 @@ public class CustomerFacade {
 				request.getInterventionDate());
 	}
 
-	public List<Bill> getBills(long id_user) {
-		return null;
-	}
-
 	public Bill payBill(PayBillDto request) {
 		return customerServiceDef.payBill(request.getIdBill(), request.getPaymentDate());
 	}
