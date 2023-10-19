@@ -26,6 +26,7 @@ INSERT INTO apartment (floor_number, is_available, unit_number, condominium_id, 
 VALUES (1, TRUE, 7, 2, 2);
 
 -- Inserimento delle scansioni (meter)
+
 INSERT INTO scan (is_available, scan_date, apartment_id, mc_liter)
 VALUES (TRUE, '2023-12-18', 1 ,100);
 

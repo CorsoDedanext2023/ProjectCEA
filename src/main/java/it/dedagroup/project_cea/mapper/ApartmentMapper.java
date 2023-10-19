@@ -2,6 +2,7 @@ package it.dedagroup.project_cea.mapper;
 
 import java.util.List;
 
+import it.dedagroup.project_cea.dto.response.ApartmentForCondominiumDtoResponse;
 import org.springframework.stereotype.Component;
 
 import it.dedagroup.project_cea.dto.response.ApartmentDto;
@@ -19,5 +20,19 @@ public class ApartmentMapper {
 	public List<ApartmentDto> toListDto(List<Apartment> apart){
 		if (apart == null || apart.isEmpty())throw new NotValidDataException("List of apartments is empty: "+apart);
 		return apart.stream().map(this::toDto).toList();
+	}
+
+	public ApartmentForCondominiumDtoResponse fromApartmentToApartmenForCondominiumtDto(Apartment a){
+		ApartmentForCondominiumDtoResponse response=new ApartmentForCondominiumDtoResponse();
+		response.setId(a.getId());
+		response.setUnitNumber(a.getUnitNumber());
+		response.setFloorNumber(a.getFloorNumber());
+		response.setCustomerName(a.getCustomer().getName());
+		response.setCustomerSurname(a.getCustomer().getSurname());
+		return response;
+	}
+
+	public List<ApartmentForCondominiumDtoResponse> toApartmentForCondoiminiumListDto(List<Apartment> apartments){
+		return apartments.stream().map(this::fromApartmentToApartmenForCondominiumtDto).toList();
 	}
 }

@@ -6,15 +6,20 @@ import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
 import it.dedagroup.project_cea.mapper.BillMapper;
 import it.dedagroup.project_cea.mapper.InterventionMapper;
 import it.dedagroup.project_cea.mapper.ScanMapper;
-import it.dedagroup.project_cea.model.*;
-import it.dedagroup.project_cea.service.def.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.time.LocalDate;
 import java.util.List;
+import it.dedagroup.project_cea.model.Bill;
+import it.dedagroup.project_cea.model.Intervention;
+import it.dedagroup.project_cea.model.Scan;
+import it.dedagroup.project_cea.model.TypeOfIntervention;
+import it.dedagroup.project_cea.service.def.BillServiceDef;
+import it.dedagroup.project_cea.service.def.CondominiumServiceDef;
+import it.dedagroup.project_cea.service.def.InterventionServiceDef;
+import it.dedagroup.project_cea.service.def.ScanServiceDef;
 
 @Service
 public class SecretaryFacade {
