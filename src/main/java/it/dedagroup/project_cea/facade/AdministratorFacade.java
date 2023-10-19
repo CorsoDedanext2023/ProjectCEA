@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.dedagroup.project_cea.dto.request.AdministratorIdDtoRequest;
-import it.dedagroup.project_cea.dto.request.AdministratorUpdateRequest;
-import it.dedagroup.project_cea.dto.request.BillRequestDto;
-import it.dedagroup.project_cea.dto.request.CondominiumDto;
-import it.dedagroup.project_cea.dto.request.RegisterUserDto;
+import it.dedagroup.project_cea.dto.request.AdministratorUpdateDTORequest;
+import it.dedagroup.project_cea.dto.request.BillDTORequest;
+import it.dedagroup.project_cea.dto.request.CondominiumDTORequest;
+import it.dedagroup.project_cea.dto.request.RegisterUserDTORequest;
 import it.dedagroup.project_cea.dto.response.AdministratorDtoResponse;
 import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
-import it.dedagroup.project_cea.dto.response.CustomerExtendedInfoDto;
+import it.dedagroup.project_cea.dto.response.CustomerExtendedInfoDTOResponse;
 import it.dedagroup.project_cea.mapper.AdministratorMapper;
 import it.dedagroup.project_cea.mapper.BillMapper;
 import it.dedagroup.project_cea.mapper.CondominiumMapper;
@@ -48,7 +48,7 @@ public class AdministratorFacade {
 		return mapper.toDto(a);
 	}
 	
-	public AdministratorDtoResponse addAdministrator(RegisterUserDto request) {
+	public AdministratorDtoResponse addAdministrator(RegisterUserDTORequest request) {
 		Administrator a=new Administrator();
 		a.setName(request.getName());
 		a.setSurname(request.getSurname());
@@ -58,7 +58,7 @@ public class AdministratorFacade {
 		return mapper.toDto(service.addAdministrator(a));
 	}
 	
-	public AdministratorDtoResponse updateAdministrator(AdministratorUpdateRequest request) {
+	public AdministratorDtoResponse updateAdministrator(AdministratorUpdateDTORequest request) {
 		Administrator a=service.findById(request.getId());
 		if(request.getUsername()!=null) a.setUsername(request.getUsername());
 		if(request.getPassword()!=null) a.setPassword(request.getPassword());
@@ -78,17 +78,17 @@ public class AdministratorFacade {
 			return condominiumMapper.toListDto(condominiumService.findCondominiumByAdministrator_id(request.getId()));
 	}
 	
-	public String insertCondominium(CondominiumDto dto) {
+	public String insertCondominium(CondominiumDTORequest dto) {
 		condominiumService.addCondominium(condominiumMapper.toCondominium(dto));
 		return "Condominio aggiunto con successo";
 	}
 	
-	public String insertBill(BillRequestDto dto) {
+	public String insertBill(BillDTORequest dto) {
 		billService.addBill(billMapper.toBill(dto));
 		return "bolletta inserita con successo";
 	}
 	
-	public List<CustomerExtendedInfoDto> getCustomerByCondominiumId(long condominiumId) {
+	public List<CustomerExtendedInfoDTOResponse> getCustomerByCondominiumId(long condominiumId) {
 		return customerMapper.toListCustomersExtendedinfo(condominiumService.getConsumersByCondominiumId(condominiumId));
 	}
 	

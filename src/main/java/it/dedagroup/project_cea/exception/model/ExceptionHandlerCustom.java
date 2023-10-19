@@ -13,18 +13,18 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import it.dedagroup.project_cea.dto.response.MessageDto;
+import it.dedagroup.project_cea.dto.response.MessageDtoResponse;
 
 @RestControllerAdvice
 public class ExceptionHandlerCustom {
 	@ExceptionHandler(NotValidDataException.class)
-	public ResponseEntity<MessageDto> handleInvalidData(NotValidDataException e){
-		MessageDto m = new MessageDto(e.getMessage(), HttpStatus.BAD_REQUEST.value(), e.getOggetto(),LocalDateTime.now());
+	public ResponseEntity<MessageDtoResponse> handleInvalidData(NotValidDataException e){
+		MessageDtoResponse m = new MessageDtoResponse(e.getMessage(), HttpStatus.BAD_REQUEST.value(), e.getOggetto(),LocalDateTime.now());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(m);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<MessageDto> validationError(MethodArgumentNotValidException e){
+	public ResponseEntity<MessageDtoResponse> validationError(MethodArgumentNotValidException e){
 		Map<String,String> map = e.getBindingResult()
 				.getFieldErrors().stream()
 				.collect(Collectors.toMap(FieldError::getField, DefaultMessageSourceResolvable::getDefaultMessage));
@@ -32,7 +32,7 @@ public class ExceptionHandlerCustom {
 		for (String s : map.keySet()) {
 			errori.add(s+": "+map.get(s));
 		}
-		MessageDto m = new MessageDto(errori, HttpStatus.BAD_REQUEST.value());
+		MessageDtoResponse m = new MessageDtoResponse(errori, HttpStatus.BAD_REQUEST.value());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(m);
 	}
 }

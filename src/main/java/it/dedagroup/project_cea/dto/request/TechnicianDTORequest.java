@@ -9,12 +9,12 @@ import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Data
-public class TechnicianRequest {
+public class TechnicianDTORequest {
 	@NotBlank(message = "ID cannot be empty")
 	@Positive(message = "ID must be a positive number")
 	private long id;
 	
-	private List<InterventionRequest> interventions;
+	private List<InterventionDTORequest> interventions;
 	
 	private long id_secretary;
 	

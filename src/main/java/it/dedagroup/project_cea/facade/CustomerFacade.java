@@ -2,12 +2,11 @@ package it.dedagroup.project_cea.facade;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.dedagroup.project_cea.dto.response.CustomerDto;
+import it.dedagroup.project_cea.dto.response.CustomerDtoResponse;
 import it.dedagroup.project_cea.model.Bill;
 import it.dedagroup.project_cea.model.Customer;
 import it.dedagroup.project_cea.model.Intervention;
@@ -18,10 +17,10 @@ public class CustomerFacade {
 	@Autowired
 	CustomerServiceDef customerServiceDef;
 	//TODO CustomerFacade da implementare + controlli
-	public CustomerDto saveCustomer(Customer customer) {
+	public CustomerDtoResponse saveCustomer(Customer customer) {
 		return null;
 	}
-	public CustomerDto modifyCustomer(Customer customer){
+	public CustomerDtoResponse modifyCustomer(Customer customer){
 		return null;
 	}
 	public void deleteCustomer(long customer_id){
@@ -44,25 +43,25 @@ public class CustomerFacade {
 		return null;
 	}
 	
-	public CustomerDto findCustomerById(long customer_id){
+	public CustomerDtoResponse findCustomerById(long customer_id){
 		return null;
 	}
-	public List<CustomerDto> findAllCustomer(){
+	public List<CustomerDtoResponse> findAllCustomer(){
 		return null;
 	}
-	public CustomerDto findCustomerByUsernameAndPassword(String username, String password){
+	public CustomerDtoResponse findCustomerByUsernameAndPassword(String username, String password){
 		return null;
 	}
-	public CustomerDto findCustomerByUsername(String username){
+	public CustomerDtoResponse findCustomerByUsername(String username){
 		return null;
 	}
-	public CustomerDto findCustomerByTax_Code(String taxCode){
+	public CustomerDtoResponse findCustomerByTax_Code(String taxCode){
 		return null;
 	}
-	public List<CustomerDto> findAllCustomerByNameAndSurname(String name, String surname){
+	public List<CustomerDtoResponse> findAllCustomerByNameAndSurname(String name, String surname){
 		return null;
 	}
-	public CustomerDto findCustomerByApartments_Id(long apartment_id){
+	public CustomerDtoResponse findCustomerByApartments_Id(long apartment_id){
 		return null;
 	}
 }

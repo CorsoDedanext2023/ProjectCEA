@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class CustomerExtendedInfoDto {
+public class CustomerExtendedInfoDTOResponse {
 	@NotBlank(message = "Nome non inserito correttamente")
 	private String name;
 	@NotBlank(message ="Cognome non inserito correttamente")

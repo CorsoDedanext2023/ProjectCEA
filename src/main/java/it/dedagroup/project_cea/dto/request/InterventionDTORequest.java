@@ -9,7 +9,7 @@ import it.dedagroup.project_cea.model.TypeOfIntervention;
 import lombok.Data;
 
 @Data
-public class InterventionRequest {
+public class InterventionDTORequest {
 	
 	private long id;
 	private LocalDate interventionDate;

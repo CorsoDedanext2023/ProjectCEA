@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import it.dedagroup.project_cea.dto.request.CondominiumDto;
+import it.dedagroup.project_cea.dto.request.CondominiumDTORequest;
 import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
 import it.dedagroup.project_cea.model.Condominium;
 import it.dedagroup.project_cea.service.def.AdministratorServiceDef;
 
 @Component
 public class CondominiumMapper {
-	
+
 	@Autowired
 	private AdministratorServiceDef administratorService;
 
@@ -21,9 +21,10 @@ public class CondominiumMapper {
 
 	public CondominiumDtoResponse toDto(Condominium c) {
 		CondominiumDtoResponse response=new CondominiumDtoResponse();
-		response.setId(c.getId());
+		//response.setId(c.getId());
 		response.setAddress(c.getAddress());
-		response.setAdministratorName(c.getAdministrator().getName());
+		response.setAdmName(c.getAdministrator().getName());
+		response.setAdmSurname(c.getAdministrator().getSurname());
 		response.setApartments(apartmentMapper.toApartmentForCondoiminiumListDto(c.getApartments()));
 		return response;
 	}
@@ -31,8 +32,8 @@ public class CondominiumMapper {
 	public List<CondominiumDtoResponse> toListDto(List<Condominium>condominiums){
 		return condominiums.stream().map(this::toDto).toList();
 	}
-	
-	public Condominium toCondominium(CondominiumDto dto) {
+
+	public Condominium toCondominium(CondominiumDTORequest dto) {
 		Condominium c = new Condominium();
 		c.setAddress(dto.getAddress());
 		c.setAdministrator(administratorService.findById(dto.getId_administrator()));

@@ -2,16 +2,16 @@ package it.dedagroup.project_cea.mapper;
 
 import org.springframework.stereotype.Component;
 
-import it.dedagroup.project_cea.dto.request.TechnicianRequest;
-import it.dedagroup.project_cea.dto.response.TechnicianDTO;
+import it.dedagroup.project_cea.dto.request.TechnicianDTORequest;
+import it.dedagroup.project_cea.dto.response.TechnicianDTOResponse;
 import it.dedagroup.project_cea.model.Technician;
 
 @Component
 public class TechnicianMapper {
 	
-	public TechnicianDTO toDTO(Technician t) {
+	public TechnicianDTOResponse toDTO(Technician t) {
 		if(t==null) return null;
-		TechnicianDTO tech = new TechnicianDTO();
+		TechnicianDTOResponse tech = new TechnicianDTOResponse();
 		tech.setId(t.getId());
 		tech.setNome(t.getName());
 		tech.setCognome(t.getSurname());
@@ -20,7 +20,7 @@ public class TechnicianMapper {
 		return tech;
 	}
 
-	public Technician toTechnicianFromDto(TechnicianRequest request) {
+	public Technician toTechnicianFromDto(TechnicianDTORequest request) {
 		Technician tech = new Technician();
 		tech.setId(request.getId());
 		tech.setName(request.getName());

@@ -5,10 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import it.dedagroup.project_cea.dto.request.BillRequestDto;
+import it.dedagroup.project_cea.dto.request.BillDTORequest;
 import it.dedagroup.project_cea.dto.response.BillDTOResponse;
 import it.dedagroup.project_cea.model.Bill;
-import it.dedagroup.project_cea.model.Scan;
 import it.dedagroup.project_cea.service.def.ScanServiceDef;
 import it.dedagroup.project_cea.util.Util;
 
@@ -34,7 +33,7 @@ public class BillMapper {
 		return bills.stream().map(this::toBillDTOResponse).toList();
 	}
 	
-	public Bill toBill(BillRequestDto dto) {
+	public Bill toBill(BillDTORequest dto) {
 		Bill bill = new Bill();
 		bill.setDeliveringDay(dto.getDelivergDay());
 		bill.setScan(scanService.findById(dto.getId_scan()));
