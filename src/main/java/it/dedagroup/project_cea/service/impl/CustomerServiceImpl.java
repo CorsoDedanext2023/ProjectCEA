@@ -64,13 +64,6 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	}
 
 	@Override
-	public List<Bill> getBills(long id_user, long id_scan) {
-		//Apartment apart = apartmentRepo.findApartmentByCustomer_id(id_user).orElseThrow();
-		//TODO Inserisci una lista di bills basandosi sull'id dello scan;
-		return null;
-	}
-
-	@Override
 	public Bill payBill(long id_bill, LocalDate paymentDate) {
 		Bill bill=billRepo.findById(id_bill).orElseThrow();
 		bill.setPaymentDay(paymentDate);

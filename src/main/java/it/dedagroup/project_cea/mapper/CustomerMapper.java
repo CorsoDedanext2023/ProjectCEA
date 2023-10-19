@@ -21,7 +21,6 @@ public class CustomerMapper {
 		customer.setUsername(c.getUsername());
 		customer.setTaxCode(c.getTaxCode());
 		customer.setRole(c.getRole());
-		customer.setApartments(mapperApart.toListDto(c.getApartments()));
 		customer.setAvailable(c.isAvailable());
 		return customer;
 	}

@@ -15,6 +15,5 @@ public class CustomerDto {
 	private String username;
 	private String taxCode;
 	private Role role;
-	private List<ApartmentDto> apartments;
 	private boolean isAvailable;
 }

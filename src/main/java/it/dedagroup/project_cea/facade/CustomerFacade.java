@@ -19,6 +19,7 @@ import it.dedagroup.project_cea.model.Bill;
 import it.dedagroup.project_cea.model.Customer;
 import it.dedagroup.project_cea.model.Intervention;
 import it.dedagroup.project_cea.model.Scan;
+import it.dedagroup.project_cea.service.def.BillServiceDef;
 import it.dedagroup.project_cea.service.def.CustomerServiceDef;
 
 @Service
@@ -31,7 +32,9 @@ public class CustomerFacade {
 	// TODO CustomerFacade da implementare + controlli
 	@Autowired
 	CustomerMapper CustomerMapper;
-
+	@Autowired
+	BillServiceDef billServiceDef;
+	
 	public void saveCustomer(AddCustomerDto request) {
 		try {
 			customerServiceDef.findCustomerByUsername(request.getUsername());
@@ -82,6 +85,13 @@ public class CustomerFacade {
 				request.getInterventionDate());
 	}
 
+
+	public List<Bill> getBills(long id_customer) {
+		if (id_customer < 0)
+			throw new NotValidDataException("Error insert a valid customer id: " + id_customer);
+		return billServiceDef.findAllBillByScan_Apartment_Customer_Id(id_customer);
+	}
+ 
 	public Bill payBill(PayBillDto request) {
 		return customerServiceDef.payBill(request.getIdBill(), request.getPaymentDate());
 	}
@@ -122,8 +132,7 @@ public class CustomerFacade {
 	}
 
 	public List<CustomerDto> findAllCustomerByNameAndSurname(NameSurnameRequest request) {
-		return customerMapper
-				.toListDto(customerServiceDef.findAllCustomerByNameAndSurname(request.getName(), request.getSurname()));
+		return customerMapper.toListDto(customerServiceDef.findAllCustomerByNameAndSurname(request.getName(), request.getSurname()));
 	}
 
 	public CustomerDto findCustomerByApartments_Id(long id_apartment) {
