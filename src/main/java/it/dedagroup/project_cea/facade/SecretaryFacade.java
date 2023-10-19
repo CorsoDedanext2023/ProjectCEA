@@ -14,7 +14,6 @@ import it.dedagroup.project_cea.mapper.BillMapper;
 import it.dedagroup.project_cea.mapper.InterventionMapper;
 import it.dedagroup.project_cea.mapper.ScanMapper;
 import it.dedagroup.project_cea.model.Bill;
-import it.dedagroup.project_cea.model.Condominium;
 import it.dedagroup.project_cea.model.Intervention;
 import it.dedagroup.project_cea.model.Scan;
 import it.dedagroup.project_cea.model.TypeOfIntervention;

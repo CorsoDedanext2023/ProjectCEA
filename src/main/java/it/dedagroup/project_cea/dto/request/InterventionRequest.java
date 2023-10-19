@@ -12,7 +12,7 @@ import lombok.Data;
 public class InterventionRequest {
 	
 	private long id;
-	private LocalDate date;
+	private LocalDate interventionDate;
 	private Technician technician;
 	private Apartment apartment;
 	private boolean isAvailable;
