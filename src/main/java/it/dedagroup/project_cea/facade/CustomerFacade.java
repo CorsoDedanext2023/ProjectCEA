@@ -82,10 +82,6 @@ public class CustomerFacade {
 				request.getInterventionDate());
 	}
 
-	public List<Bill> getBills(long id_user) {
-		return null;
-	}
-
 	public Bill payBill(PayBillDto request) {
 		return customerServiceDef.payBill(request.getIdBill(), request.getPaymentDate());
 	}
@@ -103,7 +99,7 @@ public class CustomerFacade {
 	public List<CustomerDto> findAllCustomer() {
 		return customerMapper.toListDto(customerServiceDef.findAllCustomer());
 	}
-
+	
 	public CustomerDto findCustomerByUsernameAndPassword(LoginDTORequest request) {
 		return customerMapper.toDto(
 				customerServiceDef.findCustomerByUsernameAndPassword(request.getUsername(), request.getPassword()));
