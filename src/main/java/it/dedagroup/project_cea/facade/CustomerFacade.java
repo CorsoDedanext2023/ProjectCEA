@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import it.dedagroup.project_cea.dto.request.AddCustomerDto;
 import it.dedagroup.project_cea.dto.request.BookInterventionDto;
 import it.dedagroup.project_cea.dto.request.EditCustomerDto;
+import it.dedagroup.project_cea.dto.request.LoginDTORequest;
 import it.dedagroup.project_cea.dto.request.MeterScanDto;
+import it.dedagroup.project_cea.dto.request.NameSurnameRequest;
 import it.dedagroup.project_cea.dto.request.PayBillDto;
 import it.dedagroup.project_cea.dto.response.CustomerDto;
 import it.dedagroup.project_cea.exception.model.NotValidDataException;
@@ -88,8 +90,8 @@ public class CustomerFacade {
 		return customerServiceDef.payBill(request.getIdBill(), request.getPaymentDate());
 	}
 
-	public Scan meterScan(MeterScanDto request) {
-		return customerServiceDef.meterScan(request.getIdApartment(), request.getMcLiter());
+	public Scan autoScan(MeterScanDto request) {
+		return customerServiceDef.autoScan(request.getIdApartment(), request.getMcLiter());
 	}
 
 	public CustomerDto findCustomerById(long id_customer) {
@@ -101,9 +103,10 @@ public class CustomerFacade {
 	public List<CustomerDto> findAllCustomer() {
 		return customerMapper.toListDto(customerServiceDef.findAllCustomer());
 	}
-
-	public CustomerDto findCustomerByUsernameAndPassword(String username, String password) {
-		return null;
+	
+	public CustomerDto findCustomerByUsernameAndPassword(LoginDTORequest request) {
+		return customerMapper.toDto(
+				customerServiceDef.findCustomerByUsernameAndPassword(request.getUsername(), request.getPassword()));
 	}
 
 	public CustomerDto findCustomerByUsername(String username) {
@@ -122,16 +125,9 @@ public class CustomerFacade {
 		return CustomerMapper.toDto(customerServiceDef.findCustomerByTaxCode(taxCode));
 	}
 
-	public List<CustomerDto> findAllCustomerByNameAndSurname(String name, String surname) {
-		if (name == null || name.isEmpty())
-			throw new NotValidDataException("Insert a value on field name");
-		if (surname == null || surname.isEmpty())
-			throw new NotValidDataException("Insert a value on field surname");
-		if (!name.matches("^[\\p{L} '-]+$"))
-			throw new NotValidDataException("Insert a valid name: " + name);
-		if (!surname.matches("^[\\p{L} '-]+$"))
-			throw new NotValidDataException("Insert a valid surname: " + surname);
-		return customerMapper.toListDto(customerServiceDef.findAllCustomerByNameAndSurname(name, surname));
+	public List<CustomerDto> findAllCustomerByNameAndSurname(NameSurnameRequest request) {
+		return customerMapper
+				.toListDto(customerServiceDef.findAllCustomerByNameAndSurname(request.getName(), request.getSurname()));
 	}
 
 	public CustomerDto findCustomerByApartments_Id(long id_apartment) {
