@@ -10,4 +10,6 @@ public interface BillServiceDef {
 	public List<Bill> findAll();
 
 	public List<Bill> findAllByDeliveryDate(LocalDate deliveryDate);
+	
+	void addBill(Bill bill);
 }

@@ -11,13 +11,13 @@ import it.dedagroup.project_cea.service.def.ApartmentServiceDef;
 
 @Service
 public class ApartmentServiceImpl implements ApartmentServiceDef {
+	
 	@Autowired
 	ApartmentRepository repo; 
 	
 	@Override
-	public Apartment saveApartment(String username, Apartment apartment) {
-		// TODO Auto-generated method stub
-		return null;
+	public void addApartment(Apartment apartment) {
+		
 	}
 
 	@Override
@@ -49,11 +49,6 @@ public class ApartmentServiceImpl implements ApartmentServiceDef {
 		return null;
 	}
 
-	@Override
-	public Apartment findApartmentByMeterId(long meter_id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Apartment findApartmentByUnitNumberAndFloorNumberAndCondominiumId(int unit_number, int floor_number,

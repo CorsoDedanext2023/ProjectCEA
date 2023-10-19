@@ -26,4 +26,11 @@ public class BillServiceImpl implements BillServiceDef {
 		return billRepo.findAllBillByDeliveringDay(deliveryDate);
 	}
 
+	@Override
+	public void addBill(Bill bill) {
+		billRepo.save(bill);
+		
+	}
+	
+
 }
