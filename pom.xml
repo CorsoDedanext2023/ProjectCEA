@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>it.dedagroup</groupId>
-	<artifactId>Profect-CEA</artifactId>
+    <artifactId>Project-CEA</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ProjectCEA</name>
-	<description>Project to manage condominium bills</description>
+    <description>Application to manage condominium bills</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

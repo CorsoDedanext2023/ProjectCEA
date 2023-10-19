@@ -1,4 +1,4 @@
-package it.dedagroup.project_cea.businesslogic;
+package it.dedagroup.project_cea.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
