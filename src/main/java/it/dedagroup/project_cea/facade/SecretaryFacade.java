@@ -109,7 +109,7 @@ public class SecretaryFacade {
 
 	// This method assigns a specified number of interventions to technicians
 	public void setWorkload(int workload) {
-		List<Intervention> interventions = intervServ.findall(): // interventions team must create the findAll method.
+		List<Intervention> interventions = intervServ.findall(); // interventions team must create the findAll method.
 		List<Technician> technicians = techService.findAll();
 
 		int interventionsPerTechnician = workload / technicians.size();
