@@ -23,11 +23,9 @@ public class Administrator extends User{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@OneToMany(mappedBy = "administrator")
-	private List<Secretary> secretaries;
-	@OneToMany(mappedBy = "administrator")
 	private List<Condominium> condominiums;
 	@Column(nullable = false)
-	private Role role = Role.ADMIN;
+	private Role role = Role.ADMINISTRATOR;
 	private boolean isAvailable = true;
 	
 }

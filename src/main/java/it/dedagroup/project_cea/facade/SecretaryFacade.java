@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import it.dedagroup.project_cea.model.*;
+import it.dedagroup.project_cea.model.*;
 import it.dedagroup.project_cea.service.def.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,10 @@ import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
 import it.dedagroup.project_cea.mapper.BillMapper;
 import it.dedagroup.project_cea.mapper.InterventionMapper;
 import it.dedagroup.project_cea.mapper.ScanMapper;
+import it.dedagroup.project_cea.service.def.BillServiceDef;
+import it.dedagroup.project_cea.service.def.CondominiumServiceDef;
+import it.dedagroup.project_cea.service.def.InterventionServiceDef;
+import it.dedagroup.project_cea.service.def.ScanServiceDef;
 
 @Service
 public class SecretaryFacade {
@@ -46,11 +51,11 @@ public class SecretaryFacade {
 
 	@Autowired
 	ApartmentServiceDef apartmentService;
-	
+
 	//metodo per vedere tutte le bollette di un determinato condominio tramite il suo id
 	public List<BillDTOResponse> getAllBillsOfCondominium(long idCondominium){
 		//stream per filtrare le bollette e ottenere solo quelle che appartengono al condominio desiderato
-		List<Bill> billsOfCondominium = billServ.findAll().stream().filter(b -> b.getMeter().getApartment().getCondominium().getId() == idCondominium).toList();
+		List<Bill> billsOfCondominium = billServ.findAll().stream().filter(b -> b.getScan().getApartment().getCondominium().getId() == idCondominium).toList();
 		if(billsOfCondominium.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "no bills found for this condominium");
 		}
@@ -79,6 +84,21 @@ public class SecretaryFacade {
 			return scanMap.toScanDTOResponseList(allScans);
 		}
 	}
+
+	public InterventionDTOResponse acceptPendingIntervention(long idApartment, long idIntervention){
+		Intervention interv = intervServ.findById(idIntervention); //caso intervention null gestito in serviceImpl
+		if(interv.getApartment().getId() != idApartment){
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "the id of the apartment doesn't match");
+		}
+		if(!interv.getStatus().equals(StatusIntervention.PENDING)) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "can't accept an intervention which is not pending");
+		}
+		interv.setStatus(StatusIntervention.ACCEPTED);
+		intervServ.save(interv);
+		return intMap.toInterventionDTOResponse(interv);
+	}
+
+
 
 	// Creates a new scan for a specified apartment with the given liters and scan date
 	public Scan RemoteScan(Long idApartment, double liters, LocalDate scanDate) {

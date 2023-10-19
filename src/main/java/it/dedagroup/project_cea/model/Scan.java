@@ -1,13 +1,15 @@
 package it.dedagroup.project_cea.model;
 
-import java.time.LocalDate;
+
 import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -22,17 +24,14 @@ public class Scan {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	private long id;
 	@Column(nullable = false)
 	private double mcLiter = 0;
 	@Column(nullable = false)
 	private boolean isAvailable = true;
-    @Column(nullable = false)
-    private LocalDate scanDate;
-
-	@OneToOne(mappedBy = "meter")
+    @ManyToOne(fetch = FetchType.LAZY)
 	private Apartment apartment;
-	@OneToMany(mappedBy = "meter")
+	@OneToMany(mappedBy = "scan")
 	private List<Bill> bills;
 
 }
