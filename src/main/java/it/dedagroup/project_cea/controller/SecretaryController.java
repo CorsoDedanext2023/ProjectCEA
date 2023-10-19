@@ -3,6 +3,8 @@ package it.dedagroup.project_cea.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
+import it.dedagroup.project_cea.model.Condominium;
 import it.dedagroup.project_cea.model.Technician;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,4 +63,8 @@ public class SecretaryController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(secFac.acceptPendingIntervention(idApartment, idIntervention));
 	}
 
+	@GetMapping("/listOfCondominiumOfInterventionsOfTechnician/{idTechnician}")
+		public ResponseEntity<List<CondominiumDtoResponse>> listOfCondominiumOfInterventionsOfTechnician(@PathVariable long idTechnician){
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(secFac.listaCondominiDiInterventiTecnico(idTechnician));
+		}
 }

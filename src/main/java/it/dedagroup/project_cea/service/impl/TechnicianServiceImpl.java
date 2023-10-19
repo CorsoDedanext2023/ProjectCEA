@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.dedagroup.project_cea.dto.request.TechnicianRequest;
 import it.dedagroup.project_cea.exception.model.UserNotFoundException;
 import it.dedagroup.project_cea.model.Technician;
 import it.dedagroup.project_cea.repository.TechnicianRepository;

@@ -1,9 +1,9 @@
 package it.dedagroup.project_cea.controller;
 
 import it.dedagroup.project_cea.dto.request.ScanDtoRequest;
-import it.dedagroup.project_cea.dto.request.TechnicianRequest;
+import it.dedagroup.project_cea.dto.request.TechnicianDTORequest;
 import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
-import it.dedagroup.project_cea.dto.response.TechnicianDTO;
+import it.dedagroup.project_cea.dto.response.TechnicianDTOResponse;
 import it.dedagroup.project_cea.facade.TechnicianFacade;
 import it.dedagroup.project_cea.model.Technician;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +31,17 @@ public class TechnicianController {
 	}
 	
 	@GetMapping("/tech/findById")
-	public ResponseEntity<TechnicianDTO> findTechnicianById(@RequestBody TechnicianRequest request){
+	public ResponseEntity<TechnicianDTOResponse> findTechnicianById(@RequestBody TechnicianDTORequest request){
 		return ResponseEntity.ok(techFac.findByUsername(request));
 	}
 	
 	@GetMapping("/tech/findByUser")
-	public ResponseEntity<TechnicianDTO> findTechnicianByUtente_Username(@RequestBody TechnicianRequest request){
+	public ResponseEntity<TechnicianDTOResponse> findTechnicianByUtente_Username(@RequestBody TechnicianDTORequest request){
 		return ResponseEntity.ok(techFac.findByUsername(request));
 	}
 	
 	@GetMapping("/tech/findByIntervention")
-	public ResponseEntity<Technician> findTechnicianByIntervention(@RequestBody TechnicianRequest request){
+	public ResponseEntity<Technician> findTechnicianByIntervention(@RequestBody TechnicianDTORequest request){
 		return ResponseEntity.ok(techFac.findByInterventionId(request));
 	}
 	
@@ -56,17 +56,17 @@ public class TechnicianController {
 	}
 	
 	@PutMapping("/tech/update")
-	public ResponseEntity<TechnicianDTO> updateTechnician(@RequestBody TechnicianRequest request){
+	public ResponseEntity<TechnicianDTOResponse> updateTechnician(@RequestBody TechnicianDTORequest request){
 		return ResponseEntity.ok(techFac.update(request));
 	}
 	
 	@PostMapping("/tech/removeByUser")
-	public ResponseEntity<String> removeTechnicianByUser(@RequestBody TechnicianRequest request){
+	public ResponseEntity<String> removeTechnicianByUser(@RequestBody TechnicianDTORequest request){
 		return ResponseEntity.ok(techFac.removeTechnicianByUsername(request));
 	}
 	
 	@PostMapping("/tech/removeById")
-	public ResponseEntity<String> removeTechnicianById(@RequestBody TechnicianRequest request){
+	public ResponseEntity<String> removeTechnicianById(@RequestBody TechnicianDTORequest request){
 		return ResponseEntity.ok(techFac.removeTechnicianById(request));
 	}
 }

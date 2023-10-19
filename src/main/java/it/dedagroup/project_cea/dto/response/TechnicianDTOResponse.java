@@ -3,12 +3,11 @@ package it.dedagroup.project_cea.dto.response;
 import java.util.List;
 
 
-import it.dedagroup.project_cea.dto.request.InterventionRequest;
 import it.dedagroup.project_cea.model.Intervention;
 import lombok.Data;
 
 @Data
-public class TechnicianDTO {
+public class TechnicianDTOResponse {
 	
 	private long id;
 	

@@ -2,7 +2,6 @@ package it.dedagroup.project_cea.service.def;
 
 import java.util.List;
 
-import it.dedagroup.project_cea.dto.request.TechnicianRequest;
 import it.dedagroup.project_cea.model.Technician;
 
 public interface TechnicianServiceDef {

@@ -9,21 +9,22 @@ import it.dedagroup.project_cea.model.Intervention;
 import it.dedagroup.project_cea.model.Scan;
 
 public interface CustomerServiceDef {
-	public Customer saveCustomer(Customer customer);
-	public Customer modifyCustomer(Customer customer);
+	public void saveCustomer(Customer customer);
+	public void modifyCustomer(Customer customer);
 	public void deleteCustomer(long customer_id);
 	
-	public Intervention bookIntervention(long user_id, long apartment_id, LocalDate interventionDate);
-	public List<Bill> getBills(long user_id);
-	public Bill payBill(long bill_id, LocalDate paymentDate);
-	public Scan meterScan(long apartment_id, Bill lastBill);
+	public Intervention bookIntervention(long id_user, long id_apartment, LocalDate interventionDate);
+	public Bill payBill(long id_bill, LocalDate paymentDate);
+	public Scan autoScan(long id_apartment, double mcLiter);
 	
-	public Customer findCustomerById(long customer_id);
+	public Customer findCustomerById(long id_customer);
 	public List<Customer> findAllCustomer();
 	public Customer findCustomerByUsernameAndPassword(String username, String password);
 	public Customer findCustomerByUsername(String username);
 	public Customer findCustomerByTaxCode(String taxCode);
 	public List<Customer> findAllCustomerByNameAndSurname(String name, String surname);
-	public Customer findCustomerByApartments_Id(long apartment_id);
+	public Customer findCustomerByApartments_Id(long id_apartment);
 	
 }
+
+//metodi del Customer vuoti, li definiamo nell implementation
