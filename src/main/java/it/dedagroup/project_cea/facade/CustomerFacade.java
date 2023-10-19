@@ -85,7 +85,6 @@ public class CustomerFacade {
 				request.getInterventionDate());
 	}
 
-
 	public List<Bill> getBills(long id_customer) {
 		if (id_customer < 0)
 			throw new NotValidDataException("Error insert a valid customer id: " + id_customer);
@@ -99,7 +98,7 @@ public class CustomerFacade {
 	public Scan autoScan(MeterScanDto request) {
 		return customerServiceDef.autoScan(request.getIdApartment(), request.getMcLiter());
 	}
-
+	
 	public CustomerDto findCustomerById(long id_customer) {
 		if (id_customer < 0)
 			throw new NotValidDataException("Error insert a valid customer id: " + id_customer);
