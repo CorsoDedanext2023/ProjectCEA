@@ -12,19 +12,19 @@ import it.dedagroup.project_cea.service.def.TechnicianServiceDef;
 
 @Service
 public class TechnicianServiceImpl implements TechnicianServiceDef{
-	
+
 	@Autowired
 	TechnicianRepository techRepo;
-	
+
 	@Override
 	public void save(Technician t) {
 		techRepo.save(t);
-		
+
 	}
 
 	@Override
 	public Technician update(Technician t) {
-		
+
 		Technician tech = techRepo.findById(t.getId()).orElseThrow(()->new UserNotFoundException("Technician not found"));
 		tech.setName(t.getName());
 		tech.setSurname(t.getSurname());
@@ -65,14 +65,14 @@ public class TechnicianServiceImpl implements TechnicianServiceDef{
 	}
 
 	@Override
-	public void remove(long id) {
+	public void removeById(long id) {
 		Technician t = techRepo.findById(id).orElseThrow(()->new UserNotFoundException("Technician not found with ID: " + id));
 		t.setAvailable(false);
 		techRepo.save(t);
 	}
 
 	@Override
-	public void removeTechncianByUsername(String username) {
+	public void removeByUsername(String username) {
 		Technician tech = techRepo.findByUsername(username).orElseThrow(()->new UserNotFoundException("Technician not found with username: " +username));
 		tech.setAvailable(false);
 		techRepo.save(tech);
