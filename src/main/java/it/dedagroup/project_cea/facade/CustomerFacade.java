@@ -85,12 +85,13 @@ public class CustomerFacade {
 				request.getInterventionDate());
 	}
 
+
 	public List<Bill> getBills(long id_customer) {
 		if (id_customer < 0)
 			throw new NotValidDataException("Error insert a valid customer id: " + id_customer);
 		return billServiceDef.findAllBillByScan_Apartment_Customer_Id(id_customer);
 	}
-
+ 
 	public Bill payBill(PayBillDto request) {
 		return customerServiceDef.payBill(request.getIdBill(), request.getPaymentDate());
 	}
@@ -108,7 +109,7 @@ public class CustomerFacade {
 	public List<CustomerDto> findAllCustomer() {
 		return customerMapper.toListDto(customerServiceDef.findAllCustomer());
 	}
-
+	
 	public CustomerDto findCustomerByUsernameAndPassword(LoginDTORequest request) {
 		return customerMapper.toDto(
 				customerServiceDef.findCustomerByUsernameAndPassword(request.getUsername(), request.getPassword()));
