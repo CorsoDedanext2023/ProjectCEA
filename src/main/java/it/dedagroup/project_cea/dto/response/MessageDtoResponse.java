@@ -11,18 +11,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MessageDto {
+public class MessageDtoResponse {
 	private List<String> message = new ArrayList<>();
 	private int codice;
 	private Object request;
 	private LocalDateTime data;
-	public MessageDto(List<String> message, int codice) {
+	public MessageDtoResponse(List<String> message, int codice) {
 		this.message = message;
 		this.codice = codice;
 		this.data = LocalDateTime.now();
 	}
 	
-	public MessageDto(String errore, int codice, Object request, LocalDateTime data) {
+	public MessageDtoResponse(String errore, int codice, Object request, LocalDateTime data) {
 		message.add(errore);
 		this.codice = codice;
 		this.request = request;

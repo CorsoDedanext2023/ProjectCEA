@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 
-public class CondominiumDto {
+public class CondominiumDTORequest {
 	
 	@NotBlank(message = "Inserimento della via non valida")
 	private String address;

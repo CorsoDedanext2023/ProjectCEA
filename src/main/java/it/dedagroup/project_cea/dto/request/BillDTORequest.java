@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class BillRequestDto {
+public class BillDTORequest {
 	
 	@NotBlank(message = "Id scan non valido")
 	@Min(value = 1, message = "Id scan non valido")

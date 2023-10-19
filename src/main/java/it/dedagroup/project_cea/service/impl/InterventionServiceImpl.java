@@ -42,8 +42,7 @@ public class InterventionServiceImpl implements InterventionServiceDef {
 
 	@Override
 	public List<Intervention> findAllByType(TypeOfIntervention type) {
-		// TODO Auto-generated method stub
-		return null;
+		return intervRepo.findAllByType(type);
 	}
 
 	@Override
