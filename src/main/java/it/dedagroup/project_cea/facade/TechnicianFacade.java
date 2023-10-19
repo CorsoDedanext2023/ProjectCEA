@@ -67,26 +67,21 @@ public class TechnicianFacade {
 	
 	public ScanDTOResponse addScanApartment(ScanDtoRequest scanRequest, long idIntervention) {
 		Intervention interventionTech = intervServ.findById(idIntervention);
-		Scan scan1 = scanMap.toScanFromDtoRequest(scanRequest);
-		return scanMap.toScanDTOResponse(scan1);
+		Scan newScan = scanMap.toScanFromDtoRequest(scanRequest);
+		return scanMap.toScanDTOResponse(newScan);
 	}
 	
 	public TechnicianDTO update(TechnicianRequest request) {
-		Technician t = techServ.findById(request.getId());
-		if(t==null) {
-			throw new UserNotFoundException(request, "Non esistono Tecnici con questo ID");
-		} else {
-			Technician tecnico = techServ.update(t);
-			return techMapper.toDTO(tecnico);
-		}
+		techServ.findById(request.getId());
+		Technician newTech = techServ.update(techMapper.toTechnicianFromDto(request));
+		return techMapper.toDTO(newTech);
 	}
 	
-	public Technician findByIntervention(TechnicianRequest request) {
-		
+	public Technician findByInterventionId(TechnicianRequest request) {
 		if(request.getInterventions()==null) {
 			throw new UserNotFoundException(request, "Non esistono Tecnici per questo Intervento");
 		} else {
-			Technician tech = techServ.findByIntervention(request.getId());
+			Technician tech = techServ.findByInterventionId(request.getId());
 			return tech;
 		}
 		
@@ -96,7 +91,7 @@ public class TechnicianFacade {
 		if(request.getId()==0) {
 			throw new UserNotFoundException(request, "Non esistono Tecnici con questo ID");
 		} else {
-			Technician tech = techServ.findByIntervention(request.getId());
+			Technician tech = techServ.findByInterventionId(request.getId());
 			return tech;
 		}
 	}
@@ -105,7 +100,7 @@ public class TechnicianFacade {
 		if(request.getUsername()==null) {
 			throw new UserNotFoundException(request, "Non esistono Tecnici con questa Username");
 		} else {
-			Technician tech = techServ.findByIntervention(request.getId());
+			Technician tech = techServ.findByInterventionId(request.getId());
 			return techMapper.toDTO(tech);
 		}
 	}

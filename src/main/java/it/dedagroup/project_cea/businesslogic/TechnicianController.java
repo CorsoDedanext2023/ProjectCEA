@@ -53,7 +53,7 @@ public class TechnicianController {
 	
 	@GetMapping("/tech/findByIntervention")
 	public ResponseEntity<Technician> findTechnicianByIntervention(@RequestBody TechnicianRequest request){
-		return ResponseEntity.ok(techFac.findByIntervention(request));
+		return ResponseEntity.ok(techFac.findByInterventionId(request));
 	}
 	
 	@GetMapping("tech/findAll")

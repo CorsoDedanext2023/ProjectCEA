@@ -18,5 +18,5 @@ public interface TechnicianServiceDef {
 	Technician findByUsername(String username);
 	List<Technician> findAll();
 	List<Technician> findFree();
-	Technician findByIntervention(long idIntervention);
+	Technician findByInterventionId(long idIntervention);
 }
