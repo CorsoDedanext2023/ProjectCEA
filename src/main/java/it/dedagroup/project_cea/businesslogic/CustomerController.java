@@ -66,7 +66,7 @@ public class CustomerController {
 		return ResponseEntity.ok(customerFacade.autoScan(request));
 	}
 	
-  @GetMapping("/get/bills")
+	@GetMapping("/get/bills")
 	public ResponseEntity<List<Bill>> getBills(@RequestParam("id") long id_customer){
 		return ResponseEntity.status(HttpStatus.FOUND).body(customerFacade.getBills(id_customer));
 	}
