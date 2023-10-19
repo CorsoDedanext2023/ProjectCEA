@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.dedagroup.project_cea.dto.request.AddCustomerDto;
+import it.dedagroup.project_cea.dto.request.AddCustomerDtoRequest;
 import it.dedagroup.project_cea.dto.request.BookInterventionDto;
 import it.dedagroup.project_cea.dto.request.EditCustomerDto;
 import it.dedagroup.project_cea.dto.request.LoginDTORequest;
 import it.dedagroup.project_cea.dto.request.MeterScanDto;
-import it.dedagroup.project_cea.dto.request.NameSurnameRequest;
+import it.dedagroup.project_cea.dto.request.CustomerNameSurnameDtoRequest;
 import it.dedagroup.project_cea.dto.request.PayBillDto;
-import it.dedagroup.project_cea.dto.response.CustomerDto;
+import it.dedagroup.project_cea.dto.response.CustomerDtoResponse;
 import it.dedagroup.project_cea.exception.model.NotValidDataException;
 import it.dedagroup.project_cea.mapper.CustomerMapper;
 import it.dedagroup.project_cea.model.Bill;
@@ -35,7 +35,7 @@ public class CustomerFacade {
 	@Autowired
 	BillServiceDef billServiceDef;
 	
-	public void saveCustomer(AddCustomerDto request) {
+	public void saveCustomer(AddCustomerDtoRequest request) {
 		try {
 			customerServiceDef.findCustomerByUsername(request.getUsername());
 		} catch (NotValidDataException e) {
@@ -48,6 +48,7 @@ public class CustomerFacade {
 			customerServiceDef.saveCustomer(customerAdd);
 		}
 		throw new NotValidDataException("Error existing user with username: " + request.getUsername());
+
 	}
 
 	public void modifyCustomer(EditCustomerDto request) {
@@ -99,22 +100,22 @@ public class CustomerFacade {
 		return customerServiceDef.autoScan(request.getIdApartment(), request.getMcLiter());
 	}
 	
-	public CustomerDto findCustomerById(long id_customer) {
+	public CustomerDtoResponse findCustomerById(long id_customer) {
 		if (id_customer < 0)
 			throw new NotValidDataException("Error insert a valid customer id: " + id_customer);
 		return customerMapper.toDto(customerServiceDef.findCustomerById(id_customer));
 	}
 
-	public List<CustomerDto> findAllCustomer() {
+	public List<CustomerDtoResponse> findAllCustomer() {
 		return customerMapper.toListDto(customerServiceDef.findAllCustomer());
 	}
 	
-	public CustomerDto findCustomerByUsernameAndPassword(LoginDTORequest request) {
+	public CustomerDtoResponse findCustomerByUsernameAndPassword(LoginDTORequest request) {
 		return customerMapper.toDto(
 				customerServiceDef.findCustomerByUsernameAndPassword(request.getUsername(), request.getPassword()));
 	}
 
-	public CustomerDto findCustomerByUsername(String username) {
+	public CustomerDtoResponse findCustomerByUsername(String username) {
 		String regexUsername = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
 		if (username == null || username.trim().isEmpty() || !username.matches(regexUsername)) {
 			throw new NotValidDataException("Error, insert a valid username");
@@ -122,7 +123,7 @@ public class CustomerFacade {
 		return CustomerMapper.toDto(customerServiceDef.findCustomerByUsername(regexUsername));
 	}
 
-	public CustomerDto findCustomerByTax_Code(String taxCode) {
+	public CustomerDtoResponse findCustomerByTax_Code(String taxCode) {
 		String regexParametri = "^[A-Z]{6}\\d{2}[A-Z]\\d{2}[A-Z]\\d{3}[A-Z]$";
 		if (!taxCode.matches(regexParametri)) {
 			throw new NotValidDataException("Error, insert a valid tax code");
@@ -130,11 +131,11 @@ public class CustomerFacade {
 		return CustomerMapper.toDto(customerServiceDef.findCustomerByTaxCode(taxCode));
 	}
 
-	public List<CustomerDto> findAllCustomerByNameAndSurname(NameSurnameRequest request) {
+	public List<CustomerDtoResponse> findAllCustomerByNameAndSurname(CustomerNameSurnameDtoRequest request) {
 		return customerMapper.toListDto(customerServiceDef.findAllCustomerByNameAndSurname(request.getName(), request.getSurname()));
 	}
 
-	public CustomerDto findCustomerByApartments_Id(long id_apartment) {
+	public CustomerDtoResponse findCustomerByApartments_Id(long id_apartment) {
 		if (id_apartment < 0)
 			throw new NotValidDataException("Error insert a valid apartment id: " + id_apartment);
 		return customerMapper.toDto(customerServiceDef.findCustomerByApartments_Id(id_apartment));

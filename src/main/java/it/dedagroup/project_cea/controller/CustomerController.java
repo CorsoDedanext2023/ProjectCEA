@@ -1,4 +1,4 @@
-package it.dedagroup.project_cea.businesslogic;
+package it.dedagroup.project_cea.controller;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import it.dedagroup.project_cea.dto.request.LoginDTORequest;
-import it.dedagroup.project_cea.dto.request.NameSurnameRequest;
-import it.dedagroup.project_cea.dto.response.CustomerDto;
-import it.dedagroup.project_cea.dto.request.AddCustomerDto;
+import it.dedagroup.project_cea.dto.request.CustomerNameSurnameDtoRequest;
+import it.dedagroup.project_cea.dto.response.CustomerDtoResponse;
+import it.dedagroup.project_cea.dto.request.AddCustomerDtoRequest;
 import it.dedagroup.project_cea.dto.request.BookInterventionDto;
 import it.dedagroup.project_cea.dto.request.EditCustomerDto;
 import it.dedagroup.project_cea.dto.request.MeterScanDto;
@@ -34,7 +34,7 @@ public class CustomerController {
 	CustomerFacade customerFacade;
 
 	@PostMapping("/save")
-	public ResponseEntity<Void> addCustomer(@Valid @RequestBody AddCustomerDto request){
+	public ResponseEntity<Void> addCustomer(@Valid @RequestBody AddCustomerDtoRequest request){
 		customerFacade.saveCustomer(request);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
@@ -71,31 +71,31 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.FOUND).body(customerFacade.getBills(id_customer));
 	}
 	@GetMapping("/get/{id}")
-	public ResponseEntity<CustomerDto> findCustomerById(@PathVariable("id") long id_customer) {
+	public ResponseEntity<CustomerDtoResponse> findCustomerById(@PathVariable("id") long id_customer) {
 		return ResponseEntity.status(HttpStatus.FOUND).body(customerFacade.findCustomerById(id_customer));
 	}
 	@GetMapping("/get/all")
-	public ResponseEntity<List<CustomerDto>> findAllCustomer(){
+	public ResponseEntity<List<CustomerDtoResponse>> findAllCustomer(){
 		return ResponseEntity.status(HttpStatus.FOUND).body(customerFacade.findAllCustomer());
 	}
 	@PostMapping("/login")
-	public ResponseEntity<CustomerDto> findCustomerByUsernameAndPassword(@RequestBody @Valid LoginDTORequest request){
+	public ResponseEntity<CustomerDtoResponse> findCustomerByUsernameAndPassword(@RequestBody @Valid LoginDTORequest request){
 		return ResponseEntity.status(HttpStatus.FOUND).body(customerFacade.findCustomerByUsernameAndPassword(request));
 	}
 	@GetMapping("/get/username")
-	public ResponseEntity<CustomerDto> findCustomerByUsername(@RequestParam("username") String username){
+	public ResponseEntity<CustomerDtoResponse> findCustomerByUsername(@RequestParam("username") String username){
 		return ResponseEntity.status(HttpStatus.FOUND).body(customerFacade.findCustomerByUsername(username));
 	}
 	@GetMapping("/get/taxCode")
-	public ResponseEntity<CustomerDto> findCustomerByTax_Code(@RequestParam("tax_code") String taxCode){
+	public ResponseEntity<CustomerDtoResponse> findCustomerByTax_Code(@RequestParam("tax_code") String taxCode){
 		return ResponseEntity.status(HttpStatus.FOUND).body(customerFacade.findCustomerByTax_Code(taxCode));
 	}
 	@GetMapping("/get/all/name&surname")
-	public ResponseEntity<List<CustomerDto>> findAllCustomerByNameAndSurname(@RequestBody @Valid NameSurnameRequest request){
+	public ResponseEntity<List<CustomerDtoResponse>> findAllCustomerByNameAndSurname(@RequestBody @Valid CustomerNameSurnameDtoRequest request){
 		return ResponseEntity.status(HttpStatus.FOUND).body(customerFacade.findAllCustomerByNameAndSurname(request));
 	}
 	@GetMapping("/get/apartment/id")
-	public ResponseEntity<CustomerDto> findCustomerByApartments_Id(@PathVariable("id") long id_apartment){
+	public ResponseEntity<CustomerDtoResponse> findCustomerByApartments_Id(@PathVariable("id") long id_apartment){
 		return ResponseEntity.status(HttpStatus.FOUND).body(customerFacade.findCustomerByApartments_Id(id_apartment));
 	}
 }

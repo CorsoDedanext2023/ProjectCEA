@@ -1,4 +1,4 @@
-package it.dedagroup.project_cea.businesslogic;
+package it.dedagroup.project_cea.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.dedagroup.project_cea.dto.request.LoginDTORequest;
-import it.dedagroup.project_cea.dto.request.RegisterUserDto;
+import it.dedagroup.project_cea.dto.request.RegisterUserDTORequest;
 import it.dedagroup.project_cea.dto.response.LoginDTOResponse;
 import it.dedagroup.project_cea.facade.AllFacade;
 import jakarta.validation.Valid;
@@ -26,7 +26,7 @@ public class AllController {
 	}
 	
 	@PostMapping("/register/user")
-	public ResponseEntity<String> registerAccount(@Valid @RequestBody RegisterUserDto request){
+	public ResponseEntity<String> registerAccount(@Valid @RequestBody RegisterUserDTORequest request){
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(allFacade.registerUser(request));
 	}
 

@@ -4,6 +4,7 @@ import java.util.List;
 import it.dedagroup.project_cea.model.Apartment;
 
 public interface ApartmentServiceDef {
+
 	public void saveApartment(Apartment apartment);
 	public void modifyApartment(Apartment apartment);
 	public void deleteApartment(long id_apartment);

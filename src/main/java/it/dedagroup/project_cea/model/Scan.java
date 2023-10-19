@@ -1,6 +1,7 @@
 package it.dedagroup.project_cea.model;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -28,6 +29,8 @@ public class Scan {
 	private double mcLiter = 0;
 	@Column(nullable = false)
 	private boolean isAvailable = true;
+	@Column(nullable = false)
+	private LocalDate scanDate;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn
 	private Apartment apartment;

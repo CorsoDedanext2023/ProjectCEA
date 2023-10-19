@@ -12,6 +12,7 @@ import it.dedagroup.project_cea.service.def.ApartmentServiceDef;
 
 @Service
 public class ApartmentServiceImpl implements ApartmentServiceDef {
+	
 	@Autowired
 	ApartmentRepository repo; 
 	
