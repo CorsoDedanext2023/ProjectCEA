@@ -48,11 +48,6 @@ public class InterventionServiceImpl implements InterventionServiceDef {
 
 	@Override
 	public Intervention findById(long idIntervention) {
-		return intervRepo.findById(idIntervention).orElse(null);
-	}
-
-	@Override
-	public Intervention findById(long idIntervention) {
 		return intervRepo.findById(idIntervention).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "no intervention found for the intervention id given"));
 	}
 

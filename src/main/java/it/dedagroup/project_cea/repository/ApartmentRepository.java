@@ -8,10 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import it.dedagroup.project_cea.model.Apartment;
 
 public interface ApartmentRepository extends JpaRepository<Apartment, Long> {
-	public Optional<Apartment> findApartmentByInterventionsId(long intervention_id);
-	public Optional<Apartment> findApartmentByScans_Id(long meter_id);
-	public Optional<Apartment> findApartmentByUnitNumberAndFloorNumberAndCondominiumId(int unit_number, int floor_number, int condominium_id);
-	public List<Apartment> findAllApartmentByCondominiumId(long condominium_id);
-	public List<Apartment> findAllApartmentByCustomerId(long customer_id);
-	public Optional<Apartment> findApartmentByCustomer_id(long user_id);
+
+	public Optional<Apartment> findApartmentByInterventionsId(long id_intervention);
+	public Optional<Apartment> findApartmentByScansId(long id_meter);
+	public Optional<Apartment> findApartmentByUnitNumberAndFloorNumberAndCondominiumId(int unit_number, int floor_number, long id_condominium);
+	public List<Apartment> findAllApartmentByCondominiumId(long id_condominium);
+	public List<Apartment> findAllApartmentByCustomerId(long id_customer);
+	public Optional<Apartment> findApartmentByCustomer_id(long id_user);
 }

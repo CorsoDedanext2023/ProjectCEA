@@ -29,8 +29,11 @@ public class BillServiceImpl implements BillServiceDef {
 	@Override
 	public void addBill(Bill bill) {
 		billRepo.save(bill);
-		
 	}
 	
 
+
+	public List<Bill> findAllBillByScan_Apartment_Customer_Id(long customerId) {
+		return billRepo.findAllBillByScan_Apartment_Customer_Id(customerId);
+	}
 }

@@ -16,3 +16,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
 
 }
+
+//classe che interagisce con il db, facciamo una CRUD personalizzata...questa interfaccia deve essere istanziata nell implementation

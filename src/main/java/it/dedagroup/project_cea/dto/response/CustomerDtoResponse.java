@@ -9,12 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 //TODO Implementare le validation in CustomerDto
-public class CustomerDto {
+public class CustomerDtoResponse {
 	private String name;
 	private String surname;
 	private String username;
 	private String taxCode;
 	private Role role;
-	private List<ApartmentDto> apartments;
 	private boolean isAvailable;
 }
