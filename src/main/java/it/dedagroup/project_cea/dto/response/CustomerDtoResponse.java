@@ -15,6 +15,5 @@ public class CustomerDtoResponse {
 	private String username;
 	private String taxCode;
 	private Role role;
-	private List<ApartmentDTOResponse> apartments;
 	private boolean isAvailable;
 }

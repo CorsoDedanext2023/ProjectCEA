@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface BillRepository extends JpaRepository<Bill, Long> {
 
     public List<Bill> findAllBillByDeliveringDay(LocalDate deliveringDate);
-
+    public List<Bill> findAllBillByScan_Apartment_Customer_Id (long customerId);
 }
