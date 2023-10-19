@@ -1,9 +1,11 @@
 package it.dedagroup.project_cea.facade;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import it.dedagroup.project_cea.model.*;
+import it.dedagroup.project_cea.dto.response.BillDTOResponse;
+import it.dedagroup.project_cea.dto.response.InterventionDTOResponse;
+import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
+import it.dedagroup.project_cea.mapper.BillMapper;
+import it.dedagroup.project_cea.mapper.InterventionMapper;
+import it.dedagroup.project_cea.mapper.ScanMapper;
 import it.dedagroup.project_cea.model.*;
 import it.dedagroup.project_cea.service.def.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import it.dedagroup.project_cea.dto.response.BillDTOResponse;
-import it.dedagroup.project_cea.dto.response.InterventionDTOResponse;
-import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
-import it.dedagroup.project_cea.mapper.BillMapper;
-import it.dedagroup.project_cea.mapper.InterventionMapper;
-import it.dedagroup.project_cea.mapper.ScanMapper;
-import it.dedagroup.project_cea.service.def.BillServiceDef;
-import it.dedagroup.project_cea.service.def.CondominiumServiceDef;
-import it.dedagroup.project_cea.service.def.InterventionServiceDef;
-import it.dedagroup.project_cea.service.def.ScanServiceDef;
+import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class SecretaryFacade {
@@ -115,7 +109,7 @@ public class SecretaryFacade {
 
 	// This method assigns a specified number of interventions to technicians
 	public void setWorkload(int workload) {
-		List<Intervention> interventions = intervServ.findall(); // interventions team must create the findAll method.
+		List<Intervention> interventions = intervServ.findall(): // interventions team must create the findAll method.
 		List<Technician> technicians = techService.findAll();
 
 		int interventionsPerTechnician = workload / technicians.size();
