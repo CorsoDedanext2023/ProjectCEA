@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -160,5 +161,22 @@ public class SecretaryFacade {
 		List<Condominium> condominiums = interventionsMadeByTechnician.stream()
 				.map(Intervention::getApartment).map(Apartment::getCondominium).toList();
 		return conMap.toListDto(condominiums);
+	}
+
+	public List<InterventionDTOResponse> interventionsOfTechnicianByDateAndPriority(long idTechnician){
+		//Technician t = techService.findById(idTechnician);
+		//TODO implementare il findById di technician, che attualmente ritorna sempre null
+		//if(t == null || !t.isAvailable()){
+		//	throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No technician found with this id");
+		//}
+		List<Intervention> interventionsOfTechnician = intervServ.findAll().stream().filter(in -> in.getTechnician().getId() == idTechnician).filter(t-> t.getTechnician().isAvailable()).toList();
+		if(interventionsOfTechnician.isEmpty()){
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No interventions found for this technician");
+		}
+		List<Intervention> interventionsSorted = interventionsOfTechnician.stream()
+				.sorted(Comparator.comparing(Intervention::getType)
+						.thenComparing(Intervention::getInterventionDate))
+				.toList();
+		return intMap.toInterventionDTOResponseList(interventionsSorted);
 	}
 }
