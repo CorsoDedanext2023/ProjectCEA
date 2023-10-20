@@ -10,6 +10,6 @@ import java.util.Optional;
 
 public interface ScanRepository extends JpaRepository<Scan, Long>{
     public List<Scan> findAllByScanDate(LocalDate scanDate);
-    public Optional<Scan> findByBill_id(long idBill);
+    public Optional<Scan> findByBills_id(long idBill);
     public Optional<Scan> findByApartment_id(long idApartment);
 }

@@ -4,12 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import it.dedagroup.project_cea.exception.model.ScanNotFoundException;
+import it.dedagroup.project_cea.exception.model.UserNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.dedagroup.project_cea.exception.model.NotValidDataException;
 import it.dedagroup.project_cea.model.Scan;
+import it.dedagroup.project_cea.model.Technician;
 import it.dedagroup.project_cea.repository.ScanRepository;
+import it.dedagroup.project_cea.repository.TechnicianRepository;
 import it.dedagroup.project_cea.service.def.ScanServiceDef;
 
 @Service
@@ -17,6 +21,9 @@ public class ScanServiceImpl implements ScanServiceDef {
 
 	@Autowired
 	ScanRepository scanRepo;
+	
+	@Autowired
+	TechnicianRepository techRepo; 
 
 	@Override
 	public Scan findById(long id) {
@@ -27,10 +34,21 @@ public class ScanServiceImpl implements ScanServiceDef {
 	public List<Scan> findAll() {
 		return scanRepo.findAll();
 	}
+	
+	@Override
+	public void save(Scan scan) {
+		scanRepo.save(scan);
+	}
 
 	@Override
-	public void addScan(Scan scan) {
-		scanRepo.save(scan);
+	public void addScan(Scan scan, long idTechnician) {
+		Technician t = techRepo.findById(idTechnician).orElseThrow(() -> new UserNotFoundException("No technician with this ID" + idTechnician));
+		if(t.isAvailable()) {  //se non ha raggiunto il n max interventi
+			int n = 1;
+			t.setWorkLoad(t.getWorkLoad()+n);
+			techRepo.save(t);
+			scanRepo.save(scan);
+		}
 	}
 
 	@Override
@@ -46,4 +64,6 @@ public class ScanServiceImpl implements ScanServiceDef {
 		sc.setAvailable(false);
 		scanRepo.save(sc);
 	}
+
+	
 }

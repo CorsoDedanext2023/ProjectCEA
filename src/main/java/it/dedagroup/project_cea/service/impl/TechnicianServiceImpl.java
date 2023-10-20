@@ -19,7 +19,6 @@ public class TechnicianServiceImpl implements TechnicianServiceDef{
 	@Override
 	public void save(Technician t) {
 		techRepo.save(t);
-
 	}
 
 	@Override
@@ -37,20 +36,17 @@ public class TechnicianServiceImpl implements TechnicianServiceDef{
 
 	@Override
 	public Technician findByInterventionId(long idIntervention) {
-		techRepo.findByInterventions_Id(idIntervention).orElseThrow(()->new UserNotFoundException("Nessun tecnico trovato con ID intervento: " + idIntervention));
-		return null;
+		return techRepo.findByInterventions_Id(idIntervention).orElseThrow(()->new UserNotFoundException("Nessun tecnico trovato con ID intervento: " + idIntervention));
 	}
 
 	@Override
 	public Technician findById(long idTechnician) {
-		techRepo.findById(idTechnician).orElseThrow(()->new UserNotFoundException("Technician not found with ID: " + idTechnician));
-		return null;
+		return techRepo.findById(idTechnician).orElseThrow(()->new UserNotFoundException("Technician not found with ID: " + idTechnician));
 	}
 
 	@Override
 	public Technician findByUsername(String username) {
-		techRepo.findByUsername(username).orElseThrow(()->new UserNotFoundException("Technician not found with username: " +username));
-		return null;
+		return techRepo.findByUsername(username).orElseThrow(()->new UserNotFoundException("Technician not found with username: " +username));
 	}
 
 	@Override
@@ -60,7 +56,14 @@ public class TechnicianServiceImpl implements TechnicianServiceDef{
 
 	@Override
 	public List<Technician> findFree() {
-		// TODO Auto-generated method stub
+		// TODO Metodo che ritorni una lista di tecnici disponibili(che non hanno fatto più di 5 interventi in quel giorno)
+		List<Technician> lista = techRepo.findAll();
+		for(Technician t : lista) {
+			if(t.isAvailable()) {
+				lista.add(t);
+				return lista;
+			}
+		}
 		return null;
 	}
 

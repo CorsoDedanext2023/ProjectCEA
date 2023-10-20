@@ -17,8 +17,8 @@ public class TechnicianMapper {
 		if(t==null) return null;
 		TechnicianDTOResponse tech = new TechnicianDTOResponse();
 		tech.setId(t.getId());
-		tech.setNome(t.getName());
-		tech.setCognome(t.getSurname());
+		tech.setName(t.getName());
+		tech.setSurname(t.getSurname());
 		tech.setUsername(t.getUsername());
 		tech.setPassword(t.getPassword());
 		return tech;
