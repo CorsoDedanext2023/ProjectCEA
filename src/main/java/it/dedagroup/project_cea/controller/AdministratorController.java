@@ -1,28 +1,22 @@
-package it.dedagroup.project_cea.businesslogic;
-
-import java.util.List;
+package it.dedagroup.project_cea.controller;
 
 import it.dedagroup.project_cea.dto.request.AddApartmentDtoRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import it.dedagroup.project_cea.dto.request.AdministratorIdDtoRequest;
 import it.dedagroup.project_cea.dto.request.BillDTORequest;
 import it.dedagroup.project_cea.dto.request.CondominiumDTORequest;
 import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
 import it.dedagroup.project_cea.dto.response.CustomerExtendedInfoDTOResponse;
 import it.dedagroup.project_cea.facade.AdministratorFacade;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 import static it.dedagroup.project_cea.util.UtilPath.*;
 
 @RestController
-@RequestMapping("/administrator")
 public class AdministratorController {
 	
 	@Autowired
