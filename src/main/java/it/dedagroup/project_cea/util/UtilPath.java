@@ -22,7 +22,7 @@ public class UtilPath {
 
     private static final String ALL_PATH="/all";
     public static final String LOGIN_PATH=ALL_PATH+"/login";
-    public static final String REGISTER_PATH=ALL_PATH+"registeruser";
+    public static final String REGISTER_PATH=ALL_PATH+"/registeruser";
 
     private static final String CUSTOMER_PATH="/customer";
     public static final String SAVE_PATH=CUSTOMER_PATH+"/save";

@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class ScanDtoRequest {
     @NotNull(message = "Liter cannot be empty")
-    private double mcLiter = 0;
+    private double mcLiter;
     @NotNull(message = "Il campo data non può essere lasciato in bianco")
     private LocalDate scanDate;
     @NotNull(message = "Il campo apartmentId non può essere lasciato in bianco")

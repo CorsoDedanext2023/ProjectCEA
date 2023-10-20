@@ -23,32 +23,32 @@ public class TechnicianController {
 	
 	@GetMapping(GET_SCAN_PATH)
 	public ResponseEntity<List<ScanDTOResponse>> getScans(){
-		return ResponseEntity.status(HttpStatus.OK).body(techFac.getScans());
+		return ResponseEntity.status(HttpStatus.OK).body(techFac.getAllScans());
 	}
 	
 	@GetMapping(SET_SCAN_PATH)
-	public ResponseEntity<ScanDTOResponse> setScanApartment(ScanDtoRequest request, long idIntervention){
-		return ResponseEntity.status(HttpStatus.OK).body(techFac.addScanApartment(request, idIntervention));
+	public ResponseEntity<String> setScan(@RequestBody ScanDtoRequest request){
+		return ResponseEntity.status(HttpStatus.OK).body(techFac.addScan(request));
 	}
 	
 	@GetMapping(FIND_BY_ID_PATH)
-	public ResponseEntity<TechnicianDTOResponse> findTechnicianById(@RequestBody TechnicianDTORequest request){
-		return ResponseEntity.ok(techFac.findByUsername(request));
+	public ResponseEntity<TechnicianDTOResponse> findTechnicianById(@RequestParam long idTech){
+		return ResponseEntity.ok(techFac.findById(idTech));
 	}
 	
 	@GetMapping(FIND_BY_USER_PATH)
-	public ResponseEntity<TechnicianDTOResponse> findTechnicianByUtente_Username(@RequestBody TechnicianDTORequest request){
-		return ResponseEntity.ok(techFac.findByUsername(request));
+	public ResponseEntity<TechnicianDTOResponse> findTechnicianByUtente_Username(@RequestParam String username){
+		return ResponseEntity.ok(techFac.findByUsername(username));
 	}
 	
 	@GetMapping(FIND_BY_INTERVENTIONS_PATH)
-	public ResponseEntity<Technician> findTechnicianByIntervention(@RequestBody TechnicianDTORequest request){
-		return ResponseEntity.ok(techFac.findByInterventionId(request));
+	public ResponseEntity<TechnicianDTOResponse> findByInterventionId(@RequestParam long idIntervention){
+		return ResponseEntity.ok(techFac.findByInterventionId(idIntervention));
 	}
 	
 	@GetMapping(FIND_ALL_PATH)
-	public ResponseEntity<List<Technician>> findAll(){
-		List<Technician> t = techFac.findAll();
+	public ResponseEntity<List<TechnicianDTOResponse>> findAll(){
+		List<TechnicianDTOResponse> t = techFac.findAll();
 		if(t!=null){
 			return ResponseEntity.status(HttpStatus.OK).body(t);
 		}else {
@@ -63,11 +63,11 @@ public class TechnicianController {
 	
 	@PostMapping(REMOVE_BY_USER_PATH)
 	public ResponseEntity<String> removeTechnicianByUser(@RequestBody TechnicianDTORequest request){
-		return ResponseEntity.ok(techFac.removeTechnicianByUsername(request));
+		return ResponseEntity.ok(techFac.removeByUsername(request));
 	}
 	
 	@PostMapping(REMOVE_BY_ID_PATH)
 	public ResponseEntity<String> removeTechnicianById(@RequestBody TechnicianDTORequest request){
-		return ResponseEntity.ok(techFac.removeTechnicianById(request));
+		return ResponseEntity.ok(techFac.removeById(request));
 	}
 }
