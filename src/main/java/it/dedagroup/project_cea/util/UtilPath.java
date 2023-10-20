@@ -16,6 +16,7 @@ public class UtilPath {
     public static   final String FIND_BY_USER_PATH=TECHNICIAN_PATH+"/findByUser";
     public static  final String FIND_BY_INTERVENTIONS_PATH=TECHNICIAN_PATH+"/findByIntervention";
     public static  final String FIND_ALL_PATH=TECHNICIAN_PATH+"/findAll";
+    public static  final String FIND_FREE_PATH=TECHNICIAN_PATH+"/findFree";
     public static  final String UPDATE_PATH=TECHNICIAN_PATH+"/update";
     public static  final String REMOVE_BY_USER_PATH=TECHNICIAN_PATH+"/removeByUser";
     public static  final String REMOVE_BY_ID_PATH=TECHNICIAN_PATH+"/removeById";
