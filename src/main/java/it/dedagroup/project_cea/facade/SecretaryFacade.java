@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -139,7 +140,6 @@ public class SecretaryFacade {
 			}
 		}
 	}
-
 	// Assigns an intervention to a technician and updates the technician's intervention list
 	public void assignIntervention(Intervention intervention, Technician technician) {
 		List<Intervention> interventions = technician.getInterventions();
