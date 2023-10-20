@@ -13,7 +13,7 @@ public class AddApartmentDtoRequest {
 	@Min(value = 1)
 	@NotNull(message = "Insert a value in field unit number")
 	private int unitNumber;
-	@Min(value = 1)
+	@Min(value = 0)
 	@NotNull(message = "Insert a value in field floor number")
 	private int floorNumber;
 	@Min(value = 1)
