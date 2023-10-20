@@ -4,9 +4,15 @@ import it.dedagroup.project_cea.dto.request.AddApartmentDtoRequest;
 import it.dedagroup.project_cea.dto.request.AdministratorIdDtoRequest;
 import it.dedagroup.project_cea.dto.request.BillDTORequest;
 import it.dedagroup.project_cea.dto.request.CondominiumDTORequest;
+import it.dedagroup.project_cea.dto.response.ApartmentScanDTOResponse;
 import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
 import it.dedagroup.project_cea.dto.response.CustomerExtendedInfoDTOResponse;
 import it.dedagroup.project_cea.facade.AdministratorFacade;
+import it.dedagroup.project_cea.model.Apartment;
+import it.dedagroup.project_cea.model.Condominium;
+import it.dedagroup.project_cea.model.Customer;
+import it.dedagroup.project_cea.model.Scan;
+import org.apache.catalina.util.CustomObjectInputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,5 +56,25 @@ public class AdministratorController {
     public ResponseEntity<List<CustomerExtendedInfoDTOResponse>> getCustomerOfCondominium(@RequestParam long id){
     	return ResponseEntity.status(HttpStatus.FOUND).body(administratorFacade.getCustomerByCondominiumId(id));
     }
+
+	//inserire in util path
+	@GetMapping("/getscans/{id}")
+	public ResponseEntity<List<ApartmentScanDTOResponse>> findAllScanByCondominiumId(@PathVariable long id){
+		return ResponseEntity.status(HttpStatus.FOUND).body(administratorFacade.findAllScanByCondominiumId(id));
+	}
+	//TODO da sostituire con i dto
+	//inserire in util path
+	@PostMapping("/assign/apartment")
+	public ResponseEntity<String> assignApartment(Apartment apartment){
+		return null;
+	}
+	//TODO da sostituire la responseEntity con un dto del customer con l'id del nuovo appartamento, e l'input con un dto
+	//inserire in util path
+
+	//TODO da terminare
+	@PostMapping("/createcondominium")
+	public ResponseEntity<String> CreateCondominium(Condominium condominium){
+		return ResponseEntity.status(HttpStatus.CREATED).body("Condominio Aggiunto con successo.");
+	}
 
 }
