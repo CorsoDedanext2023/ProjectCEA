@@ -1,21 +1,13 @@
 package it.dedagroup.project_cea.model;
 
 
-import java.time.LocalDate;
-import java.util.List;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.util.List;
 //TODO Implementare la relazione con Condominium
 @Entity
 @Data
@@ -26,7 +18,7 @@ public class Scan {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@Column(nullable = false)
-	private double mcLiter = 0;
+	private Double mcLiter;
 	@Column(nullable = false)
 	private boolean isAvailable = true;
 	@Column(nullable = false)

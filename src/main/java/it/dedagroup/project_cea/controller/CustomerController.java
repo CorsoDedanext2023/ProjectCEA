@@ -1,34 +1,22 @@
 package it.dedagroup.project_cea.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import it.dedagroup.project_cea.dto.request.LoginDTORequest;
-import it.dedagroup.project_cea.dto.request.CustomerNameSurnameDtoRequest;
+import it.dedagroup.project_cea.dto.request.*;
 import it.dedagroup.project_cea.dto.response.CustomerDtoResponse;
-import it.dedagroup.project_cea.dto.request.AddCustomerDtoRequest;
-import it.dedagroup.project_cea.dto.request.BookInterventionDto;
-import it.dedagroup.project_cea.dto.request.EditCustomerDto;
-import it.dedagroup.project_cea.dto.request.MeterScanDto;
-import it.dedagroup.project_cea.dto.request.PayBillDto;
 import it.dedagroup.project_cea.facade.CustomerFacade;
 import it.dedagroup.project_cea.model.Bill;
 import it.dedagroup.project_cea.model.Intervention;
 import it.dedagroup.project_cea.model.Scan;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 import static it.dedagroup.project_cea.util.UtilPath.*;
 
 @RestController
-@RequestMapping("/technician")
 public class CustomerController {
 	
 	@Autowired

@@ -1,16 +1,4 @@
-package it.dedagroup.project_cea.businesslogic;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+package it.dedagroup.project_cea.controller;
 
 import it.dedagroup.project_cea.dto.request.ScanDtoRequest;
 import it.dedagroup.project_cea.dto.request.TechnicianDTORequest;
@@ -18,10 +6,16 @@ import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
 import it.dedagroup.project_cea.dto.response.TechnicianDTOResponse;
 import it.dedagroup.project_cea.facade.TechnicianFacade;
 import it.dedagroup.project_cea.model.Technician;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 import static it.dedagroup.project_cea.util.UtilPath.*;
 
 @RestController
-@RequestMapping("/technician")
 public class TechnicianController {
 	
 	@Autowired
