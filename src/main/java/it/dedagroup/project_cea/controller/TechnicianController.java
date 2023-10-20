@@ -25,8 +25,8 @@ public class TechnicianController {
 		return ResponseEntity.status(HttpStatus.OK).body(techFac.getAllScans());
 	}
 	
-	@GetMapping(SET_SCAN_PATH)
-	public ResponseEntity<String> setScan(@RequestBody ScanDtoRequest request){
+	@PostMapping(SET_SCAN_PATH)
+	public ResponseEntity<String> setScan(@RequestBody long id, ScanDtoRequest request){
 		return ResponseEntity.status(HttpStatus.OK).body(techFac.addScan(request));
 	}
 	
@@ -55,7 +55,7 @@ public class TechnicianController {
 		}
 	}
 	
-	@GetMapping(FIND_ALL_PATH)
+	@GetMapping(FIND_FREE_PATH)
 	public ResponseEntity<List<TechnicianDTOResponse>> findFree(){
 		List<TechnicianDTOResponse> list = techFac.findFree();
 		if(list!=null){
