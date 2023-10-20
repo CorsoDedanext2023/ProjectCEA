@@ -5,7 +5,6 @@ import it.dedagroup.project_cea.dto.request.TechnicianDTORequest;
 import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
 import it.dedagroup.project_cea.dto.response.TechnicianDTOResponse;
 import it.dedagroup.project_cea.facade.TechnicianFacade;
-import it.dedagroup.project_cea.model.Technician;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +50,16 @@ public class TechnicianController {
 		List<TechnicianDTOResponse> t = techFac.findAll();
 		if(t!=null){
 			return ResponseEntity.status(HttpStatus.OK).body(t);
+		}else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	@GetMapping(FIND_ALL_PATH)
+	public ResponseEntity<List<TechnicianDTOResponse>> findFree(){
+		List<TechnicianDTOResponse> list = techFac.findFree();
+		if(list!=null){
+			return ResponseEntity.status(HttpStatus.OK).body(list);
 		}else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}

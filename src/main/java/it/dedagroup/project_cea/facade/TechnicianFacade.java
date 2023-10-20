@@ -64,7 +64,8 @@ public class TechnicianFacade {
 
 	public String addScan(ScanDtoRequest scanRequest) {
 		Scan newScan = scanMap.toScanFromDtoRequest(scanRequest);
-		scanServ.addScan(newScan);
+		long idTechnician = scanRequest.getIdTechnician();
+		scanServ.addScan(newScan, idTechnician);
 		return "Scan added";
 	}
 
@@ -112,6 +113,14 @@ public class TechnicianFacade {
 	public String removeByUsername(TechnicianDTORequest request) {
 		techServ.removeByUsername(request.getUsername());
 		return "Technico Rimosso";
+	}
+	
+	public List<TechnicianDTOResponse> findFree(){
+		List<Technician> list = techServ.findFree();
+		if(list.isEmpty()) {
+			throw new UserNotFoundException("Empty list of technicians");
+		}
+		return techMapper.technicianDTOResponsesList(list);
 	}
 
 }

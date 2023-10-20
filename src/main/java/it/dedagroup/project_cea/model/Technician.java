@@ -24,7 +24,7 @@ public class Technician extends User{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@Column(nullable = false)
-    private int workload;
+    private int workLoad;
 	@Column(nullable = false)
 	private Role role = Role.TECHNICIAN;
 	private boolean isAvailable = true;

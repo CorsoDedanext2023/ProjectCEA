@@ -17,5 +17,9 @@ public class ScanDtoRequest {
     private LocalDate scanDate;
     @NotNull(message = "Il campo apartmentId non può essere lasciato in bianco")
     private long apartmentId;
+    @NotNull(message = "Id tecnico non può essere lasciato bianco")
+    private long idTechnician;
+    @NotNull(message = "Id intervento non può essere lasciato bianco")
+    private long idIntervention;
 
 }

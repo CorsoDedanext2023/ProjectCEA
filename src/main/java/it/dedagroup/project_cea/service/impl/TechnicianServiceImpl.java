@@ -56,7 +56,14 @@ public class TechnicianServiceImpl implements TechnicianServiceDef{
 
 	@Override
 	public List<Technician> findFree() {
-		// TODO Auto-generated method stub
+		// TODO Metodo che ritorni una lista di tecnici disponibili(che non hanno fatto più di 5 interventi in quel giorno)
+		List<Technician> lista = techRepo.findAll();
+		for(Technician t : lista) {
+			if(t.isAvailable()) {
+				lista.add(t);
+				return lista;
+			}
+		}
 		return null;
 	}
 

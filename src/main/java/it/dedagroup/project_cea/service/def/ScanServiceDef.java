@@ -7,8 +7,10 @@ import it.dedagroup.project_cea.model.Scan;
 
 public interface ScanServiceDef {
 	public List<Scan> findAll();
+	
+	public void save(Scan scan);
 
-	public void addScan(Scan scan);
+	public void addScan(Scan scan, long idTechnician);
 
 	public Scan findById(long id);
 
