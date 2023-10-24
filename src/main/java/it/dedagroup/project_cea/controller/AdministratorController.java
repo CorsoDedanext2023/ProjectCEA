@@ -1,5 +1,6 @@
 package it.dedagroup.project_cea.controller;
 
+import it.dedagroup.project_cea.dto.request.AceaBillRequest;
 import it.dedagroup.project_cea.dto.request.AddApartmentDtoRequest;
 import it.dedagroup.project_cea.dto.request.AdministratorIdDtoRequest;
 import it.dedagroup.project_cea.dto.request.BillDTORequest;
@@ -17,6 +18,7 @@ import java.util.List;
 import static it.dedagroup.project_cea.util.UtilPath.*;
 
 @RestController
+@RequestMapping(value="administrator")
 public class AdministratorController {
 	
 	@Autowired
@@ -49,6 +51,11 @@ public class AdministratorController {
     @GetMapping(GET_CUSTOMER_PATH)
     public ResponseEntity<List<CustomerExtendedInfoDTOResponse>> getCustomerOfCondominium(@RequestParam long id){
     	return ResponseEntity.status(HttpStatus.FOUND).body(administratorFacade.getCustomerByCondominiumId(id));
+    }
+    
+    @PostMapping("/billSplitter/{idCondominium}")
+    public ResponseEntity<String> billSplitter(@PathVariable long idCondominium,@RequestBody AceaBillRequest request){
+        return ResponseEntity.ok(administratorFacade.billSplitter(idCondominium, request));
     }
 
 }
