@@ -18,7 +18,7 @@ import static it.dedagroup.project_cea.util.UtilPath.*;
 
 @RestController
 public class CustomerController {
-	
+	//TODO validate i request param e i pathvariable
 	@Autowired
 	CustomerFacade customerFacade;
 

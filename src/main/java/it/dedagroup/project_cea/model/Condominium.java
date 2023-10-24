@@ -20,7 +20,7 @@ public class Condominium {
 	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
 	@JoinColumn
 	private Administrator administrator;
-	@OneToMany(mappedBy = "condominium")
+	@OneToMany(mappedBy = "condominium",cascade = CascadeType.PERSIST)
 	private List<Apartment> apartments;
 	@Column(nullable = false)
 	private boolean isAvailable = true;

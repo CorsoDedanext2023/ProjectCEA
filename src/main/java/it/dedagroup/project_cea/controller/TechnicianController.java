@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static it.dedagroup.project_cea.util.UtilPath.*;
-
+//TODO validate i request param e i pathvariable
 @RestController
 public class TechnicianController {
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.dedagroup.project_cea.dto.request.AddCondominiumDTORequest;
 import it.dedagroup.project_cea.dto.response.CondominiumForAdministratorDtoResponse;
+import it.dedagroup.project_cea.model.Apartment;
 import it.dedagroup.project_cea.service.impl.CondominiumServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -57,7 +58,7 @@ public class CondominiumMapper {
 	public Condominium fromAddCondominiumDTORequestToCondominium(AddCondominiumDTORequest request){
 		Condominium condominium=new Condominium();
 		condominium.setAddress(request.getAddress());
-		condominium.setAdministrator(administratorService.findById(request.getAdministrator_id()));
+		condominium.setAdministrator(administratorService.findAdministratorById(request.getAdministrator_id()));
 		condominium.setAvailable(true);
 		condominium.setApartments(apartmentMapper.fromListDtoToApartmentList(request.getApartmentList()));
 		return condominium;

@@ -9,6 +9,7 @@ import it.dedagroup.project_cea.dto.response.ApartmentForCondominiumDtoResponse;
 import it.dedagroup.project_cea.dto.response.ApartmentScanDTOResponse;
 import it.dedagroup.project_cea.service.impl.CondominiumServiceImpl;
 import it.dedagroup.project_cea.service.impl.CustomerServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -65,7 +66,7 @@ public class ApartmentMapper {
 		return apartment;
 	}
 
-	public Apartment fromAddApartmentForAddCondominiumDTORequestToApartment(AddApartmentForAddCondominiumDTORequest request){
+	public Apartment fromAddApartmentForAddCondominiumDTORequestToApartment(@Valid  AddApartmentForAddCondominiumDTORequest request){
 		Apartment apartment=new Apartment();
 		apartment.setInterventions(new ArrayList<>());
 		//l'id del condominio verrà assegnato speriamo in un secondo momento

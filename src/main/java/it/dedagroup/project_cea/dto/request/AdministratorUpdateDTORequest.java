@@ -1,5 +1,6 @@
 package it.dedagroup.project_cea.dto.request;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -11,7 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class AdministratorUpdateDTORequest {
-	
+
+		@Min(1)
 		private long id;
 		private String username;
 		@Size(min = 6, message = "inserire almeno sei caratteri per la password")

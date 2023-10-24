@@ -109,6 +109,9 @@ public class AdministratorFacade {
 
 	public void createCondominium(AddCondominiumDTORequest request){
 		Condominium condominium=condominiumMapper.fromAddCondominiumDTORequestToCondominium(request);
+		for (Apartment apartment:condominium.getApartments()) {
+			apartment.setCondominium(condominium);
+		}
 		condominiumService.addCondominium(condominium);
 
 
