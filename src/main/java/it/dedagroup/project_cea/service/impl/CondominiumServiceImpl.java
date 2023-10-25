@@ -58,4 +58,5 @@ public class CondominiumServiceImpl implements CondominiumServiceDef {
 
 
 
+
 }

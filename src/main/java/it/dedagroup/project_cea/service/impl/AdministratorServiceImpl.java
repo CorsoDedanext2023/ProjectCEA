@@ -12,33 +12,38 @@ import it.dedagroup.project_cea.service.def.AdministratorServiceDef;
 public class AdministratorServiceImpl implements AdministratorServiceDef{
 	
 	@Autowired
-	private AdministratorRepository AdministratorRepository;
-	
+	private AdministratorRepository administratorRepository;
+
+//ci dovrò inserire un eccezione migliore
+	@Override
+	public Administrator findAdministratorById(long administrator_id) {
+		return administratorRepository.findById(administrator_id).orElseThrow(RuntimeException::new);
+	}
 
 	@Override
 	public Administrator addAdministrator(Administrator administrator) {
-		return AdministratorRepository.save(administrator);
+		return administratorRepository.save(administrator);
 	}
 
 	@Override
 	public void deleteAdministrator(long id) {
-		AdministratorRepository.deleteById(id);
+		administratorRepository.deleteById(id);
 	}
 
 	
 	@Override
 	public Administrator updateAdministrator(Administrator administrator) {
-		return AdministratorRepository.save(administrator);
+		return administratorRepository.save(administrator);
 	}
 
 	@Override
 	public Administrator findById(long id) {
-		return AdministratorRepository.findById(id).orElseThrow(()-> new RuntimeException("Non esiste nessun amministratore con questo id"));
+		return administratorRepository.findById(id).orElseThrow(()-> new RuntimeException("Non esiste nessun amministratore con questo id"));
 	}
 
 	@Override
 	public Administrator findByCondominiums_Id(long id) {
-		return AdministratorRepository.findByCondominiums_Id(id).orElseThrow(()-> new RuntimeException("Non esiste nessun condominio con questo id"));
+		return administratorRepository.findByCondominiums_Id(id).orElseThrow(()-> new RuntimeException("Non esiste nessun condominio con questo id"));
 	}
 	
 	

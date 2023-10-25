@@ -8,10 +8,10 @@ import lombok.Data;
 
 public class CondominiumDTORequest {
 	
-	@NotBlank(message = "Inserimento della via non valida")
+	@NotBlank(message = "Il campo indirizzo non può essere vuoto")
 	private String address;
-	@NotBlank(message = "Inserimento dell'amministratore non valida")
-	@Min(value = 1, message = "Inserimento dell'id dell'amministratore non valido")
+	@NotBlank(message = "Il campo iD dell' amministratore non può essere vuoto")
+	@Min(value = 1, message = "L'id deve essere maggiore di 1")
 	private long id_administrator;
 
 }
