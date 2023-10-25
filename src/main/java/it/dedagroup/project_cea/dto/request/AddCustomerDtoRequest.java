@@ -13,4 +13,5 @@ public class AddCustomerDtoRequest {
 	private String username;
 	private String password;
 	private String taxCode;
+	private long id_apartment;
 }
