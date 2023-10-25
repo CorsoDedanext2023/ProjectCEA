@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomerNameSurnameDtoRequest {
+	
 	@NotNull(message = "Insert a value on field name")
 	@Pattern(regexp = "^[\\p{L} '-]+$", message = "Insert a valid name")
 	private String name;
