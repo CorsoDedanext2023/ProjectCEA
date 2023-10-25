@@ -26,7 +26,7 @@ public class TechnicianMapper {
 
 
 	public List<TechnicianDTOResponse> toTechnicianDTOResponseList(List<Technician> technicians){
-		return technicians.stream().map(this::toDTO).toList();
+		return technicians.stream().map(this::toTechnicianDTOResponse).toList();
 	}
 
 	public Technician toTechnicianFromDtoRequest(TechnicianDTORequest request) {
