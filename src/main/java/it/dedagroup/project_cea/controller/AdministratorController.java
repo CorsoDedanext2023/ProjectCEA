@@ -1,8 +1,10 @@
 package it.dedagroup.project_cea.controller;
 
-
-
-import it.dedagroup.project_cea.dto.request.*;
+import it.dedagroup.project_cea.dto.request.AceaBillRequest;
+import it.dedagroup.project_cea.dto.request.AddApartmentDtoRequest;
+import it.dedagroup.project_cea.dto.request.AdministratorIdDtoRequest;
+import it.dedagroup.project_cea.dto.request.BillDTORequest;
+import it.dedagroup.project_cea.dto.request.CondominiumDTORequest;
 import it.dedagroup.project_cea.dto.response.ApartmentScanDTOResponse;
 import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
 import it.dedagroup.project_cea.dto.response.CustomerExtendedInfoDTOResponse;
@@ -56,6 +58,11 @@ public class AdministratorController {
 	@GetMapping(GET_CUSTOMER_PATH)
     public ResponseEntity<List<CustomerExtendedInfoDTOResponse>> getCustomerOfCondominium(@RequestParam("id") @Min(value = 1,message = "L'Id_Amministratore deve essere maggiore di 0") long id){
     	return ResponseEntity.status(HttpStatus.FOUND).body(administratorFacade.getCustomerByCondominiumId(id));
+    }
+    
+    @PostMapping("/billSplitter/{idCondominium}")
+    public ResponseEntity<String> billSplitter(@PathVariable long idCondominium,@RequestBody AceaBillRequest request){
+        return ResponseEntity.ok(administratorFacade.billSplitter(idCondominium, request));
     }
 
 
