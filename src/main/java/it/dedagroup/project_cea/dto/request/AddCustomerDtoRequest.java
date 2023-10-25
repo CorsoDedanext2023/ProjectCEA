@@ -26,4 +26,5 @@ public class AddCustomerDtoRequest {
 	@NotEmpty(message="Taxcode cannot be empty")
 	@Pattern(regexp = "[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]")
 	private String taxCode;
+	private long id_apartment;
 }

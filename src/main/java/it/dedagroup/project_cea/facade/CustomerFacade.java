@@ -1,5 +1,6 @@
 package it.dedagroup.project_cea.facade;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,12 @@ import it.dedagroup.project_cea.dto.request.PayBillDto;
 import it.dedagroup.project_cea.dto.response.CustomerDtoResponse;
 import it.dedagroup.project_cea.exception.model.NotValidDataException;
 import it.dedagroup.project_cea.mapper.CustomerMapper;
+import it.dedagroup.project_cea.model.Apartment;
 import it.dedagroup.project_cea.model.Bill;
 import it.dedagroup.project_cea.model.Customer;
 import it.dedagroup.project_cea.model.Intervention;
 import it.dedagroup.project_cea.model.Scan;
+import it.dedagroup.project_cea.service.def.ApartmentServiceDef;
 import it.dedagroup.project_cea.service.def.BillServiceDef;
 import it.dedagroup.project_cea.service.def.CustomerServiceDef;
 
@@ -34,21 +37,29 @@ public class CustomerFacade {
 	CustomerMapper CustomerMapper;
 	@Autowired
 	BillServiceDef billServiceDef;
+	@Autowired
+	ApartmentServiceDef apartmentServiceDef; 
 	
 	public void saveCustomer(AddCustomerDtoRequest request) {
 		try {
-			customerServiceDef.findCustomerByUsername(request.getUsername());
+			Customer c1 = customerServiceDef.findCustomerByUsername(request.getUsername());
+			if (c1 != null)throw new NotValidDataException("This username is not available: "+request.getUsername());
+			Customer c2 = customerServiceDef.findCustomerByTaxCode(request.getTaxCode());
+			if (c2 != null)throw new NotValidDataException("Already in use this tax code: "+request.getTaxCode());
 		} catch (NotValidDataException e) {
+			//TODO Da discutere l'aggiunta dell'appartamento in customer
+			//Apartment a = apartmentServiceDef.findById(request.getId_apartment());
 			Customer customerAdd = new Customer();
+			//List<Apartment> apartments = new ArrayList<>();
+			//apartments.add(a);
 			customerAdd.setName(request.getName());
 			customerAdd.setSurname(request.getSurname());
-			customerAdd.setUsername(request.getSurname());
+			customerAdd.setUsername(request.getUsername());
 			customerAdd.setPassword(request.getPassword());
 			customerAdd.setTaxCode(request.getTaxCode());
+			//customerAdd.setApartments(apartments);
 			customerServiceDef.saveCustomer(customerAdd);
 		}
-		throw new NotValidDataException("Error existing user with username: " + request.getUsername());
-
 	}
 
 	public void modifyCustomer(EditCustomerDto request) {
@@ -78,6 +89,7 @@ public class CustomerFacade {
 	}
 
 	public void deleteCustomer(long id_customer) {
+		if (id_customer < 1)throw new NotValidDataException("Error insert a valid customer id: " + id_customer);
 		customerServiceDef.deleteCustomer(id_customer);
 	}
 
@@ -87,7 +99,7 @@ public class CustomerFacade {
 	}
 
 	public List<Bill> getBills(long id_customer) {
-		if (id_customer < 0)
+		if (id_customer < 1)
 			throw new NotValidDataException("Error insert a valid customer id: " + id_customer);
 		return billServiceDef.findAllBillByScan_Apartment_Customer_Id(id_customer);
 	}
@@ -101,7 +113,7 @@ public class CustomerFacade {
 	}
 	
 	public CustomerDtoResponse findCustomerById(long id_customer) {
-		if (id_customer < 0)
+		if (id_customer < 1)
 			throw new NotValidDataException("Error insert a valid customer id: " + id_customer);
 		return customerMapper.toDto(customerServiceDef.findCustomerById(id_customer));
 	}
@@ -116,18 +128,14 @@ public class CustomerFacade {
 	}
 
 	public CustomerDtoResponse findCustomerByUsername(String username) {
-		String regexUsername = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
-		if (username == null || username.trim().isEmpty() || !username.matches(regexUsername)) {
-			throw new NotValidDataException("Error, insert a valid username");
+		if (username == null || username.trim().isEmpty()) {
+			throw new NotValidDataException("Error insert a valid username");
 		}
-		return CustomerMapper.toDto(customerServiceDef.findCustomerByUsername(regexUsername));
+		return CustomerMapper.toDto(customerServiceDef.findCustomerByUsername(username));
 	}
 
 	public CustomerDtoResponse findCustomerByTax_Code(String taxCode) {
-		String regexParametri = "^[A-Z]{6}\\d{2}[A-Z]\\d{2}[A-Z]\\d{3}[A-Z]$";
-		if (!taxCode.matches(regexParametri)) {
-			throw new NotValidDataException("Error, insert a valid tax code");
-		}
+		if (taxCode == null || taxCode.isEmpty())throw new NotValidDataException("Error insert a valid tax code");
 		return CustomerMapper.toDto(customerServiceDef.findCustomerByTaxCode(taxCode));
 	}
 
@@ -136,7 +144,7 @@ public class CustomerFacade {
 	}
 
 	public CustomerDtoResponse findCustomerByApartments_Id(long id_apartment) {
-		if (id_apartment < 0)
+		if (id_apartment < 1)
 			throw new NotValidDataException("Error insert a valid apartment id: " + id_apartment);
 		return customerMapper.toDto(customerServiceDef.findCustomerByApartments_Id(id_apartment));
 	}
