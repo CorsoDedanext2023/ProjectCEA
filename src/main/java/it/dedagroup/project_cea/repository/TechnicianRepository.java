@@ -17,4 +17,6 @@ public interface TechnicianRepository extends JpaRepository<Technician, Long> {
 //	@Query("SELECT COUNT (*) FROM INTERVENTION i WHERE i.interventionDate  = :x")
 //	public Optional<List<Technician>> findFreeTechnicians(LocalDate x);
 	Optional<Technician> findByInterventions_Id(Long id);
+	List<Technician> findAllByInterventions_Secretary_id(long idSec);
+	Optional<Technician> findByNameAndSurname(String name, String surname);
 }
