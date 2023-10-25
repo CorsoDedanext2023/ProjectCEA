@@ -44,8 +44,9 @@ public class ScanMapper {
 		List<Bill> billList = new ArrayList<>();
 		scanModel.setMcLiter(request.getMcLiter());
 		scanModel.setAvailable(true);
-		scanModel.setApartment(apartmentServ.findApartmentByInterventionsId(request.getApartmentId()));
+		scanModel.setApartment(apartmentServ.findById(request.getApartmentId()));
 		scanModel.setBills(billList);
+		scanModel.setScanDate(request.getScanDate());
 		return scanModel;
 	}
 
