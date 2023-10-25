@@ -1,14 +1,10 @@
 package it.dedagroup.project_cea.service.impl;
 
 import java.util.List;
-import java.util.Optional;
-
 import it.dedagroup.project_cea.exception.model.ScanNotFoundException;
 import it.dedagroup.project_cea.exception.model.UserNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import it.dedagroup.project_cea.exception.model.NotValidDataException;
 import it.dedagroup.project_cea.model.Scan;
 import it.dedagroup.project_cea.model.Technician;
@@ -64,6 +60,8 @@ public class ScanServiceImpl implements ScanServiceDef {
 		sc.setAvailable(false);
 		scanRepo.save(sc);
 	}
-
-	
+	@Override
+	public List<Scan> findAllScanByCondominiumId(long condominiumId) {
+		return scanRepo.findAllByApartment_Condominium_Id(condominiumId);
+	}
 }

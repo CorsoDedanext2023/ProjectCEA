@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.dedagroup.project_cea.dto.request.AddApartmentDtoRequest;
+import it.dedagroup.project_cea.dto.request.AddApartmentForAddCondominiumDTORequest;
 import it.dedagroup.project_cea.dto.response.ApartmentForCondominiumDtoResponse;
+import it.dedagroup.project_cea.dto.response.ApartmentScanDTOResponse;
 import it.dedagroup.project_cea.service.impl.CondominiumServiceImpl;
 import it.dedagroup.project_cea.service.impl.CustomerServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -64,4 +67,24 @@ public class ApartmentMapper {
 		apartment.setInterventions(new ArrayList<>());
 		return apartment;
 	}
+
+	public Apartment fromAddApartmentForAddCondominiumDTORequestToApartment(@Valid  AddApartmentForAddCondominiumDTORequest request){
+		Apartment apartment=new Apartment();
+		apartment.setInterventions(new ArrayList<>());
+		//l'id del condominio verrà assegnato speriamo in un secondo momento
+		if(request.getId_customer()==0||Long.valueOf(request.getId_customer())==null){
+			apartment.setCustomer(null);
+		} else apartment.setCustomer(customerService.findCustomerById(request.getId_customer()));
+		apartment.setScans(new ArrayList<>());
+		apartment.setFloorNumber(request.getFloorNumber());
+		apartment.setUnitNumber(request.getUnitNumber());
+		apartment.setAvailable(true);
+		return apartment;
+	}
+
+	public List<Apartment> fromListDtoToApartmentList(List<AddApartmentForAddCondominiumDTORequest> requestList){
+		return requestList.stream().map(this::fromAddApartmentForAddCondominiumDTORequestToApartment).toList();
+	}
+
+
 }

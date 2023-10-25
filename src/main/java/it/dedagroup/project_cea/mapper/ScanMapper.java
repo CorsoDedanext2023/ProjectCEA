@@ -2,6 +2,9 @@ package it.dedagroup.project_cea.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import it.dedagroup.project_cea.dto.response.ApartmentDTOResponse;
+import it.dedagroup.project_cea.dto.response.ApartmentScanDTOResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import it.dedagroup.project_cea.dto.request.ScanDtoRequest;
@@ -45,5 +48,19 @@ public class ScanMapper {
 		scanModel.setBills(billList);
 		scanModel.setScanDate(request.getScanDate());
 		return scanModel;
+	}
+
+	public ApartmentScanDTOResponse fromScanToApartmentScanDTOResponse(Scan scan){
+		ApartmentScanDTOResponse response=new ApartmentScanDTOResponse();
+		response.setMcLiter(scan.getMcLiter());
+		response.setFloorNumber(scan.getApartment().getFloorNumber());
+		response.setCustomerName(scan.getApartment().getCustomer().getName());
+		response.setCondominium_id(scan.getApartment().getCondominium().getId());
+		response.setScanDate(scan.getScanDate());
+		return response;
+	}
+
+	public List<ApartmentScanDTOResponse> toApartmentScanDtoResposneList (List<Scan> condominiumScans){
+		return condominiumScans.stream().map(this::fromScanToApartmentScanDTOResponse).toList();
 	}
 }
