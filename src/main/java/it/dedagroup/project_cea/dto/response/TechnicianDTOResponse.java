@@ -15,11 +15,11 @@ public class TechnicianDTOResponse {
 	
 	private long id_secretary;
 	
-	private int max_intervention_for_technician = 5;
+	private int workLoad = 5;
 	
-	private String nome;
+	private String name;
 
-	private String cognome;
+	private String surname;
 	
 	private String username;
 	

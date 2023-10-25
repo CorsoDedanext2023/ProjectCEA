@@ -25,11 +25,13 @@ public class ApartmentMapper {
 	public ApartmentDTOResponse toDto(Apartment a) {
 		if (a == null)throw new NotValidDataException("Apartment is empty: "+a);
 		ApartmentDTOResponse apart = new ApartmentDTOResponse();
-		apart.setId(a.getId());
-		apart.setUnitNumber(a.getUnitNumber());
-		apart.setFloorNumber(a.getFloorNumber());
-		apart.setId_customer(a.getCustomer().getId());
-		apart.setId_condominium(a.getCondominium().getId());
+
+		//apart.setId(a.getId());
+	//	apart.setId(a.getId());
+		//apart.setId_customer(a.getCustomer().getId());
+		//apart.setId_condominium(a.getCondominium().getId());
+	//	apart.setId_customer(a.getCustomer().getId());
+	//	apart.setId_condominium(a.getCondominium().getId());
 		return apart;
 	}
 	public List<ApartmentDTOResponse> toListDto(List<Apartment> apart){
