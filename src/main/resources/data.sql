@@ -45,6 +45,26 @@ VALUES (TRUE, '2024-02-15', 2, 400);
 INSERT INTO scan (is_available, scan_date, apartment_id, mc_liter)
 VALUES (TRUE, '2023-09-15', 3, 120);
 
+INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-01-18', 1, 120 );
+
+INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-01-18', 2, 320 );
+
+INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-02-18', 1, 140 );
+
+INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-02-18', 2, 340 );
+
+INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-03-18', 1, 160 );
+
+INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-03-18', 2, 360 );
+
+INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-04-18', 1, 180 );
+
+INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-04-18', 2, 380 );
+
+INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-05-18', 1, 200 );
+
+INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-05-18', 2, 400 );
+
 -- Inserimento delle fatture (bill) con il riferimento alla scansione (meter)
 INSERT INTO bill (cost, payment_day, delivering_Day, is_available, scan_id)
 VALUES (200, '2023-12-15', '2023-10-15', TRUE, 1);

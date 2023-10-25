@@ -4,16 +4,22 @@ package it.dedagroup.project_cea.facade;
 import java.util.List;
 
 import it.dedagroup.project_cea.dto.request.*;
+import it.dedagroup.project_cea.dto.response.ApartmentScanDTOResponse;
 import it.dedagroup.project_cea.mapper.*;
+import it.dedagroup.project_cea.model.Apartment;
+import it.dedagroup.project_cea.model.Condominium;
+import it.dedagroup.project_cea.model.Scan;
 import it.dedagroup.project_cea.service.impl.ApartmentServiceImpl;
+import it.dedagroup.project_cea.service.impl.BillServiceImpl;
+import it.dedagroup.project_cea.service.impl.ScanServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import it.dedagroup.project_cea.dto.response.AdministratorDtoResponse;
 import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
 import it.dedagroup.project_cea.dto.response.CustomerExtendedInfoDTOResponse;
 import it.dedagroup.project_cea.model.Administrator;
-import it.dedagroup.project_cea.service.def.BillServiceDef;
+import it.dedagroup.project_cea.model.Bill;
+import it.dedagroup.project_cea.model.Condominium;
 import it.dedagroup.project_cea.service.impl.AdministratorServiceImpl;
 import it.dedagroup.project_cea.service.impl.CondominiumServiceImpl;
 
@@ -27,7 +33,7 @@ public class AdministratorFacade {
 	@Autowired
 	CondominiumServiceImpl condominiumService;
 	@Autowired
-	BillServiceDef billService;
+	BillServiceImpl billService;
 	@Autowired
 	BillMapper billMapper;
 	@Autowired
@@ -38,6 +44,10 @@ public class AdministratorFacade {
 	ApartmentServiceImpl apartmentService;
 	@Autowired
 	ApartmentMapper apartmentMapper;
+	@Autowired
+	ScanServiceImpl scanService;
+	@Autowired
+	ScanMapper scanMapper;
 
 	
 	public AdministratorDtoResponse findById(long id) {
@@ -68,8 +78,21 @@ public class AdministratorFacade {
 		return mapper.toDto(service.findByCondominiums_Id(id));
 	}
 	
-	public void billSplitter() {
-		
+	public String billSplitter(long idCondominium, AceaBillRequest bill) {
+		if(idCondominium!=bill.getIdCondominium()) throw new RuntimeException("L'id del condominio non corrisponde a quello della bolletta");
+		Condominium condominium=condominiumService.findById(idCondominium);
+		for(int i=0;i<condominium.getApartments().size();i++) {
+			int indexOfLastScan=condominium.getApartments().get(i).getScans().size();
+			double ApartmentConsumption=condominium.getApartments().get(i).getScans().get(indexOfLastScan-1).getMcLiter();
+			double ApartmentAmount = bill.getCost() * ( ApartmentConsumption/ bill.getCondominiumConsumption());
+			Bill apartmentBill=new Bill();
+			apartmentBill.setCost(ApartmentAmount);
+			apartmentBill.setDeliveringDay(bill.getDeliveryDate());
+			apartmentBill.setPaymentDay(bill.getPaymentDate());
+			apartmentBill.setScan(condominium.getApartments().get(i).getScans().get(indexOfLastScan-1));
+			billService.addBill(apartmentBill);
+		}
+		return "bollette splittate";
 	}
 
 	public List<CondominiumDtoResponse> getCondominiumByAdministratorId(AdministratorIdDtoRequest request){
@@ -93,5 +116,22 @@ public class AdministratorFacade {
 	public void addApartment(AddApartmentDtoRequest request){
 		apartmentService.saveApartment(apartmentMapper.fromAddApartmentDtoRequestToApartment(request));
 	}
-	
+
+	public List<ApartmentScanDTOResponse> findAllScanByCondominiumId(long condominiumId){
+		return scanMapper.toApartmentScanDtoResposneList(scanService.findAllScanByCondominiumId(condominiumId));
+	}
+
+	public void createCondominium(AddCondominiumDTORequest request){
+		Condominium condominium=condominiumMapper.fromAddCondominiumDTORequestToCondominium(request);
+		for (Apartment apartment:condominium.getApartments()) {
+			apartment.setCondominium(condominium);
+		}
+		condominiumService.addCondominium(condominium);
+
+
+
+
+	}
+
+
 }

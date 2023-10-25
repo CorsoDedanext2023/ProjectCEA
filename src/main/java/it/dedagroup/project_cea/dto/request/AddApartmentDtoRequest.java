@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-//TODO Implementare le validation di Apartment
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -1,5 +1,7 @@
 package it.dedagroup.project_cea.mapper;
 
+import it.dedagroup.project_cea.dto.response.InterventionDTOResponse;
+import it.dedagroup.project_cea.model.Intervention;
 import org.springframework.stereotype.Component;
 
 import it.dedagroup.project_cea.dto.request.TechnicianDTORequest;
@@ -10,23 +12,24 @@ import java.util.List;
 
 @Component
 public class TechnicianMapper {
-	
-	public TechnicianDTOResponse toDTO(Technician t) {
+
+	public TechnicianDTOResponse toTechnicianDTOResponse(Technician t) {
 		if(t==null) return null;
 		TechnicianDTOResponse tech = new TechnicianDTOResponse();
 		tech.setId(t.getId());
-		tech.setNome(t.getName());
-		tech.setCognome(t.getSurname());
+		tech.setName(t.getName());
+		tech.setSurname(t.getSurname());
 		tech.setUsername(t.getUsername());
 		tech.setPassword(t.getPassword());
 		return tech;
 	}
 
+
 	public List<TechnicianDTOResponse> toTechnicianDTOResponseList(List<Technician> technicians){
 		return technicians.stream().map(this::toDTO).toList();
 	}
 
-	public Technician toTechnicianFromDto(TechnicianDTORequest request) {
+	public Technician toTechnicianFromDtoRequest(TechnicianDTORequest request) {
 		Technician tech = new Technician();
 		tech.setId(request.getId());
 		tech.setName(request.getName());
@@ -34,5 +37,9 @@ public class TechnicianMapper {
 		tech.setUsername(request.getUsername());
 		tech.setPassword(request.getPassword());
 		return tech;
+	}
+
+	public List<TechnicianDTOResponse> technicianDTOResponsesList(List<Technician> technicians){
+		return technicians.stream().map(this::toTechnicianDTOResponse).toList();
 	}
 }

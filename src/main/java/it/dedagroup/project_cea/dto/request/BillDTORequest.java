@@ -9,9 +9,8 @@ import lombok.Data;
 @Data
 public class BillDTORequest {
 	
-	@NotBlank(message = "Id scan non valido")
-	@Min(value = 1, message = "Id scan non valido")
+	@NotBlank(message = "Il campo Id_Lettura non può essere vuoto")
+	@Min(value = 1, message = "Il campo Id_Lettura deve essere maggiore di 1")
 	private long id_scan;
-	
 	private LocalDate delivergDay = LocalDate.now();
 }

@@ -24,11 +24,15 @@ public class Technician extends User{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@Column(nullable = false)
-    private int workload;
+    private int maxWorkload;
 	@Column(nullable = false)
 	private Role role = Role.TECHNICIAN;
 	private boolean isAvailable = true;
 	
 	@OneToMany(mappedBy = "technician")
 	private List<Intervention> interventions;
+
+	public int getMaxWorkload() {
+		return maxWorkload;
+	}
 }
