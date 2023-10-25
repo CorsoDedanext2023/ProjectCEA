@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -106,6 +107,12 @@ public class AdministratorController {
     	return ResponseEntity.status(HttpStatus.FOUND).body(administratorFacade.getCustomerByCondominiumId(id));
     }
     
+    //   ENDPOINT DI SUDDIVISIONE BOLLETTE
+    @Operation(summary = "Metodo che splitta le bollette",description = "Questo endpoint prende in input una bolletta condominiale e l'id del condominio nella quale bisogna splittarla, se l'id del condominio non coincide va in eccezione e restituisce status code 404, altrimenti restiutisce status code 200 e una stringa che conferma la suddivisione")
+   @ApiResponses(value= {
+		   @ApiResponse(responseCode = "200",description = "Bollette splittate correttamente",content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = String.class))),
+		   @ApiResponse(responseCode = "Not Found(404)",description = "Nessun condominio co questo id",content = @Content(mediaType = MediaType.ALL_VALUE))
+   })
     @PostMapping("/billSplitter/{idCondominium}")
     public ResponseEntity<String> billSplitter(@PathVariable long idCondominium,@RequestBody AceaBillRequest request){
         return ResponseEntity.ok(administratorFacade.billSplitter(idCondominium, request));
