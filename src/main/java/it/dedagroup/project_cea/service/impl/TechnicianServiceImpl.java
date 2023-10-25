@@ -3,12 +3,14 @@ package it.dedagroup.project_cea.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import it.dedagroup.project_cea.exception.model.UserNotFoundException;
 import it.dedagroup.project_cea.model.Technician;
 import it.dedagroup.project_cea.repository.TechnicianRepository;
 import it.dedagroup.project_cea.service.def.TechnicianServiceDef;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class TechnicianServiceImpl implements TechnicianServiceDef{
@@ -42,9 +44,18 @@ public class TechnicianServiceImpl implements TechnicianServiceDef{
 	}
 
 	@Override
+	public List<Technician> findAllByInterventions_Secretary_id(long idSec) {
+		return techRepo.findAllByInterventions_Secretary_id(idSec);
+	}
+
+	@Override
+	public Technician findByNameAndSurname(String name, String surname) {
+		return techRepo.findByNameAndSurname(name, surname).orElseThrow(()-> new UserNotFoundException("Technician not found with name " + name + " and surname " + surname));
+	}
+
+	@Override
 	public Technician findById(long idTechnician) {
-		techRepo.findById(idTechnician).orElseThrow(()->new UserNotFoundException("Technician not found with ID: " + idTechnician));
-		return null;
+		return techRepo.findById(idTechnician).orElseThrow(()->new UserNotFoundException("Technician not found with ID: " + idTechnician));
 	}
 
 	@Override

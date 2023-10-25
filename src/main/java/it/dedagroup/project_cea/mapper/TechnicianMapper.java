@@ -6,6 +6,8 @@ import it.dedagroup.project_cea.dto.request.TechnicianDTORequest;
 import it.dedagroup.project_cea.dto.response.TechnicianDTOResponse;
 import it.dedagroup.project_cea.model.Technician;
 
+import java.util.List;
+
 @Component
 public class TechnicianMapper {
 	
@@ -18,6 +20,10 @@ public class TechnicianMapper {
 		tech.setUsername(t.getUsername());
 		tech.setPassword(t.getPassword());
 		return tech;
+	}
+
+	public List<TechnicianDTOResponse> toTechnicianDTOResponseList(List<Technician> technicians){
+		return technicians.stream().map(this::toDTO).toList();
 	}
 
 	public Technician toTechnicianFromDto(TechnicianDTORequest request) {

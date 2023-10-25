@@ -1,6 +1,7 @@
 package it.dedagroup.project_cea.service.def;
 
 import java.util.List;
+import java.util.Optional;
 
 import it.dedagroup.project_cea.model.Condominium;
 import it.dedagroup.project_cea.model.Intervention;
@@ -14,4 +15,5 @@ public interface InterventionServiceDef {
 	public Intervention findById(long idIntervention);
 	public List<Intervention> findAll();
 	void save(Intervention interv);
+	public List<Intervention> findAllByApartment_Customer_Id(long idCustomer);
 }
