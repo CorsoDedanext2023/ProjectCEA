@@ -4,8 +4,13 @@ package it.dedagroup.project_cea.facade;
 import java.util.List;
 
 import it.dedagroup.project_cea.dto.request.*;
+import it.dedagroup.project_cea.dto.response.ApartmentScanDTOResponse;
 import it.dedagroup.project_cea.mapper.*;
+import it.dedagroup.project_cea.model.Apartment;
+import it.dedagroup.project_cea.model.Condominium;
+import it.dedagroup.project_cea.model.Scan;
 import it.dedagroup.project_cea.service.impl.ApartmentServiceImpl;
+import it.dedagroup.project_cea.service.impl.ScanServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +43,10 @@ public class AdministratorFacade {
 	ApartmentServiceImpl apartmentService;
 	@Autowired
 	ApartmentMapper apartmentMapper;
+	@Autowired
+	ScanServiceImpl scanService;
+	@Autowired
+	ScanMapper scanMapper;
 
 	
 	public AdministratorDtoResponse findById(long id) {
@@ -93,5 +102,22 @@ public class AdministratorFacade {
 	public void addApartment(AddApartmentDtoRequest request){
 		apartmentService.saveApartment(apartmentMapper.fromAddApartmentDtoRequestToApartment(request));
 	}
-	
+
+	public List<ApartmentScanDTOResponse> findAllScanByCondominiumId(long condominiumId){
+		return scanMapper.toApartmentScanDtoResposneList(scanService.findAllScanByCondominiumId(condominiumId));
+	}
+
+	public void createCondominium(AddCondominiumDTORequest request){
+		Condominium condominium=condominiumMapper.fromAddCondominiumDTORequestToCondominium(request);
+		for (Apartment apartment:condominium.getApartments()) {
+			apartment.setCondominium(condominium);
+		}
+		condominiumService.addCondominium(condominium);
+
+
+
+
+	}
+
+
 }

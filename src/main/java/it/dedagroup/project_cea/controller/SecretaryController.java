@@ -19,7 +19,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static it.dedagroup.project_cea.util.UtilPath.*;
-
+//TODO validate i request param e i pathvariable
 @RestController
 public class SecretaryController {
 	

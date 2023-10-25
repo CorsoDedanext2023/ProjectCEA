@@ -15,4 +15,7 @@ public interface ApartmentRepository extends JpaRepository<Apartment, Long> {
 	public List<Apartment> findAllApartmentByCondominiumId(long id_condominium);
 	public List<Apartment> findAllApartmentByCustomerId(long id_customer);
 	public Optional<Apartment> findApartmentByCustomer_id(long id_user);
+
+	//dovrebbe andarsi a prendere solamente la lista degli appartamenti abitati
+	//public List<Apartment> findAllByCondominium_IdAndCustomerIsNotEmpty(long condominiumId);
 }
