@@ -24,6 +24,11 @@ public class TechnicianMapper {
 		return tech;
 	}
 
+
+	public List<TechnicianDTOResponse> toTechnicianDTOResponseList(List<Technician> technicians){
+		return technicians.stream().map(this::toDTO).toList();
+	}
+
 	public Technician toTechnicianFromDtoRequest(TechnicianDTORequest request) {
 		Technician tech = new Technician();
 		tech.setId(request.getId());

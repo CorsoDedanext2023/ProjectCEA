@@ -53,5 +53,11 @@ public class UtilPath {
     public static final String ACCEPT_PENDING_INTERVENTION_PATH=SECRETARY_PATH+"/acceptPendingIntervention/";
     public static final String LIST_OF_CONDOMINIUM_OF_TECHNICIAN_INTERVENTIONS_PATH=SECRETARY_PATH+"/listOfCondominiumOfInterventionsOfTechnician/";
 
-	
+    public static final String INTERVENTIONS_OF_TECHNICIAN_BY_DATE_AND_PRIORITY=SECRETARY_PATH+"/interventionsOfTechnicianByDateAndPriority/";
+	public static final String GET_ALL_BILLS_OF_CUSTOMER = SECRETARY_PATH + "/getAllBillsOfCustomer/";
+    public static final String GET_ALL_FUTURE_INTERVENTIONS_OF_CUSTOMER = SECRETARY_PATH + "/getAllFutureInterventionsOfCustomer/";
+    public static final String GET_ALL_UNPAID_BILLS_OF_CUSTOMER = SECRETARY_PATH + "/getAllUnpaidBillsOfCustomer/";
+    public static final String GET_SECRETARIES_ASSOCIATED_TO_TECHNICIAN = SECRETARY_PATH + "/getSecretariesOfTechnician/";
+    public static final String CHANGE_TECHNICIAN_ASSIGNED_TO_INTERVENTION = SECRETARY_PATH + "/changeTechnicianAssignedToIntervention/";
+    public static final String GET_ALL_INTERVENTIONS_SORTED_BY_DATE = SECRETARY_PATH + "/getAllInterventionsSortedByDate";
 }

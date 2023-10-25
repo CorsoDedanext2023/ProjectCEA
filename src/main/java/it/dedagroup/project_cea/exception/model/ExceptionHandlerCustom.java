@@ -42,6 +42,14 @@ public class ExceptionHandlerCustom {
 		MessageDtoResponse m = new MessageDtoResponse(errori, HttpStatus.BAD_REQUEST.value());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(m);
 	}
+
+
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<MessageDtoResponse> userNotFound(UserNotFoundException e){
+		MessageDtoResponse m = new MessageDtoResponse(e.getMessage(), HttpStatus.NOT_FOUND.value(), e.getRequest(),LocalDateTime.now());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(m);
+	}
+
 	//ExceptionHandler per gestire le ConstraintViolations(PathVariable e RequestParam)
 	@ExceptionHandler(ConstraintViolationException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
