@@ -92,7 +92,7 @@ INSERT INTO bill (cost, payment_day, delivering_Day, is_available, scan_id)
 VALUES (200, null, '2023-03-15', TRUE, 4);
 
 -- Inserimento dei tecnici
-INSERT INTO technician (is_available, workload, role, name, surname, username, password)
+INSERT INTO technician (is_available, maxworkload, role, name, surname, username, password)
 VALUES (TRUE, 5, 3, 'Edwar', 'Azzaro', 'hacker', '123456ee!');
 
 INSERT INTO technician (is_available, workload, role, name, surname, username, password)
