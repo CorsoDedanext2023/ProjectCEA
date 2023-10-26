@@ -62,12 +62,6 @@ public class TechnicianFacade {
 		}
 	}
 
-	public String addScan(ScanDtoRequest scanRequest) {
-		Scan newScan = scanMap.toScanFromDtoRequest(scanRequest);
-		long idTechnician = scanRequest.getIdTechnician();
-		scanServ.addScan(newScan, idTechnician);
-		return "Scan added";
-	}
 
 	public TechnicianDTOResponse update(TechnicianDTORequest request) {
 		techServ.findById(request.getId());
