@@ -41,7 +41,7 @@ public class ScanServiceImpl implements ScanServiceDef {
 		Technician t = techRepo.findById(idTechnician).orElseThrow(() -> new UserNotFoundException("No technician with this ID" + idTechnician));
 		if(t.isAvailable()) {  //se non ha raggiunto il n max interventi
 			int n = 1;
-			t.setMaxWorkload(t.getMaxWorkload()+n);
+			t.setWorkload(t.getWorkload()+n);
 			techRepo.save(t);
 			scanRepo.save(scan);
 		}

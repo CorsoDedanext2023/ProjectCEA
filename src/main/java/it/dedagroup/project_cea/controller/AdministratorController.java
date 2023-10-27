@@ -36,6 +36,7 @@ import it.dedagroup.project_cea.dto.request.AdministratorIdDtoRequest;
 import it.dedagroup.project_cea.dto.request.BillDTORequest;
 import it.dedagroup.project_cea.dto.request.CondominiumDTORequest;
 import it.dedagroup.project_cea.dto.response.ApartmentScanDTOResponse;
+import it.dedagroup.project_cea.dto.response.BillDTOResponse;
 import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
 import it.dedagroup.project_cea.dto.response.CustomerExtendedInfoDTOResponse;
 import it.dedagroup.project_cea.facade.AdministratorFacade;
@@ -108,14 +109,14 @@ public class AdministratorController {
     }
     
     //   ENDPOINT DI SUDDIVISIONE BOLLETTE
-    @Operation(summary = "Metodo che splitta le bollette",description = "Questo endpoint prende in input una bolletta condominiale e l'id del condominio nella quale bisogna splittarla, se l'id del condominio non coincide va in eccezione e restituisce status code 404, altrimenti restiutisce status code 200 e una stringa che conferma la suddivisione")
+    @Operation(summary = "Metodo che splitta le bollette",description = "Questo endpoint prende in input una bolletta condominiale, se l'id del condominio non esiste lancia un eccezione e restituisce status code 404, altrimenti restiutisce status code 200 e la lista di bollette splittate")
    @ApiResponses(value= {
-		   @ApiResponse(responseCode = "200",description = "Bollette splittate correttamente",content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = String.class))),
-		   @ApiResponse(responseCode = "Not Found(404)",description = "Nessun condominio co questo id",content = @Content(mediaType = MediaType.ALL_VALUE))
+		   @ApiResponse(responseCode = "200",description = "Lista bollette suddivise per appartamento",content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = String.class))),
+		   @ApiResponse(responseCode = "Not Found(404)",description = "Nessun condominio con questo id",content = @Content(mediaType = MediaType.ALL_VALUE))
    })
-    @PostMapping("/billSplitter/{idCondominium}")
-    public ResponseEntity<String> billSplitter(@PathVariable long idCondominium,@RequestBody AceaBillRequest request){
-        return ResponseEntity.ok(administratorFacade.billSplitter(idCondominium, request));
+    @PostMapping("/billSplitter")
+    public ResponseEntity<List<BillDTOResponse>> billSplitter(@RequestBody AceaBillRequest request){
+        return ResponseEntity.ok(administratorFacade.billSplitter(request));
     }
 
     @Operation(summary = "Elenco dele bollette di un condominio.", description = "Questo endpoint restituisce l'elenco delle bollette associati a un condominio specifico.")
