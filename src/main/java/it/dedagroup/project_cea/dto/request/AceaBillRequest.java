@@ -2,6 +2,7 @@ package it.dedagroup.project_cea.dto.request;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
