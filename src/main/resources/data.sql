@@ -111,17 +111,11 @@ VALUES (TRUE, 2, 'Lisa', 'Verdi', 'liv00', 'liv_00_!');
 -- Inserimento delle operazioni di intervento
 INSERT INTO intervention (is_available, intervention_date, status, type, apartment_id, secretary_id, technician_id)
 VALUES (TRUE, '2023-12-16', 3, 0, 1, 1, 1);
-
-INSERT INTO intervention (is_available, intervention_date, status, type, apartment_id, secretary_id, technician_id)
-VALUES (TRUE, '2023-12-15', 1, 1, 2, 1, 1);
-
-INSERT INTO intervention (is_available, intervention_date, status, type, apartment_id, secretary_id, technician_id)
-VALUES (TRUE, '2023-12-14', 2, 0, 1, 1, 1);
-
-INSERT INTO intervention (is_available, intervention_date, status, type, apartment_id, secretary_id, technician_id)
+@@ -79,4 +122,13 @@ INSERT INTO intervention (is_available, intervention_date, status, type, apartme
 VALUES (TRUE, '2023-12-19', 2, 0, 2, 1, 1);
 
 INSERT INTO intervention (is_available, intervention_date, status, type, apartment_id, secretary_id, technician_id)
+VALUES (TRUE, '2023-12-20', 2, 1, 2, 1, 1);
 VALUES (TRUE, '2023-12-20', 2, 1, 2, 1, 2);
 
 INSERT INTO intervention (is_available, intervention_date, status, type, apartment_id, secretary_id, technician_id)
