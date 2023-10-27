@@ -10,18 +10,20 @@ public class UtilPath {
     public static final String GET_CUSTOMER_PATH=ADMINISTRATOR_PATH+"/getcustomer";
     public static final String GET_SCANS_BY_CONDOMINIUM_ID_PATH=ADMINISTRATOR_PATH+"/getscans/";
     public static final String CREATE_CONDOMINIUM=ADMINISTRATOR_PATH+"/createcondominium";
+    public static final String DELETE_ADMINISTRATOR=ADMINISTRATOR_PATH+"/delete";
+    public static final String DELETE_CONDOMINIUM=ADMINISTRATOR_PATH+"/condominium/delete";
 
     private static final String TECHNICIAN_PATH="/technician";
     public static final String GET_SCAN_PATH=TECHNICIAN_PATH+"/getScans";
     public static final String SET_SCAN_PATH=TECHNICIAN_PATH+"/setScan";
-    public static   final String FIND_BY_ID_PATH=TECHNICIAN_PATH+"/findById";
-    public static   final String FIND_BY_USER_PATH=TECHNICIAN_PATH+"/findByUser";
-    public static  final String FIND_BY_INTERVENTIONS_PATH=TECHNICIAN_PATH+"/findByIntervention";
-    public static  final String FIND_ALL_PATH=TECHNICIAN_PATH+"/findAll";
-    public static  final String FIND_FREE_PATH=TECHNICIAN_PATH+"/findFree";
-    public static  final String UPDATE_PATH=TECHNICIAN_PATH+"/update";
-    public static  final String REMOVE_BY_USER_PATH=TECHNICIAN_PATH+"/removeByUser";
-    public static  final String REMOVE_BY_ID_PATH=TECHNICIAN_PATH+"/removeById";
+    public static final String FIND_BY_ID_PATH=TECHNICIAN_PATH+"/findById";
+    public static final String FIND_BY_USER_PATH=TECHNICIAN_PATH+"/findByUser";
+    public static final String FIND_BY_INTERVENTIONS_PATH=TECHNICIAN_PATH+"/findByIntervention";
+    public static final String FIND_ALL_PATH=TECHNICIAN_PATH+"/findAll";
+    public static final String FIND_FREE_PATH=TECHNICIAN_PATH+"/findFree";
+    public static final String UPDATE_PATH=TECHNICIAN_PATH+"/update";
+    public static final String REMOVE_BY_USER_PATH=TECHNICIAN_PATH+"/removeByUser";
+    public static final String REMOVE_BY_ID_PATH=TECHNICIAN_PATH+"/removeById";
 
     private static final String ALL_PATH="/all";
     public static final String LOGIN_PATH=ALL_PATH+"/login";

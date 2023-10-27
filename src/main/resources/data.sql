@@ -99,10 +99,10 @@ VALUES (200, null, '2023-03-15', TRUE, 4);
 
 -- Inserimento dei tecnici
 INSERT INTO technician (is_available, workload, role, name, surname, username, password)
-VALUES (TRUE, 5, 3, 'Edwar', 'Azzaro', 'hacker', '123456ee!');
+VALUES (TRUE, 0, 3, 'Edwar', 'Azzaro', 'hacker', '123456ee!');
 
 INSERT INTO technician (is_available, workload, role, name, surname, username, password)
-VALUES (TRUE, 3, 3, 'Luigi', 'Cannizzaro', 'LCanniz', '6789aaa_!');
+VALUES (TRUE, 0, 3, 'Luigi', 'Cannizzaro', 'LCanniz', '6789aaa_!');
 
 INSERT INTO technician (is_available, workload, role, name, surname, username, password)
 VALUES (TRUE, 0, 3, 'Marco', 'Neri', 'mNeri', '0012abc_?');
@@ -114,5 +114,4 @@ VALUES (TRUE, 2, 'Giulia', 'Bianchi', 'Giu99', 'giu_99_00');
 INSERT INTO secretary (is_available, role, name, surname, username, password)
 VALUES (TRUE, 2, 'Lisa', 'Verdi', 'liv00', 'liv_00_!');
 
--- Inserimento delle operazioni di intervento
 

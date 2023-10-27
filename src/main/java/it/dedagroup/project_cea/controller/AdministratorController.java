@@ -2,6 +2,8 @@ package it.dedagroup.project_cea.controller;
 
 import static it.dedagroup.project_cea.util.UtilPath.CREATE_APARTMENT_PATH;
 import static it.dedagroup.project_cea.util.UtilPath.CREATE_CONDOMINIUM;
+import static it.dedagroup.project_cea.util.UtilPath.DELETE_ADMINISTRATOR;
+import static it.dedagroup.project_cea.util.UtilPath.DELETE_CONDOMINIUM;
 import static it.dedagroup.project_cea.util.UtilPath.GET_CONDOMINIUM_PATH;
 import static it.dedagroup.project_cea.util.UtilPath.GET_CUSTOMER_PATH;
 import static it.dedagroup.project_cea.util.UtilPath.GET_SCANS_BY_CONDOMINIUM_ID_PATH;
@@ -40,7 +42,9 @@ import it.dedagroup.project_cea.dto.response.BillDTOResponse;
 import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
 import it.dedagroup.project_cea.dto.response.CustomerExtendedInfoDTOResponse;
 import it.dedagroup.project_cea.facade.AdministratorFacade;
+import it.dedagroup.project_cea.model.Administrator;
 import it.dedagroup.project_cea.model.Apartment;
+import it.dedagroup.project_cea.model.Condominium;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 
@@ -59,9 +63,18 @@ public class AdministratorController {
 	    @ApiResponse(responseCode = "400", description = "Errore nella richiesta. Possono verificarsi errori di validazione dei campi."),
 	    @ApiResponse(responseCode = "500", description = "Errore interno del server.")
 	})
+	/**
+	 * <h2> Metodo che inserisce un condominio in database </h2>
+	 * 
+	 * 
+	 * @param CondominiumDTORequest, un oggetto DTO che ha come attributi un 'id_administrator' ed un 'address'.
+	 * @return Una response che indica l'esito dell'inserimento nel database. Se l'inserimento è
+ *         corretto, viene restituita una stringa con un messaggio di conferma. Se ci sono errori di
+ *         validazione o dati non validi, viene restituito un codice di risposta 400 BAD REQUEST.
+	 */
 	@PostMapping(INSERT_CONDOMINIUM_PATH)
 	public ResponseEntity<String> insertCondominium(@Valid @RequestBody CondominiumDTORequest request){
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(administratorFacade.insertCondominium(request));
+		return ResponseEntity.status(HttpStatus.CREATED).body(administratorFacade.insertCondominium(request));
 	}
 	
 	//ENDPOINT DI INSERIMENTO DELLA BOLLETTA
@@ -70,10 +83,24 @@ public class AdministratorController {
 	    @ApiResponse(responseCode = "201", description = "Inserimento della bolletta nel database avvenuto. Esempio di risposta: {'message':'Bolletta inserita con successo'}"),
 	    @ApiResponse(responseCode = "400", description = "Errore nella richiesta. Possono verificarsi errori di validazione dei campi."),
 	    @ApiResponse(responseCode = "500", description = "Errore interno del server.")
-	})
+	}) 
+	/**
+	 * <h2>Metodo per l'inserimento di una bolletta nel database</h2>
+	 * 
+	 * <pre>
+	 * Metodo che al momento della creazione della bolletta, viene settato la data di pagamento a 1 mese
+	 * dalla creazione della bolletta. Il costo viene generato tramite dei calcoli predefiniti, più il cliente
+	 * consuma, più il costo al mc aumenta.
+	 * </pre>
+	 * 
+	 * @param BillDTORequest, un oggetto DTO che prende la lettura del contatore (id_scan) e la data di creazione della bolletta (deliveringDay)
+	 * @return Una response che indica l'esito dell'inserimento nel database. Se l'inserimento è
+ *         corretto, viene restituita una stringa con un messaggio di conferma. Se ci sono errori di
+ *         validazione o dati non validi, viene restituito un codice di risposta 400 BAD REQUEST.
+	 */
 	@PostMapping(INSERT_BILL_PATH)
 	public ResponseEntity<String> insertBill(@Valid @RequestBody BillDTORequest request){
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(administratorFacade.insertBill(request));
+		return ResponseEntity.status(HttpStatus.CREATED).body(administratorFacade.insertBill(request));
 	}
 
 
@@ -84,6 +111,11 @@ public class AdministratorController {
 	    @ApiResponse(responseCode = "400", description = "Errore nella richiesta. Possono verificarsi errori di validazione dei campi."),
 	    @ApiResponse(responseCode = "500", description = "Errore interno del server.")
 	})
+    /**
+     * <h2> Metodo per l'inserimento di un appartamento nel database </h2>
+     * @param AddApartmentDtoRequest,
+     * @return
+     */
     public ResponseEntity<String> addApartment(@Valid @RequestBody AddApartmentDtoRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body("apartment created.");
     }
@@ -142,6 +174,43 @@ public class AdministratorController {
 	public ResponseEntity<String> CreateCondominium(@Valid @RequestBody AddCondominiumDTORequest request){
 		administratorFacade.createCondominium(request);
 		return ResponseEntity.status(HttpStatus.CREATED).body("Condominio Aggiunto con successo.");
+	}
+	
+	/**
+	 * <h2> Metodo che elimina un amministratore e non lo rende visibile </h2>
+	 * 
+	 * <par>
+	 * Metodo che prende un id di un amminsitratore e setta il boolean 'isAvailable' a 'false'
+	 * in modo che i dati di un amministratore non vengano persi del tutto, ma non saranno visibili
+	 * in altre chiamate di ritorno degli amministratori.
+	 * </par>
+	 * @param ID, una variabile di tipo long 'id'
+	 * @return Una response che indica l'eliminazione di un amministartore. Se l'id è stato trovato nel
+	 * database, ritornernà un oggetto amministratore con la variabile 'isAvailable' settata a false. Se
+	 * ci sono errori di dati non validi, viene restituito una codice di risposta di risposta 400 BAD REQUEST.
+	 */
+	
+	@PostMapping(DELETE_ADMINISTRATOR)
+	public ResponseEntity<Administrator> deleteAdministrator(@RequestParam("id") @Min(value = 1, message = "L'id dell'amministratore non è valido") long id){
+		return ResponseEntity.status(HttpStatus.OK).body(administratorFacade.deleteAdministrator(id));
+	}
+	
+	/**
+	 * <h2> Metodo che elimina un condominio e non lo rende visibile </h2>
+	 * 
+	 * <par>
+	 * Metodo che prende un id di un condominio e setta il boolean 'isAvailable' a 'false'
+	 * in modo che i dati di un condominio non vengano persi del tutto, ma non saranno visibili
+	 * in altre chiamate di ritorno degli amministratori.
+	 * </par>
+	 * @param ID, una variabile di tipo long 'id'
+	 * @return Una response che indica l'eliminazione di un condominio. Se l'id è stato trovato nel
+	 * database, ritornernà un oggetto condominio con la variabile 'isAvailable' settata a false. Se
+	 * ci sono errori di dati non validi, viene restituito una codice di risposta di risposta 400 BAD REQUEST.
+	 */
+	@PostMapping(DELETE_CONDOMINIUM)
+	public ResponseEntity<Condominium> deleteCondominium(@RequestParam("id") @Min(value = 1, message = "L'id dell'amministratore non è valido") long id){
+		return ResponseEntity.status(HttpStatus.OK).body(administratorFacade.deleteCondominium(id));
 	}
 
 }

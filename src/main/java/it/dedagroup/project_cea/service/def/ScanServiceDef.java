@@ -9,13 +9,13 @@ public interface ScanServiceDef {
 	
 	public void save(Scan scan);
 
-	public void addScan(Scan scan, long idTechnician);
-
 	public Scan findById(long id);
 
 	public void removeScan(Scan scan);
 	public void removeScanById(long id);
 
 	public List<Scan> findAllScanByCondominiumId(long condominiumId);
+
+	void addScan(Scan scan, long idTechnician);
 
 }

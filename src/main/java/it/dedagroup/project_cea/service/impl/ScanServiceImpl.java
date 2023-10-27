@@ -36,6 +36,7 @@ public class ScanServiceImpl implements ScanServiceDef {
 		scanRepo.save(scan);
 	}
 
+
 	@Override
 	public void addScan(Scan scan, long idTechnician) {
 		Technician t = techRepo.findById(idTechnician).orElseThrow(() -> new UserNotFoundException("No technician with this ID" + idTechnician));
@@ -46,6 +47,7 @@ public class ScanServiceImpl implements ScanServiceDef {
 			scanRepo.save(scan);
 		}
 	}
+
 
 	@Override
 	public void removeScan(Scan scan) {

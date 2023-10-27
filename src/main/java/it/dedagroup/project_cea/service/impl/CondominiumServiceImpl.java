@@ -56,6 +56,11 @@ public class CondominiumServiceImpl implements CondominiumServiceDef {
 				.collect(Collectors.toList());
 	}
 
+	@Override
+	public Condominium updateCondominium(Condominium condominium) {
+		return condRepo.save(condominium);
+	}
+
 
 
 

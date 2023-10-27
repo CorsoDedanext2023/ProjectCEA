@@ -247,7 +247,7 @@ public class SecretaryFacade {
 		else if(intervToModify.getTechnician().getId() == tech.getId()){
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Technician already assigned to this intervention");
 		}
-		else if(tech.getWorkload() >= 5){
+		else if(tech.getWorkload() >= tech.getMaxWorkload()){
 			throw new ResponseStatusException(HttpStatus.CONFLICT, "Technician already reached his workload quota");
 		}
 		else{
