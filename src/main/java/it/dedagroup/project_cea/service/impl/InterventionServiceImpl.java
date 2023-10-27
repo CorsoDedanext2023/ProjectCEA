@@ -56,6 +56,11 @@ public class InterventionServiceImpl implements InterventionServiceDef {
 	}
 
 	@Override
+	public List<Intervention> findAllByApartment_Customer_Id(long idCustomer) {
+		return intervRepo.findAllByApartment_Customer_Id(idCustomer).orElseThrow(()-> new ResponseStatusException(HttpStatus.NO_CONTENT, "No interventions found for this customer"));
+	}
+
+	@Override
 	public List<Intervention> findAll() {
 		return intervRepo.findAll();
 	}

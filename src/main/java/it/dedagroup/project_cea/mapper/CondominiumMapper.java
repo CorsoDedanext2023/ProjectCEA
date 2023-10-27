@@ -2,7 +2,10 @@ package it.dedagroup.project_cea.mapper;
 
 import java.util.List;
 
+import it.dedagroup.project_cea.dto.request.AddCondominiumDTORequest;
 import it.dedagroup.project_cea.dto.response.CondominiumForAdministratorDtoResponse;
+import it.dedagroup.project_cea.model.Apartment;
+import it.dedagroup.project_cea.service.impl.CondominiumServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import it.dedagroup.project_cea.dto.request.CondominiumDTORequest;
@@ -18,6 +21,8 @@ public class CondominiumMapper {
 
 	@Autowired
 	private ApartmentMapper apartmentMapper;
+	@Autowired
+	private CondominiumServiceImpl condominiumService;
 
 	public CondominiumDtoResponse toDto(Condominium c) {
 		CondominiumDtoResponse response=new CondominiumDtoResponse();
@@ -49,6 +54,15 @@ public class CondominiumMapper {
 		return response;
 	}
 	//TODO creare il tolistdto del metodo qui sopra
+
+	public Condominium fromAddCondominiumDTORequestToCondominium(AddCondominiumDTORequest request){
+		Condominium condominium=new Condominium();
+		condominium.setAddress(request.getAddress());
+		condominium.setAdministrator(administratorService.findAdministratorById(request.getAdministrator_id()));
+		condominium.setAvailable(true);
+		condominium.setApartments(apartmentMapper.fromListDtoToApartmentList(request.getApartmentList()));
+		return condominium;
+	}
 
 
 }

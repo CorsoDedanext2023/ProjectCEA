@@ -2,6 +2,7 @@ package it.dedagroup.project_cea.facade;
 
 import java.util.List;
 
+import it.dedagroup.project_cea.exception.model.NotValidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -29,29 +30,29 @@ public class TechnicianFacade {
 
 	@Autowired
 	TechnicianServiceDef techServ;
-	
+
 	@Autowired
 	ScanServiceDef scanServ;
-	
+
 	@Autowired
 	InterventionServiceDef intervServ;
-	
+
 	@Autowired
 	ApartmentServiceDef apartmentServ;
-	
+
 	@Autowired
 	CondominiumServiceDef condominiumServ;
-	
+
 	@Autowired
 	InterventionMapper intMapper;
-	
+
 	@Autowired
 	TechnicianMapper techMapper;
-	
+
 	@Autowired
 	ScanMapper scanMap;
-	
-	public List<ScanDTOResponse> getScans(){
+
+	public List<ScanDTOResponse> getAllScans(){
 		List<Scan> allScans = scanServ.findAll().stream().filter(sc -> sc.isAvailable() == true).toList();
 		if(allScans.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "no scans found in database");
@@ -60,73 +61,60 @@ public class TechnicianFacade {
 			return scanMap.toScanDTOResponseList(allScans);
 		}
 	}
-	
-	public ScanDTOResponse addScanApartment(ScanDtoRequest scanRequest, long idIntervention) {
-		Intervention interventionTech = intervServ.findById(idIntervention);
-		Scan newScan = scanMap.toScanFromDtoRequest(scanRequest);
-		return scanMap.toScanDTOResponse(newScan);
-	}
-	
+
+
 	public TechnicianDTOResponse update(TechnicianDTORequest request) {
 		techServ.findById(request.getId());
-		Technician newTech = techServ.update(techMapper.toTechnicianFromDto(request));
-		return techMapper.toDTO(newTech);
+		Technician newTech = techServ.update(techMapper.toTechnicianFromDtoRequest(request));
+		return techMapper.toTechnicianDTOResponse(newTech);
 	}
-	
-	public Technician findByInterventionId(TechnicianDTORequest request) {
-		if(request.getInterventions()==null) {
-			throw new UserNotFoundException(request, "Non esistono Tecnici per questo Intervento");
+
+	public TechnicianDTOResponse findByInterventionId(long idIntervention) {
+		if(idIntervention<1) {
+			throw new NotValidDataException("Intervention ID must be positive");
 		} else {
-			Technician tech = techServ.findByInterventionId(request.getId());
-			return tech;
-		}
-		
-	}
-	
-	public Technician findById(TechnicianDTORequest request ) {
-		if(request.getId()==0) {
-			throw new UserNotFoundException(request, "Non esistono Tecnici con questo ID");
-		} else {
-			Technician tech = techServ.findByInterventionId(request.getId());
-			return tech;
+			return techMapper.toTechnicianDTOResponse(techServ.findByInterventionId(idIntervention));
 		}
 	}
-	
-	public TechnicianDTOResponse findByUsername(TechnicianDTORequest request) {
-		if(request.getUsername()==null) {
-			throw new UserNotFoundException(request, "Non esistono Tecnici con questa Username");
-		} else {
-			Technician tech = techServ.findByInterventionId(request.getId());
-			return techMapper.toDTO(tech);
+
+	public TechnicianDTOResponse findById(long idTech ) {
+		if(idTech<1){
+			throw new NotValidDataException("ID must be a positive number");
 		}
+		return techMapper.toTechnicianDTOResponse(techServ.findById(idTech));
+	}
+
+	public TechnicianDTOResponse findByUsername(String username) {
+		if(username.isBlank()){
+			throw new NotValidDataException("Username cannot be blank");
+		}
+		return techMapper.toTechnicianDTOResponse(techServ.findByUsername(username));
+	}
+
+	public List<TechnicianDTOResponse> findAll(){
+		List<Technician> list = techServ.findAll();
+		if(list.isEmpty()) {
+			throw new UserNotFoundException("Empty list of technicians");
+		}
+		return techMapper.technicianDTOResponsesList(list);
+	}
+
+	public String removeById(TechnicianDTORequest request) {
+		techServ.removeById(request.getId());
+		return "Technico Rimosso";
+	}
+
+	public String removeByUsername(TechnicianDTORequest request) {
+		techServ.removeByUsername(request.getUsername());
+		return "Technico Rimosso";
 	}
 	
-	public List<Technician> findAll(){
-		List<Technician> lista = techServ.findAll();
-		if(lista.isEmpty()) {
-			throw new UserNotFoundException("La Lista di Tecnici è vuota");
+	public List<TechnicianDTOResponse> findFree(){
+		List<Technician> list = techServ.findFree();
+		if(list.isEmpty()) {
+			throw new UserNotFoundException("Empty list of technicians");
 		}
-		return lista;
+		return techMapper.technicianDTOResponsesList(list);
 	}
-	
-	public String removeTechnicianById(TechnicianDTORequest request) {
-		Technician t = techServ.findById(request.getId());
-		if(t==null) {
-			throw new UserNotFoundException("Non esistono Tecnici con questo ID");
-		}else {
-			techServ.remove(t.getId());
-			return "Technico Rimosso";
-		}
-	}
-	
-	public String removeTechnicianByUsername(TechnicianDTORequest request) {
-		Technician t = techServ.findByUsername(request.getUsername());
-		if(t==null) {
-			throw new UserNotFoundException("Non esistono Tecnici con questo Username");
-		}else {
-			techServ.remove(t.getId());
-			return "Technico Rimosso";
-		}
-	}
-	
+
 }

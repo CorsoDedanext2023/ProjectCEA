@@ -1,25 +1,22 @@
 package it.dedagroup.project_cea.controller;
 
-import it.dedagroup.project_cea.dto.response.BillDTOResponse;
-import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
-import it.dedagroup.project_cea.dto.response.InterventionDTOResponse;
-import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
+import it.dedagroup.project_cea.dto.request.InterventionUpdateDTORequest;
+import it.dedagroup.project_cea.dto.response.*;
 import it.dedagroup.project_cea.facade.SecretaryFacade;
 import it.dedagroup.project_cea.model.Scan;
+import it.dedagroup.project_cea.model.Secretary;
 import it.dedagroup.project_cea.model.TypeOfIntervention;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static it.dedagroup.project_cea.util.UtilPath.*;
-
+//TODO validate i request param e i pathvariable
 @RestController
 public class SecretaryController {
 	
@@ -42,7 +39,7 @@ public class SecretaryController {
 	}
 
 	@GetMapping(REMOTE_SCAN_PATH+"{idApartment}/{liters}/{scanDate}")
-	public ResponseEntity<Scan> remoteScan(@PathVariable Long idApartment, Double liters, LocalDate scanDate) {
+	public ResponseEntity<Scan> remoteScan(@PathVariable Long idApartment, @PathVariable Double liters, @PathVariable LocalDate scanDate) {
 		if (liters == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
@@ -71,8 +68,51 @@ public class SecretaryController {
 
 	//ritorna la lista di interventi in carico a un determinato tecnico,
 	// ordinata per data e priorità di tipo di intervento(prima mostra le letture e poi la manutenzione)
-	@GetMapping("/interventionsOfTechnicianByDateAndPriority/{idTechnician}")
+	@GetMapping(INTERVENTIONS_OF_TECHNICIAN_BY_DATE_AND_PRIORITY+"{idTechnician}")
 	public ResponseEntity<List<InterventionDTOResponse>> interventionsOfTechnicianByDateAndPriority(@PathVariable long idTechnician){
 		return ResponseEntity.status(HttpStatus.OK).body(secFac.interventionsOfTechnicianByDateAndPriority(idTechnician));
+	}
+
+	//prende lista di bollette di un cliente
+	@GetMapping(GET_ALL_BILLS_OF_CUSTOMER + "{idCustomer}")
+	public ResponseEntity<List<BillDTOResponse>> getAllBillsOfCustomer(@PathVariable long idCustomer){
+		return ResponseEntity.status(HttpStatus.OK).body(secFac.getAllBillsOfCustomer(idCustomer));
+	}
+
+
+	//Da implementare, vedere facade per dettagli
+	//ritorna la lista di bollette del cliente che non sono state ancora pagate
+	@GetMapping(GET_ALL_UNPAID_BILLS_OF_CUSTOMER + "{idCustomer}")
+	public ResponseEntity<List<BillDTOResponse>> getAllUnpaidBillsOfCustomer(@PathVariable long idCustomer){
+		return ResponseEntity.status(HttpStatus.OK).body(secFac.getAllUnpaidBillsOfCustomer(idCustomer));
+	}
+
+
+	//ritorna una lista di interventi da effettuare per un determinato cliente in futuro
+	// (vedere facade per ulteriori dettagli)
+	@GetMapping(GET_ALL_FUTURE_INTERVENTIONS_OF_CUSTOMER + "{idCustomer}")
+	public ResponseEntity<List<InterventionDTOResponse>> getAllFutureInterventionsOfCustomer(@PathVariable long idCustomer){
+		return ResponseEntity.status(HttpStatus.OK).body(secFac.getAllFutureInterventionsOfCustomer(idCustomer));
+	}
+
+	//aggiunte settimana 23-10
+	@GetMapping( GET_SECRETARIES_ASSOCIATED_TO_TECHNICIAN + "{idTechnician}")
+	public ResponseEntity<List<SecretaryDTOResponse>> getSecretariesOfTechnician(@PathVariable long idTechnician){
+		return ResponseEntity.status(HttpStatus.OK).body(secFac.getSecretariesOfTechnician(idTechnician));
+	}
+
+	@PostMapping(CHANGE_TECHNICIAN_ASSIGNED_TO_INTERVENTION + "{idIntervention}")
+	public ResponseEntity<InterventionDTOResponse> changeTechnicianAssignedToIntervention(@RequestParam String name, @RequestParam String surname, @PathVariable long idIntervention){
+		return ResponseEntity.status(HttpStatus.OK).body(secFac.changeTechnicianAssignedToIntervention(name, surname, idIntervention));
+	}
+
+	@GetMapping(GET_ALL_INTERVENTIONS_SORTED_BY_DATE)
+	public ResponseEntity<List<InterventionDTOResponse>> getAllInterventionsSortedByDate(){
+		return ResponseEntity.status(HttpStatus.OK).body(secFac.getAllInterventionsSortedByDate());
+	}
+
+	@PostMapping("/secretary/updateIntervention")
+	public ResponseEntity<InterventionDTOResponse> updateIntervention(@Valid @RequestBody InterventionUpdateDTORequest request){
+		return ResponseEntity.status(HttpStatus.OK).body(secFac.editIntervention(request));
 	}
 }

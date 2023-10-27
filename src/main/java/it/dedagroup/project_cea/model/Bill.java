@@ -25,7 +25,7 @@ public class Bill {
 	private long id;
 	@Column(nullable = false)
 	private double cost;
-	@Column(nullable = false)
+
 	private LocalDate paymentDay;
 	@Column(nullable = false)
 	private LocalDate deliveringDay;
