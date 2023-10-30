@@ -141,7 +141,7 @@ public class CustomerFacade {
 								&& s.getMcLiter() == request.getMcLiter()
 				);
 		if (scanMade)throw new NotValidDataException("Scan already saved");
-		Scan scan = scanMapper.toScanFromDTORequest(request);
+		Scan scan = scanMapper.fromScanToDTORequest(request);
 		return scanMapper.toScanDTOResponse(customerServiceDef.autoScan(scan));
 	}
 	
