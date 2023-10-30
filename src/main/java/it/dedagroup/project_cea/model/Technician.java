@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
+import lombok.Builder.Default;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -23,8 +24,10 @@ public class Technician extends User{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@Column(nullable = false,columnDefinition = "int default 5")
+    private int maxWorkload=5;
 	@Column(nullable = false)
-    private int maxWorkload;
+    private int workload;
 	@Column(nullable = false)
 	private Role role = Role.TECHNICIAN;
 	private boolean isAvailable = true;
@@ -35,4 +38,6 @@ public class Technician extends User{
 	public int getMaxWorkload() {
 		return maxWorkload;
 	}
+
 }
+
