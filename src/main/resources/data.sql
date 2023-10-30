@@ -10,6 +10,9 @@ VALUES ('Stefano', 'Ronci', 'stefRon', 'abc123_!', '00133', 1, TRUE);
 INSERT INTO customer (name, surname, username, password, tax_code, role, is_available)
 VALUES ('Nicolò', 'Rambo', 'nicRambo', 'ncRamb99', '00140', 1, TRUE);
 
+INSERT INTO customer (name, surname, username, password, tax_code, role, is_available)
+VALUES ('Alex', 'DelPiero', 'adp', 'adp10', '00141', 1, TRUE);
+
 -- Inserimento degli amministratori
 INSERT INTO administrator (is_available, role, name, surname, username, password)
 VALUES (TRUE, 0, 'Luca', 'Rossi', 'lRossiAdmin', 'aaa90_!');
@@ -22,6 +25,9 @@ INSERT INTO condominium (is_available, address, administrator_id)
 VALUES (TRUE, 'via Nazionale 111', 1);
 
 -- Inserimento degli appartamenti
+INSERT INTO apartment (floor_number, is_available, unit_number, condominium_id, customer_id)
+VALUES (3, TRUE, 3, 2, 4);
+
 INSERT INTO apartment (floor_number, is_available, unit_number, condominium_id, customer_id)
 VALUES (3, TRUE, 3, 1, 1);
 
@@ -47,11 +53,11 @@ VALUES (TRUE, '2023-09-15', 3, 120);
 
 INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-01-18', 1, 120 );
 
-INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-01-18', 2, 320 );
+INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-01-18', 4, 320 );
 
 INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-02-18', 1, 140 );
 
-INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-02-18', 2, 340 );
+INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-02-18', 4, 340 );
 
 INSERT INTO scan ( is_available, scan_date, apartment_id, mc_liter ) VALUES ( TRUE, '2024-03-18', 1, 160 );
 
@@ -107,4 +113,5 @@ VALUES (TRUE, 2, 'Giulia', 'Bianchi', 'Giu99', 'giu_99_00');
 
 INSERT INTO secretary (is_available, role, name, surname, username, password)
 VALUES (TRUE, 2, 'Lisa', 'Verdi', 'liv00', 'liv_00_!');
+
 
