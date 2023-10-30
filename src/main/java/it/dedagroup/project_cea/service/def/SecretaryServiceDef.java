@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SecretaryServiceDef {
-    public List<Secretary> findAllByIntervention_Technician_Id(long idTechnician);
+    public List<Secretary> findAllByIntervention_Technician_IdAndIsAvailableTrue(long idTechnician);
     public Secretary findById(long idSecretary);
+    public Secretary findByIdAndIsAvailableTrue(long idSecretary);
 }

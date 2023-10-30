@@ -17,4 +17,5 @@ public interface CondominiumServiceDef {
 	List<Condominium> getCondominiumByAdministrator_id(long id_condominium);
 	
 
+	public Condominium findByIdAndIsAvailableTrue(long idCondominium);
 }

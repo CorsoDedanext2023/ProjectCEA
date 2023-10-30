@@ -2,6 +2,7 @@ package it.dedagroup.project_cea.service.impl;
 
 import java.util.List;
 
+import it.dedagroup.project_cea.exception.model.EmptyListException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -47,8 +48,19 @@ public class TechnicianServiceImpl implements TechnicianServiceDef{
 	}
 
 	@Override
-	public Technician findByNameAndSurname(String name, String surname) {
-		return techRepo.findByNameAndSurname(name, surname).orElseThrow(()-> new UserNotFoundException("Technician not found with name " + name + " and surname " + surname));
+	public Technician findByNameAndSurnameAndIsAvailableTrue(String name, String surname) {
+		return techRepo.findByNameAndSurnameAndIsAvailableTrue(name, surname).orElseThrow(()-> new UserNotFoundException("Technician not found with name " + name + " and surname " + surname));
+	}
+
+	@Override
+	public List<Technician> findAllByIsAvailableTrue() {
+		return techRepo.findAllByIsAvailableTrue();
+	}
+
+	@Override
+	public Technician findByIdAndIsAvailableTrue(long idTechnician) {
+		return techRepo.findByIdAndIsAvailableTrue(idTechnician)
+				.orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No technicians found with this id or technician is set to unavailable"));
 	}
 
 	@Override

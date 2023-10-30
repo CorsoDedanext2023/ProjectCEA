@@ -13,8 +13,8 @@ public class TechnicianDTOResponse {
 	
 	private List<Intervention> interventions;
 	
-	private long id_secretary;
-	
+	private List<Long> id_secretaries; //cambiato da singola segretaria a multiple, perchè  un tecnico può, tramite diversi interventi, avere associate doverse segretarie
+
 	private int workLoad = 5;
 	
 	private String name;

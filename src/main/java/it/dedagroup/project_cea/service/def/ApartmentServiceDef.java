@@ -16,4 +16,5 @@ public interface ApartmentServiceDef {
 	public Apartment findApartmentByUnitNumberAndFloorNumberAndCondominiumId(int unit_number, int floor_number, long id_condominium);
 	public List<Apartment> findAllApartmentByCondominiumId(long id_condominium);
 	public List<Apartment> findAllApartmentByCustomerId(long id_customer);
+	public Apartment findByIdAndIsAvailableTrue(long idApartment);
 }

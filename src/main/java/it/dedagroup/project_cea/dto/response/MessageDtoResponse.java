@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MessageDtoResponse {
-	private List<String> message = new ArrayList<>();
+	private List<String> message;
 	private int codice;
 	private Object request;
 	private LocalDateTime data;
@@ -23,8 +23,7 @@ public class MessageDtoResponse {
 	}
 	
 	public MessageDtoResponse(String errore, int codice, Object request, LocalDateTime data) {
-		message.add(errore);
-		this.codice = codice;
+		this(List.of(errore),codice);
 		this.request = request;
 		this.data = data;
 	}

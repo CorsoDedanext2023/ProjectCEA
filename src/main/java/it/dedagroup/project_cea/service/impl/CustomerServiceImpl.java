@@ -2,6 +2,8 @@ package it.dedagroup.project_cea.service.impl;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import it.dedagroup.project_cea.exception.model.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.dedagroup.project_cea.exception.model.NotValidDataException;
@@ -113,5 +115,10 @@ public class CustomerServiceImpl implements CustomerServiceDef{
 	public Customer findCustomerByApartments_Id(long id_apartment) {
 		return customerRepo.findCustomerByApartments_Id(id_apartment)
 				.orElseThrow(() -> new NotValidDataException("Customer not found with Apartment's id: "+id_apartment));
+	}
+
+	@Override
+	public Customer findByIdAndIsAvailableTrue(long idCustomer) {
+		return customerRepo.findByIdAndIsAvailableTrue(idCustomer).orElseThrow(()-> new UserNotFoundException("No customer found with this id or unavailable"));
 	}
 }

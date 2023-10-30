@@ -1,7 +1,9 @@
 package it.dedagroup.project_cea.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import it.dedagroup.project_cea.exception.model.EmptyListException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -58,6 +60,17 @@ public class InterventionServiceImpl implements InterventionServiceDef {
 	@Override
 	public List<Intervention> findAllByApartment_Customer_Id(long idCustomer) {
 		return intervRepo.findAllByApartment_Customer_Id(idCustomer).orElseThrow(()-> new ResponseStatusException(HttpStatus.NO_CONTENT, "No interventions found for this customer"));
+	}
+
+	@Override
+	public List<Intervention> findByTechnician_IdAndInterventionDate(long idTechnician, LocalDate date) {
+		return intervRepo.findByTechnician_IdAndInterventionDate(idTechnician, date);
+	}
+
+	@Override
+	public Intervention findByIdAndIsAvailableTrue(long idIntervention) {
+		return intervRepo.findByIdAndIsAvailableTrue(idIntervention)
+				.orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No interventions found with this id or intervention is set to unavailable"));
 	}
 
 	@Override

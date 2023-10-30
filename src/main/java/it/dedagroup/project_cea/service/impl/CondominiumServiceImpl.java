@@ -57,10 +57,16 @@ public class CondominiumServiceImpl implements CondominiumServiceDef {
 	}
 
 	@Override
+
 	public Condominium updateCondominium(Condominium condominium) {
 		return condRepo.save(condominium);
 	}
 
+
+
+	public Condominium findByIdAndIsAvailableTrue(long idCondominium) {
+		return condRepo.findByIdAndIsAvailableTrue(idCondominium).orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No condominium found with this id or unavailable"));
+	}
 
 
 

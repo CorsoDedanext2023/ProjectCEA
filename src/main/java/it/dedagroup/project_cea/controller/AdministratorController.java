@@ -60,7 +60,7 @@ public class AdministratorController {
 	
 	//ENDPOINT DI INSERIMENTO DEL CONDOMINIO
 	@Operation(summary = "Inserimento <Condominium> nel database.", description = "Questo endpoint consente l'inserimento di un nuovo condominio.")
-	@ApiResponses(value = { 
+	@ApiResponses(value = {
 	    @ApiResponse(responseCode = "201", description = "Inserimento del condominio nel database avvenuto. Esempio di risposta: {'message':'Condominio inserito con successo'}"),
 	    @ApiResponse(responseCode = "400", description = "Errore nella richiesta. Possono verificarsi errori di validazione dei campi."),
 	    @ApiResponse(responseCode = "500", description = "Errore interno del server.")
@@ -81,7 +81,7 @@ public class AdministratorController {
 	
 	//ENDPOINT DI INSERIMENTO DELLA BOLLETTA
 	@Operation(summary = "Inserimento <Bill> nel database.", description = "Questo endpoint consente l'inserimento di un nuova bolletta.")
-	@ApiResponses(value = { 
+	@ApiResponses(value = {
 	    @ApiResponse(responseCode = "201", description = "Inserimento della bolletta nel database avvenuto. Esempio di risposta: {'message':'Bolletta inserita con successo'}"),
 	    @ApiResponse(responseCode = "400", description = "Errore nella richiesta. Possono verificarsi errori di validazione dei campi."),
 	    @ApiResponse(responseCode = "500", description = "Errore interno del server.")
@@ -108,7 +108,7 @@ public class AdministratorController {
 
     @PostMapping(CREATE_APARTMENT_PATH)
     @Operation(summary = "Inserimento <Apartment> nel database.", description = "Questo endpoint consente l'inserimento di un nuovo appartamento.")
-	@ApiResponses(value = { 
+	@ApiResponses(value = {
 	    @ApiResponse(responseCode = "201", description = "Inserimento dell' appartamento nel database avvenuto. Esempio di risposta: {'message':'Appartamento inserito con successo'}"),
 	    @ApiResponse(responseCode = "400", description = "Errore nella richiesta. Possono verificarsi errori di validazione dei campi."),
 	    @ApiResponse(responseCode = "500", description = "Errore interno del server.")
