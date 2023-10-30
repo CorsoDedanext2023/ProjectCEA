@@ -2,6 +2,7 @@ package it.dedagroup.project_cea.service.def;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import it.dedagroup.project_cea.model.Bill;
 import it.dedagroup.project_cea.model.Customer;
@@ -24,7 +25,7 @@ public interface CustomerServiceDef {
 	public Customer findCustomerByTaxCode(String taxCode);
 	public List<Customer> findAllCustomerByNameAndSurname(String name, String surname);
 	public Customer findCustomerByApartments_Id(long id_apartment);
-	
+	public Customer findByIdAndIsAvailableTrue(long idCustomer);
 }
 
 //metodi del Customer vuoti, li definiamo nell implementation

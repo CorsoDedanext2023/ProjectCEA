@@ -56,7 +56,10 @@ public class CondominiumServiceImpl implements CondominiumServiceDef {
 				.collect(Collectors.toList());
 	}
 
-
+	@Override
+	public Condominium findByIdAndIsAvailableTrue(long idCondominium) {
+		return condRepo.findByIdAndIsAvailableTrue(idCondominium).orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No condominium found with this id or unavailable"));
+	}
 
 
 }

@@ -7,5 +7,6 @@ import it.dedagroup.project_cea.model.Secretary;
 import java.util.Optional;
 
 public interface SecretaryRepository extends JpaRepository<Secretary, Long> {
-    public List<Secretary> findAllByIntervention_Technician_Id(long idTechnician);
+    public List<Secretary> findAllByIntervention_Technician_IdAndIsAvailableTrue(long idTechnician);
+    public Optional<Secretary> findByIdAndIsAvailableTrue(long idSecretary);
 }
