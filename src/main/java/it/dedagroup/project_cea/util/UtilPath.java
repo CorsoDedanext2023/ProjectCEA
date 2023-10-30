@@ -10,6 +10,8 @@ public class UtilPath {
     public static final String GET_CUSTOMER_PATH=ADMINISTRATOR_PATH+"/getcustomer";
     public static final String GET_SCANS_BY_CONDOMINIUM_ID_PATH=ADMINISTRATOR_PATH+"/getscans/";
     public static final String CREATE_CONDOMINIUM=ADMINISTRATOR_PATH+"/createcondominium";
+    public static final String DELETE_ADMINISTRATOR=ADMINISTRATOR_PATH+"/delete";
+    public static final String DELETE_CONDOMINIUM=ADMINISTRATOR_PATH+"/condominium/delete";
 
     private static final String TECHNICIAN_PATH="/technician";
     public static final String GET_SCAN_PATH=TECHNICIAN_PATH+"/getScans";

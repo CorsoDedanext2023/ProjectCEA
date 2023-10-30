@@ -4,6 +4,8 @@ package it.dedagroup.project_cea.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.dedagroup.project_cea.exception.model.NotValidDataException;
+import it.dedagroup.project_cea.exception.model.UserNotFoundException;
 import it.dedagroup.project_cea.model.Administrator;
 import it.dedagroup.project_cea.repository.AdministratorRepository;
 import it.dedagroup.project_cea.service.def.AdministratorServiceDef;
@@ -17,7 +19,7 @@ public class AdministratorServiceImpl implements AdministratorServiceDef{
 //ci dovrò inserire un eccezione migliore
 	@Override
 	public Administrator findAdministratorById(long administrator_id) {
-		return administratorRepository.findById(administrator_id).orElseThrow(RuntimeException::new);
+		return administratorRepository.findById(administrator_id).orElseThrow(() -> new UserNotFoundException("Amministratore non trovato"));
 	}
 
 	@Override
@@ -38,13 +40,15 @@ public class AdministratorServiceImpl implements AdministratorServiceDef{
 
 	@Override
 	public Administrator findById(long id) {
-		return administratorRepository.findById(id).orElseThrow(()-> new RuntimeException("Non esiste nessun amministratore con questo id"));
+		return administratorRepository.findById(id).orElseThrow(()-> new NotValidDataException("Amministratore non trovato"));
 	}
 
 	@Override
 	public Administrator findByCondominiums_Id(long id) {
 		return administratorRepository.findByCondominiums_Id(id).orElseThrow(()-> new RuntimeException("Non esiste nessun condominio con questo id"));
 	}
+
+	
 	
 	
 }
