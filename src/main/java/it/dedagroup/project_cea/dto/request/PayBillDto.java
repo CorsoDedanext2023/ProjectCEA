@@ -16,6 +16,9 @@ public class PayBillDto {
 	@Min(value=1,
 			message="Id cannot be less than 1")
 	private long idBill;
-	@NotNull
-	private LocalDate paymentDate;
+	@Min(value=1,
+			message="Id cannot be less than 1")
+	private long idCustomer;
+	@NotNull(message = "Insert a value on payment date field")
+	private String paymentDate;
 }

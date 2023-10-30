@@ -18,7 +18,10 @@ public class BookInterventionDto {
 	private long idCustomer;
 	@Min(value=1,
 			message="Id cannot be less than 1")
+	private long idCondominium;
+	@Min(value=1,
+			message="Id cannot be less than 1")
 	private long idApartment;
 	@NotNull
-	private LocalDate interventionDate;
+	private String interventionDate;
 }
