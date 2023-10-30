@@ -41,6 +41,7 @@ public class UtilPath {
     public static final String GET_CUSTOMER_BY_TAX_CODE_PATH=CUSTOMER_PATH+"/get/taxCode";
     public static final String FIND_ALL_BY_NAME_AND_SURNAME_PATH=CUSTOMER_PATH+"/get/all/name&surname";
     public static final String FIND_CUSTOMER_BY_APARTMENT_ID_PATH=CUSTOMER_PATH+"/get/apartment/";
+    public static final String FIND_ALL_APARTMENTS_BY_CUSTOMER_ID = CUSTOMER_PATH+"/all/apartments/";
 
 
 

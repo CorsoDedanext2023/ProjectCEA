@@ -16,4 +16,6 @@ public interface ScanServiceDef {
 
 	public List<Scan> findAllScanByCondominiumId(long condominiumId);
 
+	public List<Scan> findAllScanByApartmentId(long apartmentId);
+
 }

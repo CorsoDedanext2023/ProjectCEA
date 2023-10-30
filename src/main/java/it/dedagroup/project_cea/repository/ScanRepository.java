@@ -12,6 +12,6 @@ public interface ScanRepository extends JpaRepository<Scan, Long>{
     public List<Scan> findAllByApartment_Condominium_Id(long idCondominium);
     public List<Scan> findAllByScanDate(LocalDate scanDate);
     public Optional<Scan> findByBills_id(long idBill);
-    public Optional<Scan> findByApartment_id(long idApartment);
+    public List<Scan> findAllByApartmentId(long idApartment);
 
 }
