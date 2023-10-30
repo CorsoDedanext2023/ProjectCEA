@@ -18,5 +18,7 @@ public interface TechnicianRepository extends JpaRepository<Technician, Long> {
 //	public Optional<List<Technician>> findFreeTechnicians(LocalDate x);
 	Optional<Technician> findByInterventions_Id(Long id);
 	List<Technician> findAllByInterventions_Secretary_id(long idSec);
-	Optional<Technician> findByNameAndSurname(String name, String surname);
+	Optional<Technician> findByNameAndSurnameAndIsAvailableTrue(String name, String surname);
+	List<Technician> findAllByIsAvailableTrue();
+	Optional<Technician> findByIdAndIsAvailableTrue(long idTechnician);
 }

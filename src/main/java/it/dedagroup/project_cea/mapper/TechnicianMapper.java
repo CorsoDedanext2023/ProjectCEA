@@ -2,6 +2,7 @@ package it.dedagroup.project_cea.mapper;
 
 import it.dedagroup.project_cea.dto.response.InterventionDTOResponse;
 import it.dedagroup.project_cea.model.Intervention;
+import it.dedagroup.project_cea.model.Secretary;
 import org.springframework.stereotype.Component;
 
 import it.dedagroup.project_cea.dto.request.TechnicianDTORequest;
@@ -18,6 +19,12 @@ public class TechnicianMapper {
 		TechnicianDTOResponse tech = new TechnicianDTOResponse();
 		tech.setId(t.getId());
 		tech.setName(t.getName());
+		tech.setWorkLoad(t.getMaxWorkload()); //aggiunto
+		List<Long> idSecretariesList = t.getInterventions().stream()
+				.map(Intervention::getSecretary).map(Secretary::getId)
+				.distinct()
+				.toList();
+		tech.setId_secretaries(idSecretariesList);
 		tech.setSurname(t.getSurname());
 		tech.setUsername(t.getUsername());
 		tech.setPassword(t.getPassword());

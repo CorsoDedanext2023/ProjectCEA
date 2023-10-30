@@ -2,6 +2,7 @@ package it.dedagroup.project_cea.facade;
 
 import it.dedagroup.project_cea.dto.request.InterventionUpdateDTORequest;
 import it.dedagroup.project_cea.dto.response.*;
+import it.dedagroup.project_cea.exception.model.EmptyListException;
 import it.dedagroup.project_cea.mapper.*;
 import it.dedagroup.project_cea.model.*;
 import it.dedagroup.project_cea.service.def.*;
@@ -12,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.temporal.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -43,6 +45,9 @@ public class SecretaryFacade {
 	TechnicianServiceDef techService;
 
 	@Autowired
+	TechnicianMapper techMap;
+
+	@Autowired
 	ApartmentServiceDef apartmentService;
 
 	@Autowired
@@ -59,10 +64,11 @@ public class SecretaryFacade {
 
 	//metodo per vedere tutte le bollette di un determinato condominio tramite il suo id
 	public List<BillDTOResponse> getAllBillsOfCondominium(long idCondominium){
+		condServ.findByIdAndIsAvailableTrue(idCondominium);
 		//stream per filtrare le bollette e ottenere solo quelle che appartengono al condominio desiderato
 		List<Bill> billsOfCondominium = billServ.findAll().stream().filter(b -> b.getScan().getApartment().getCondominium().getId() == idCondominium).toList();
 		if(billsOfCondominium.isEmpty()) {
-			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "no bills found for this condominium");
+			throw new EmptyListException("no bills found for this condominium");
 		}
 		else {
 			return billMap.toBillDTOResponseList(billsOfCondominium);
@@ -70,10 +76,10 @@ public class SecretaryFacade {
 	}
 	
 	public List<InterventionDTOResponse> getInterventionListPerType(TypeOfIntervention type){
-		List<Intervention> interventionsOfType = intervServ.findAllByType(type);
-		
+		List<Intervention> interventionsOfType = intervServ.findAllByType(type)
+				.stream().filter(Intervention::isAvailable).toList();
 		if(interventionsOfType.isEmpty()) {
-			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "no interventions found of this type");
+			throw new EmptyListException("no interventions found of this type");
 		}
 		else {
 			return intMap.toInterventionDTOResponseList(interventionsOfType);
@@ -83,20 +89,22 @@ public class SecretaryFacade {
 	public List<ScanDTOResponse> getScans(){
 		List<Scan> allScans = scanServ.findAll().stream().filter(sc -> sc.isAvailable()).toList();
 		if(allScans.isEmpty()) {
-			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "no scans found in database");
+			throw new EmptyListException("no scans found in database");
 		}
 		else {
 			return scanMap.toScanDTOResponseList(allScans);
 		}
 	}
 
-	public InterventionDTOResponse acceptPendingIntervention(long idApartment, long idIntervention){
-		Intervention interv = intervServ.findById(idIntervention); //caso intervention null gestito in serviceImpl
-		if(interv.getApartment().getId() != idApartment){
-			throw new ResponseStatusException(HttpStatus.CONFLICT, "the id of the apartment doesn't match");
-		}
+	public InterventionDTOResponse acceptPendingIntervention(long idIntervention){
+		Intervention interv = intervServ.findByIdAndIsAvailableTrue(idIntervention); //caso intervention null o !isAvailable, gestito in serviceImpl
+		List<Intervention> interventionsOfThatDay = intervServ.findByTechnician_IdAndInterventionDate(interv.getTechnician().getId(), interv.getInterventionDate())
+				.stream().filter(Intervention::isAvailable).toList();
 		if(!interv.getStatus().equals(StatusIntervention.PENDING)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "can't accept an intervention which is not pending");
+		}
+		if(interventionsOfThatDay.size() >= interv.getTechnician().getMaxWorkload()){
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "this technician already reached his daily quota");
 		}
 		interv.setStatus(StatusIntervention.ACCEPTED);
 		intervServ.save(interv);
@@ -152,29 +160,30 @@ public class SecretaryFacade {
 		technician.setInterventions(interventions);
 	}
 
-	public List<CondominiumDtoResponse> listaCondominiDiInterventiTecnico(long idTechnician){
-		Technician t = techService.findById(idTechnician);
-		if(t == null || !t.isAvailable()){
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No technician found with this id");
-		}
-		List<Intervention> interventionsMadeByTechnician = intervServ.findAll().stream().filter(in -> in.getTechnician().getId() == idTechnician).toList();
+	public List<CondominiumDtoResponse> condominiumsWhereTechnicianDidInterventions(long idTechnician){
+		Technician t = techService.findByIdAndIsAvailableTrue(idTechnician);
+		List<Intervention> interventionsMadeByTechnician = intervServ.findAll().stream().filter(in -> in.getTechnician().getId() == idTechnician)
+                .filter(Intervention::isAvailable)
+                .toList();
 		if(interventionsMadeByTechnician.isEmpty()){
-			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "no interventions made by this technician found in database");
+			throw new EmptyListException("no interventions made by this technician found in database");
 		}
 		//prende i condomini dove il tecnico ha effettuato degli interventi
 		List<Condominium> condominiums = interventionsMadeByTechnician.stream()
-				.map(Intervention::getApartment).map(Apartment::getCondominium).toList();
+				.map(Intervention::getApartment).map(Apartment::getCondominium)
+				.filter(Condominium::isAvailable)
+				.toList();
 		return conMap.toListDto(condominiums);
 	}
 
 	public List<InterventionDTOResponse> interventionsOfTechnicianByDateAndPriority(long idTechnician){
-		Technician tec = techService.findById(idTechnician);
-		if(!tec.isAvailable()){
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No technician found with this id");
-		}
-		List<Intervention> interventionsOfTechnician = intervServ.findAll().stream().filter(in -> in.getTechnician().getId() == idTechnician).filter(t-> t.getTechnician().isAvailable()).toList();
+		techService.findByIdAndIsAvailableTrue(idTechnician);
+		List<Intervention> interventionsOfTechnician = intervServ.findAll().stream()
+				.filter(Intervention::isAvailable)
+				.filter(in -> in.getTechnician().getId() == idTechnician)
+				.toList();
 		if(interventionsOfTechnician.isEmpty()){
-			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No interventions found for this technician");
+			throw new EmptyListException("No interventions found for this technician");
 		}
 		List<Intervention> interventionsSorted = interventionsOfTechnician.stream()
 				.sorted(Comparator.comparing(Intervention::getType)
@@ -184,9 +193,11 @@ public class SecretaryFacade {
 	}
 
 	public List<BillDTOResponse> getAllBillsOfCustomer(long idCustomer){
-		List<Bill> billsOfCustomer = billServ.findAllBillByScan_Apartment_Customer_Id(idCustomer);
+		custServ.findByIdAndIsAvailableTrue(idCustomer);
+		List<Bill> billsOfCustomer = billServ.findAllBillByScan_Apartment_Customer_Id(idCustomer)
+                .stream().filter(Bill::isAvailable).toList();
 		if(billsOfCustomer.isEmpty()){
-			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No bills found for this customer");
+			throw new EmptyListException("No bills found for this customer");
 		}
 		else{
 			return billMap.toBillDTOResponseList(billsOfCustomer);
@@ -195,27 +206,28 @@ public class SecretaryFacade {
 
 	public List<InterventionDTOResponse> getAllFutureInterventionsOfCustomer(long idCustomer){
 		//se non viene trovato un cliente in db con l'id passato, viene lanciata eccezione dal service
-		custServ.findCustomerById(idCustomer);
+		custServ.findByIdAndIsAvailableTrue(idCustomer);
 		//recupero la lista di interventi associata al cliente, filtrando e recuperando solo
 		//quelli che hanno una data successiva a quella attuale
 		List<Intervention> interventionsOfCustomer = intervServ.findAllByApartment_Customer_Id(idCustomer)
-				.stream().filter(i -> i.getInterventionDate().isAfter(LocalDate.now())).toList();
+				.stream()
+				.filter(Intervention::isAvailable)
+				.filter(i -> i.getInterventionDate().isAfter(LocalDate.now())).toList();
 		//se la lista ottenuta è vuota, viene lanciata la sottostante eccezione
 		if(interventionsOfCustomer.isEmpty()){
-			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No interventions found for this customer");
+			throw new EmptyListException("No interventions found for this customer");
 		}
 		//altrimenti ritorno il json con la lista di interventi futuri
 		return intMap.toInterventionDTOResponseList(interventionsOfCustomer);
 	}
 
-	//da implementare, serve rendere paymentDay nullable e considerata come data effettiva di pagamento,
-	//in modo che le bollette che non hanno una data di pagamento, siano considerate non pagate
 	//vengono recuperate e considerate come non pagate però solo quelle per cui sono passati sessanta giorni
 	//dalla deliveringDay
 	public List<BillDTOResponse> getAllUnpaidBillsOfCustomer(long idCustomer){
 		//se non viene trovato un cliente in db con l'id passato, viene lanciata eccezione dal service
-		custServ.findCustomerById(idCustomer);
+		custServ.findByIdAndIsAvailableTrue(idCustomer);
 		List<Bill> unpaidBills = billServ.findAllBillByScan_Apartment_Customer_Id(idCustomer).stream()
+				.filter(Bill::isAvailable)
 				.filter(b-> b.getPaymentDay() == null)
 				.filter(b-> {
 					long daysSinceDelivering = ChronoUnit.DAYS.between(b.getDeliveringDay(), LocalDate.now());
@@ -224,41 +236,47 @@ public class SecretaryFacade {
 				.sorted(Comparator.comparing(Bill::getDeliveringDay))
 				.toList();
 		if(unpaidBills.isEmpty()){
-			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No unpaid bills found for this customer");
+			throw new EmptyListException("No unpaid bills found for this customer");
 		}
 		return billMap.toBillDTOResponseList(unpaidBills);
 	}
 
 	public List<SecretaryDTOResponse> getSecretariesOfTechnician(long idTechnician){
-		techService.findById(idTechnician);
-		List<Secretary> secretariesOfTech = secServ.findAllByIntervention_Technician_Id(idTechnician);
+		Technician t = techService.findByIdAndIsAvailableTrue(idTechnician);
+		if(!t.isAvailable()){
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Unavailable technician");
+		}
+		List<Secretary> secretariesOfTech = secServ.findAllByIntervention_Technician_IdAndIsAvailableTrue(idTechnician);
 		if(secretariesOfTech.isEmpty()){
-			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No secretaries related to this technician");
+			throw new EmptyListException("No secretaries related to this technician");
 		}
 		return secMap.toSecretaryDTOResponseList(secretariesOfTech);
 	}
 
 	public InterventionDTOResponse changeTechnicianAssignedToIntervention(String name, String surname, long idIntervention){
-		Technician tech = techService.findByNameAndSurname(name, surname);
-		Intervention intervToModify = intervServ.findById(idIntervention);
+		Technician tech = techService.findByNameAndSurnameAndIsAvailableTrue(name, surname);
+		Intervention intervToModify = intervServ.findByIdAndIsAvailableTrue(idIntervention);
+		List<Intervention> interventionsOfThatDay = intervServ.findByTechnician_IdAndInterventionDate(tech.getId(), intervToModify.getInterventionDate());
 		if(LocalDate.now().isAfter(intervToModify.getInterventionDate())){
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Can't modify technician assigned, intervention date has passed");
 		}
 		else if(intervToModify.getTechnician().getId() == tech.getId()){
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Technician already assigned to this intervention");
 		}
-		else if(tech.getWorkload() >= tech.getMaxWorkload()){
-			throw new ResponseStatusException(HttpStatus.CONFLICT, "Technician already reached his workload quota");
+		else if(interventionsOfThatDay.size() >= tech.getMaxWorkload()){
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "Technician already reached his daily workload quota");
 		}
 		else{
 			intervToModify.setTechnician(tech);
+			techService.save(tech);
 			intervServ.save(intervToModify);
 		}
 		return intMap.toInterventionDTOResponse(intervToModify);
 	}
 
 	public List<InterventionDTOResponse>  getAllInterventionsSortedByDate(){
-		List<InterventionDTOResponse> allInterventions = intMap.toInterventionDTOResponseList(intervServ.findAll());
+		List<InterventionDTOResponse> allInterventions = intMap.toInterventionDTOResponseList(intervServ.findAll()
+				.stream().filter(Intervention::isAvailable).toList());
 		if(allInterventions.isEmpty()){
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "no interventions found in database");
 		}
@@ -267,12 +285,15 @@ public class SecretaryFacade {
 
 	public InterventionDTOResponse editIntervention(InterventionUpdateDTORequest request){
 		//controllo che l'intervento da modificare esista
-		Intervention intervToUpdate = intervServ.findById(request.getInterventionId());
-		Secretary secretaryToUpdate = secServ.findById(request.getSecretaryId());
-		Technician techToUpdate = techService.findById(request.getTechnicianId());
-		Apartment apartmentToUpdate = apartmentService.findById(request.getApartmentId());
-
+		Intervention intervToUpdate = intervServ.findByIdAndIsAvailableTrue(request.getInterventionId());
+		Secretary secretaryToUpdate = secServ.findByIdAndIsAvailableTrue(request.getSecretaryId());
+		Technician techToUpdate = techService.findByIdAndIsAvailableTrue(request.getTechnicianId());
+		Apartment apartmentToUpdate = apartmentService.findByIdAndIsAvailableTrue(request.getApartmentId());
+		List<Intervention> interventionsOfThatDayOfTech = intervServ.findByTechnician_IdAndInterventionDate(techToUpdate.getId(), intervToUpdate.getInterventionDate());
 		intervToUpdate.setSecretary(secretaryToUpdate);
+		if(interventionsOfThatDayOfTech.size() >= techToUpdate.getMaxWorkload()){
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Technician has already reached his workload quota");
+		}
 		intervToUpdate.setTechnician(techToUpdate);
 		intervToUpdate.setStatus(request.getStatus());
 		intervToUpdate.setAvailable(request.isAvailable());
@@ -284,4 +305,29 @@ public class SecretaryFacade {
 		return intMap.toInterventionDTOResponse(intervToUpdate);
 	}
 
+	public List<TechnicianDTOResponse> getAllAvailableTechniciansInADate(LocalDate date){
+		List<Technician> techsAvailable = techService.findAllByIsAvailableTrue();
+		if(techsAvailable.isEmpty()){
+			throw new EmptyListException("no technicians available");
+		}
+		List<Technician> techsAvailableToday = techsAvailable.stream()
+				.filter(technician -> {
+					long interventionsToday = technician.getInterventions()
+							.stream().filter(intervention -> intervention.getInterventionDate().equals(date))
+							.count();
+					return interventionsToday < technician.getMaxWorkload();
+				}).toList();
+		List<TechnicianDTOResponse> techs = techMap.toTechnicianDTOResponseList(techsAvailableToday);
+		return techs;
+    }
+
+	public List<InterventionDTOResponse> getInterventionsOfDateOfTechnician(long idTechnician, LocalDate date){
+		techService.findByIdAndIsAvailableTrue(idTechnician);
+		List<Intervention> interventionsOfDateOfTech = intervServ.findByTechnician_IdAndInterventionDate(idTechnician, date);
+		if(interventionsOfDateOfTech.isEmpty()){
+			throw new EmptyListException("This technician has no interventions assigned on this date");
+		}
+		List<InterventionDTOResponse> interventions = intMap.toInterventionDTOResponseList(interventionsOfDateOfTech);
+		return interventions;
+	}
 }

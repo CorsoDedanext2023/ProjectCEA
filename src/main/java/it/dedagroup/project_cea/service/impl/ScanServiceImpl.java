@@ -35,8 +35,8 @@ public class ScanServiceImpl implements ScanServiceDef {
 	public void save(Scan scan) {
 		scanRepo.save(scan);
 	}
-	
-	
+
+
 	@Override
 	public void removeScan(Scan scan) {
 		scanRepo.findById(scan.getId()).orElseThrow(()->new ScanNotFoundException("Scan not found"));

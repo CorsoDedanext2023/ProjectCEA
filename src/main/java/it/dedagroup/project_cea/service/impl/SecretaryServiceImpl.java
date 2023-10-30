@@ -19,12 +19,17 @@ public class SecretaryServiceImpl implements SecretaryServiceDef {
     SecretaryRepository secRepo;
 
     @Override
-    public List<Secretary> findAllByIntervention_Technician_Id(long idTechnician) {
-        return secRepo.findAllByIntervention_Technician_Id(idTechnician);
+    public List<Secretary> findAllByIntervention_Technician_IdAndIsAvailableTrue(long idTechnician) {
+        return secRepo.findAllByIntervention_Technician_IdAndIsAvailableTrue(idTechnician);
     }
 
     @Override
     public Secretary findById(long idSecretary) {
         return secRepo.findById(idSecretary).orElseThrow(()-> new UserNotFoundException("No secretary found with id " + idSecretary));
+    }
+
+    @Override
+    public Secretary findByIdAndIsAvailableTrue(long idSecretary) {
+        return secRepo.findByIdAndIsAvailableTrue(idSecretary).orElseThrow(()-> new UserNotFoundException("No secretary found with id " + idSecretary + " or secretary unavailable"));
     }
 }
