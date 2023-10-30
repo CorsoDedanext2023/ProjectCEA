@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -40,6 +41,7 @@ import it.dedagroup.project_cea.dto.request.CondominiumDTORequest;
 import it.dedagroup.project_cea.dto.response.ApartmentScanDTOResponse;
 import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
 import it.dedagroup.project_cea.dto.response.CustomerExtendedInfoDTOResponse;
+import it.dedagroup.project_cea.dto.response.MessageDtoResponse;
 import it.dedagroup.project_cea.facade.AdministratorFacade;
 import it.dedagroup.project_cea.model.Administrator;
 import it.dedagroup.project_cea.model.Apartment;
@@ -174,7 +176,12 @@ public class AdministratorController {
 		administratorFacade.createCondominium(request);
 		return ResponseEntity.status(HttpStatus.CREATED).body("Condominio Aggiunto con successo.");
 	}
-	
+	@Operation(summary = "Eliminazione <Administrator>", description = "Questo endpoint permette la non visibilità dell'amministratore nel database")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200" , description = "Eliminazione dell'amministratore avvenuta", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = Administrator.class))),
+			@ApiResponse(responseCode = "400" , description = "Inserimento del parameter non valido"),
+			@ApiResponse(responseCode = "404" , description = "Amministratore non trovato nel database", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = MessageDtoResponse.class)))
+	})
 	/**
 	 * <h2> Metodo che elimina un amministratore e non lo rende visibile </h2>
 	 * 
@@ -193,14 +200,20 @@ public class AdministratorController {
 	public ResponseEntity<Administrator> deleteAdministrator(@RequestParam("id") @Min(value = 1, message = "L'id dell'amministratore non è valido") long id){
 		return ResponseEntity.status(HttpStatus.OK).body(administratorFacade.deleteAdministrator(id));
 	}
-	
+	@Operation(summary = "Eliminazione <Condominium>", description = "Questo endpoint permette la non visibilità del condominio nel database e tutti gli appartamenti in relazione.")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200" , description = "Eliminazione del condominio avvenuta", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = Condominium.class))),
+			@ApiResponse(responseCode = "400" , description = "Inserimento del parameter 'id' non valido"),
+			@ApiResponse(responseCode = "404" , description = "Condominio non trovato nel database", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = ResponseStatusException.class)))
+	})
 	/**
 	 * <h2> Metodo che elimina un condominio e non lo rende visibile </h2>
 	 * 
 	 * <par>
 	 * Metodo che prende un id di un condominio e setta il boolean 'isAvailable' a 'false'
 	 * in modo che i dati di un condominio non vengano persi del tutto, ma non saranno visibili
-	 * in altre chiamate di ritorno degli amministratori.
+	 * in altre chiamate di ritorno dei condomini. Verranno settati nello stesso modo tutti gli
+	 * appartamenti che sono in relazione col condominio eliminato.
 	 * </par>
 	 * @param ID, una variabile di tipo long 'id'
 	 * @return Una response che indica l'eliminazione di un condominio. Se l'id è stato trovato nel

@@ -44,13 +44,13 @@ public class CondominiumServiceImpl implements CondominiumServiceDef {
 		return condRepo.findById(apartment.getCondominium().getId()).orElseThrow(NotValidDataException::new);
 	}
 
-	public List<Condominium> findCondominiumByAdministrator_id(long administratorId){
+	public List<Condominium> getCondominiumByAdministrator_id(long administratorId){
 		return condRepo.findAllByAdministrator_Id(administratorId);
 	}
 	
 	//VISUALIZZAZIONE DEI CUSTOMER DATO UN ID CONDOMINIO E ORDINATI IN ORDINE ALFABETICO
 	@Override
-	public List<Customer> getConsumersByCondominiumId(long id_condominium) {
+	public List<Customer> getCustomerByCondominiumId(long id_condominium) {
 		return condRepo.findCustomersByCondominiumId(id_condominium).stream()
 				.sorted((o1, o2) -> o2.getSurname().compareTo(o1.getSurname()))
 				.collect(Collectors.toList());
