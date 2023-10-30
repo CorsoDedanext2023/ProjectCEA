@@ -1,10 +1,6 @@
 package it.dedagroup.project_cea.controller;
 
-import it.dedagroup.project_cea.dto.request.AceaBillRequest;
-import it.dedagroup.project_cea.dto.request.AddApartmentDtoRequest;
-import it.dedagroup.project_cea.dto.request.AdministratorIdDtoRequest;
-import it.dedagroup.project_cea.dto.request.BillDTORequest;
-import it.dedagroup.project_cea.dto.request.CondominiumDTORequest;
+import it.dedagroup.project_cea.dto.request.*;
 import it.dedagroup.project_cea.dto.response.ApartmentScanDTOResponse;
 import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
 import it.dedagroup.project_cea.dto.response.CustomerExtendedInfoDTOResponse;

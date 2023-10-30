@@ -15,4 +15,5 @@ public interface CondominiumServiceDef {
 	public Condominium findCondominiumByApartment_id(long apartmentId);
 	List<Customer> getConsumersByCondominiumId(long id_condominium);
 
+	public Condominium findByIdAndIsAvailableTrue(long idCondominium);
 }

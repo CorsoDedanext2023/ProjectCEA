@@ -1,5 +1,6 @@
 package it.dedagroup.project_cea.service.def;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,4 +17,6 @@ public interface InterventionServiceDef {
 	public List<Intervention> findAll();
 	void save(Intervention interv);
 	public List<Intervention> findAllByApartment_Customer_Id(long idCustomer);
+	List<Intervention> findByTechnician_IdAndInterventionDate(long idTechnician, LocalDate date);
+	Intervention findByIdAndIsAvailableTrue(long idIntervention);
 }

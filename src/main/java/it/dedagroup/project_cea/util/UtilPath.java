@@ -60,4 +60,7 @@ public class UtilPath {
     public static final String GET_SECRETARIES_ASSOCIATED_TO_TECHNICIAN = SECRETARY_PATH + "/getSecretariesOfTechnician/";
     public static final String CHANGE_TECHNICIAN_ASSIGNED_TO_INTERVENTION = SECRETARY_PATH + "/changeTechnicianAssignedToIntervention/";
     public static final String GET_ALL_INTERVENTIONS_SORTED_BY_DATE = SECRETARY_PATH + "/getAllInterventionsSortedByDate";
+    public static final String UPDATE_INTERVENTION = SECRETARY_PATH + "/updateIntervention";
+    public static final String GET_ALL_TECHNICIANS_AVAILABLE_IN_A_DATE = SECRETARY_PATH + "/getAllTechniciansAvailableInADate/";
+    public static final String GET_ALL_INTERVENTIONS_OF_DATE_OF_TECHNICIAN = SECRETARY_PATH + "/interventionsOfDateOfTechnician/";
 }
