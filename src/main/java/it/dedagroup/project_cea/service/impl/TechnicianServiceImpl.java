@@ -65,12 +65,14 @@ public class TechnicianServiceImpl implements TechnicianServiceDef{
 
 	@Override
 	public Technician findById(long idTechnician) {
-		return techRepo.findById(idTechnician).orElseThrow(()->new UserNotFoundException("Technician not found with ID: " + idTechnician));
+		return techRepo.findById(idTechnician)
+				.orElseThrow(()->new UserNotFoundException("Technician not found with ID: " + idTechnician));
 	}
 
 	@Override
 	public Technician findByUsername(String username) {
-		return techRepo.findByUsername(username).orElseThrow(()->new UserNotFoundException("Technician not found with username: " +username));
+		return techRepo.findByUsername(username)
+				.orElseThrow(()->new UserNotFoundException("Technician not found with username: " +username));
 	}
 
 	@Override
@@ -93,14 +95,16 @@ public class TechnicianServiceImpl implements TechnicianServiceDef{
 
 	@Override
 	public void removeById(long id) {
-		Technician t = techRepo.findById(id).orElseThrow(()->new UserNotFoundException("Technician not found with ID: " + id));
+		Technician t = techRepo.findById(id)
+				.orElseThrow(()->new UserNotFoundException("Technician not found with ID: " + id));
 		t.setAvailable(false);
 		techRepo.save(t);
 	}
 
 	@Override
 	public void removeByUsername(String username) {
-		Technician tech = techRepo.findByUsername(username).orElseThrow(()->new UserNotFoundException("Technician not found with username: " +username));
+		Technician tech = techRepo.findByUsername(username)
+				.orElseThrow(()->new UserNotFoundException("Technician not found with username: " +username));
 		tech.setAvailable(false);
 		techRepo.save(tech);
 	}

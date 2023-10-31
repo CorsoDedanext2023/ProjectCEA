@@ -285,10 +285,10 @@ public class SecretaryFacade {
 
 	public InterventionDTOResponse editIntervention(InterventionUpdateDTORequest request){
 		//controllo che l'intervento da modificare esista
-		Intervention intervToUpdate = intervServ.findByIdAndIsAvailableTrue(request.getInterventionId());
+		Intervention intervToUpdate = intervServ.findByIdAndIsAvailableTrue(request.getIdIntervention());
 		Secretary secretaryToUpdate = secServ.findByIdAndIsAvailableTrue(request.getSecretaryId());
-		Technician techToUpdate = techService.findByIdAndIsAvailableTrue(request.getTechnicianId());
-		Apartment apartmentToUpdate = apartmentService.findByIdAndIsAvailableTrue(request.getApartmentId());
+		Technician techToUpdate = techService.findByIdAndIsAvailableTrue(request.getIdTechnician());
+		Apartment apartmentToUpdate = apartmentService.findApartmentByIdAndIsAvailableTrue(request.getIdApartment());
 		List<Intervention> interventionsOfThatDayOfTech = intervServ.findByTechnician_IdAndInterventionDate(techToUpdate.getId(), intervToUpdate.getInterventionDate());
 		intervToUpdate.setSecretary(secretaryToUpdate);
 		if(interventionsOfThatDayOfTech.size() >= techToUpdate.getMaxWorkload()){
