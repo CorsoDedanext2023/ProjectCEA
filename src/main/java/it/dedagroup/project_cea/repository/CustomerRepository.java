@@ -19,7 +19,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 	public List<Customer> findAllCustomerByNameAndSurname(String name, String surname);
 	public Optional<Customer> findCustomerByApartments_IdAndIsAvailableTrue(long apartment_id);
 	public Optional<Customer> findCustomerByApartments_Id(long apartment_id);
-
+	public Optional<Customer> findByIdAndIsAvailableTrue(long idCustomer);
 
 }
 

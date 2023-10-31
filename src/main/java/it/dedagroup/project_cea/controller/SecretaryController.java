@@ -7,9 +7,11 @@ import it.dedagroup.project_cea.model.Scan;
 import it.dedagroup.project_cea.model.Secretary;
 import it.dedagroup.project_cea.model.TypeOfIntervention;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -17,6 +19,7 @@ import java.util.List;
 
 import static it.dedagroup.project_cea.util.UtilPath.*;
 //TODO validate i request param e i pathvariable
+@Validated
 @RestController
 public class SecretaryController {
 	
@@ -24,7 +27,7 @@ public class SecretaryController {
 	SecretaryFacade secFac;
 	
 	@GetMapping(GET_ALL_BILLS_OF_CONDOMINIUM_PATH+"{idCondominium}")
-	public ResponseEntity<List<BillDTOResponse>> getAllBillsOfCondominium(@PathVariable long idCondominium){
+	public ResponseEntity<List<BillDTOResponse>> getAllBillsOfCondominium(@PathVariable @Min(value = 1, message = "min id input is 1") long idCondominium){
 		return ResponseEntity.status(HttpStatus.OK).body(secFac.getAllBillsOfCondominium(idCondominium));
 	}
 	
@@ -56,14 +59,14 @@ public class SecretaryController {
 		}
 	}
 
-	@PostMapping(ACCEPT_PENDING_INTERVENTION_PATH+"{idApartment}/{idIntervention}")
-	public ResponseEntity<InterventionDTOResponse> acceptPendingIntervention(@PathVariable long idApartment, @PathVariable long idIntervention){
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(secFac.acceptPendingIntervention(idApartment, idIntervention));
+	@PostMapping(ACCEPT_PENDING_INTERVENTION_PATH+"{idIntervention}")
+	public ResponseEntity<InterventionDTOResponse> acceptPendingIntervention(@PathVariable long idIntervention){
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(secFac.acceptPendingIntervention(idIntervention));
 	}
 
 	@GetMapping(LIST_OF_CONDOMINIUM_OF_TECHNICIAN_INTERVENTIONS_PATH+"{idTechnician}")
-		public ResponseEntity<List<CondominiumDtoResponse>> listOfCondominiumOfInterventionsOfTechnician(@PathVariable long idTechnician){
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(secFac.listaCondominiDiInterventiTecnico(idTechnician));
+		public ResponseEntity<List<CondominiumDtoResponse>> condominiumsWhereTechnicianDidInterventions(@PathVariable long idTechnician){
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(secFac.condominiumsWhereTechnicianDidInterventions(idTechnician));
 		}
 
 	//ritorna la lista di interventi in carico a un determinato tecnico,
@@ -80,7 +83,7 @@ public class SecretaryController {
 	}
 
 
-	//Da implementare, vedere facade per dettagli
+	//vedere facade per dettagli
 	//ritorna la lista di bollette del cliente che non sono state ancora pagate
 	@GetMapping(GET_ALL_UNPAID_BILLS_OF_CUSTOMER + "{idCustomer}")
 	public ResponseEntity<List<BillDTOResponse>> getAllUnpaidBillsOfCustomer(@PathVariable long idCustomer){
@@ -111,8 +114,18 @@ public class SecretaryController {
 		return ResponseEntity.status(HttpStatus.OK).body(secFac.getAllInterventionsSortedByDate());
 	}
 
-	@PostMapping("/secretary/updateIntervention")
+	@PostMapping(UPDATE_INTERVENTION)
 	public ResponseEntity<InterventionDTOResponse> updateIntervention(@Valid @RequestBody InterventionUpdateDTORequest request){
 		return ResponseEntity.status(HttpStatus.OK).body(secFac.editIntervention(request));
+	}
+
+	@GetMapping(GET_ALL_TECHNICIANS_AVAILABLE_IN_A_DATE + "{date}")
+	public ResponseEntity<List<TechnicianDTOResponse>> getAllTechniciansAvailableInADate(@PathVariable LocalDate date){
+		return ResponseEntity.status(HttpStatus.OK).body(secFac.getAllAvailableTechniciansInADate(date));
+	}
+
+	@GetMapping(GET_ALL_INTERVENTIONS_OF_DATE_OF_TECHNICIAN + "{idTechnician}/{date}")
+	public ResponseEntity<List<InterventionDTOResponse>> getInterventionsOfDateOfTechnician(@PathVariable long idTechnician, @PathVariable LocalDate date){
+		return ResponseEntity.status(HttpStatus.OK).body(secFac.getInterventionsOfDateOfTechnician(idTechnician, date));
 	}
 }

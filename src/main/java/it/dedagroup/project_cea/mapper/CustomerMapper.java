@@ -70,7 +70,8 @@ public class CustomerMapper {
 	public List<CustomerExtendedInfoDTOResponse> toListCustomersExtendedinfo(List<Customer> c) {
 	    if (c == null || c.isEmpty()) throw new NotValidDataException("Lista dei customer è vuota");
 	    return c.stream()
-	            .flatMap(customer -> toCustomerExtendedinfo(customer).stream())
+	    		.filter(customer -> customer.isAvailable()==true)
+	            .flatMap(customerDto -> toCustomerExtendedinfo(customerDto).stream())
 	            .collect(Collectors.toList());
 	}
 }

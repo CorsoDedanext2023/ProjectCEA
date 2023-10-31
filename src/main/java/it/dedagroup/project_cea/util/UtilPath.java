@@ -10,6 +10,8 @@ public class UtilPath {
     public static final String GET_CUSTOMER_PATH=ADMINISTRATOR_PATH+"/getcustomer";
     public static final String GET_SCANS_BY_CONDOMINIUM_ID_PATH=ADMINISTRATOR_PATH+"/getscans/";
     public static final String CREATE_CONDOMINIUM=ADMINISTRATOR_PATH+"/createcondominium";
+    public static final String DELETE_ADMINISTRATOR=ADMINISTRATOR_PATH+"/delete";
+    public static final String DELETE_CONDOMINIUM=ADMINISTRATOR_PATH+"/condominium/delete";
 
     private static final String TECHNICIAN_PATH="/technician";
     public static final String GET_SCAN_PATH=TECHNICIAN_PATH+"/getScans";
@@ -61,4 +63,7 @@ public class UtilPath {
     public static final String GET_SECRETARIES_ASSOCIATED_TO_TECHNICIAN = SECRETARY_PATH + "/getSecretariesOfTechnician/";
     public static final String CHANGE_TECHNICIAN_ASSIGNED_TO_INTERVENTION = SECRETARY_PATH + "/changeTechnicianAssignedToIntervention/";
     public static final String GET_ALL_INTERVENTIONS_SORTED_BY_DATE = SECRETARY_PATH + "/getAllInterventionsSortedByDate";
+    public static final String UPDATE_INTERVENTION = SECRETARY_PATH + "/updateIntervention";
+    public static final String GET_ALL_TECHNICIANS_AVAILABLE_IN_A_DATE = SECRETARY_PATH + "/getAllTechniciansAvailableInADate/";
+    public static final String GET_ALL_INTERVENTIONS_OF_DATE_OF_TECHNICIAN = SECRETARY_PATH + "/interventionsOfDateOfTechnician/";
 }

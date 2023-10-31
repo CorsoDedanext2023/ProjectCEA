@@ -21,10 +21,10 @@ public interface ApartmentServiceDef {
 	public Apartment findApartmentByUnitNumberAndFloorNumberAndCondominiumId(int unit_number, int floor_number, long id_condominium);
 	public List<Apartment> findAllApartmentByCondominiumId(long id_condominium);
 	public List<Apartment> findAllApartmentByCustomerId(long id_customer);
+
 	public Apartment findApartmentByInterventionsIdAndIsAvailableTrue(long id_intervention);
 	public Apartment findApartmentByScansIdAndIsAvailableTrue(long id_meter);
 	public Apartment findApartmentByUnitNumberAndFloorNumberAndCondominiumIdAndIsAvailableTrue(int unit_number, int floor_number, long id_condominium);
 	public List<Apartment> findAllApartmentByCondominiumIdAndIsAvailableTrue(long id_condominium);
 	public List<Apartment> findAllApartmentByCustomerIdAndIsAvailableTrue(long id_customer);
-
 }

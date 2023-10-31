@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import it.dedagroup.project_cea.exception.model.NotValidDataException;
 import it.dedagroup.project_cea.model.Apartment;
 import it.dedagroup.project_cea.repository.ApartmentRepository;
 import it.dedagroup.project_cea.service.def.ApartmentServiceDef;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class ApartmentServiceImpl implements ApartmentServiceDef {
@@ -116,5 +118,6 @@ public class ApartmentServiceImpl implements ApartmentServiceDef {
 	@Override
 	public List<Apartment> findAllApartmentByCustomerIdAndIsAvailableTrue(long id_customer) {
 		return repo.findAllApartmentByCustomerIdAndIsAvailableTrue(id_customer);
+
 	}
 }

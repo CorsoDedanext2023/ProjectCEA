@@ -11,8 +11,11 @@ public interface CondominiumServiceDef {
 	
 	public Condominium findById(long id);
 	void addCondominium(Condominium condominium);
-
+	Condominium updateCondominium(Condominium c);
 	public Condominium findCondominiumByApartment_id(long apartmentId);
-	List<Customer> getConsumersByCondominiumId(long id_condominium);
+	List<Customer> getCustomerByCondominiumId(long id_condominium);
+	List<Condominium> getCondominiumByAdministrator_id(long id_condominium);
+	
 
+	public Condominium findByIdAndIsAvailableTrue(long idCondominium);
 }

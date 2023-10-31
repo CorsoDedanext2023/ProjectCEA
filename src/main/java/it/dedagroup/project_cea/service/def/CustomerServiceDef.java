@@ -25,13 +25,12 @@ public interface CustomerServiceDef {
 	public Customer findCustomerByTaxCode(String taxCode);
 	public List<Customer> findAllCustomerByNameAndSurname(String name, String surname);
 	public Customer findCustomerByApartments_Id(long id_apartment);
+
 	public Customer findCustomerByUsernameAndPasswordAndIsAvailableTrue(String username, String password);
 	public Customer findCustomerByUsernameAndIsAvailableTrue(String username);
 	public Customer findCustomerByTaxCodeAndIsAvailableTrue(String taxCode);
 	public List<Customer> findAllCustomerByNameAndSurnameAndIsAvailableTrue(String name, String surname);
 	public Customer findCustomerByApartments_IdAndIsAvailableTrue(long apartment_id);
-
-
 }
 
 //metodi del Customer vuoti, li definiamo nell implementation
