@@ -10,14 +10,13 @@ import lombok.Data;
 
 @Data
 public class InterventionDTORequest {
-	
-	private long id;
+	//TODO inserire le validation
+	private long idIntervention;
 	private LocalDate interventionDate;
-	private Technician technician;
-	private Apartment apartment;
+	private long idTechnician;
+	private long idApartment;
 	private boolean isAvailable;
 	private TypeOfIntervention type;
 	private StatusIntervention status;
-
 
 }

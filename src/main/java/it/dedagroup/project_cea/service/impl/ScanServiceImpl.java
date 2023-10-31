@@ -36,21 +36,6 @@ public class ScanServiceImpl implements ScanServiceDef {
 		scanRepo.save(scan);
 	}
 
-
-
-	@Override
-	public void addScan(Scan scan, long idTechnician) {
-		Technician t = techRepo.findById(idTechnician).orElseThrow(() -> new UserNotFoundException("No technician with this ID" + idTechnician));
-		if(t.isAvailable()) {  //se non ha raggiunto il n max interventi
-			int n = 1;
-			t.setWorkload(t.getWorkload()+n);
-			techRepo.save(t);
-			scanRepo.save(scan);
-		}
-	}
-
-
-
 	@Override
 	public void removeScan(Scan scan) {
 		scanRepo.findById(scan.getId()).orElseThrow(()->new ScanNotFoundException("Scan not found"));

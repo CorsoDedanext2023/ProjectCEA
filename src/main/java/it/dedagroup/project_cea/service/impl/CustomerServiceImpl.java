@@ -3,22 +3,15 @@ package it.dedagroup.project_cea.service.impl;
 import java.time.LocalDate;
 import java.util.List;
 
-import java.util.Optional;
-
 import it.dedagroup.project_cea.exception.model.UserNotFoundException;
 import it.dedagroup.project_cea.repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.dedagroup.project_cea.exception.model.NotValidDataException;
-import it.dedagroup.project_cea.model.Apartment;
 import it.dedagroup.project_cea.model.Bill;
 import it.dedagroup.project_cea.model.Customer;
-import it.dedagroup.project_cea.model.Intervention;
-import it.dedagroup.project_cea.model.Role;
 import it.dedagroup.project_cea.model.Scan;
-import it.dedagroup.project_cea.model.StatusIntervention;
-import it.dedagroup.project_cea.model.TypeOfIntervention;
 import it.dedagroup.project_cea.service.def.CustomerServiceDef;
 
 @Service
