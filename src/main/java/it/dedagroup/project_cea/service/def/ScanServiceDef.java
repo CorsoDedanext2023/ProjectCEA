@@ -11,8 +11,6 @@ public interface ScanServiceDef {
 
 	public Scan findById(long id);
 
-	void addScan(Scan scan, long idTechnician);
-
 	public void removeScan(Scan scan);
 	public void removeScanById(long id);
 
