@@ -1,14 +1,17 @@
 package it.dedagroup.project_cea.controller;
 
-import it.dedagroup.project_cea.dto.request.ScanDtoRequest;
-import it.dedagroup.project_cea.dto.request.TechnicianDTORequest;
+import it.dedagroup.project_cea.dto.request.*;
+import it.dedagroup.project_cea.dto.response.InterventionDTOResponse;
 import it.dedagroup.project_cea.dto.response.ScanDTOResponse;
 import it.dedagroup.project_cea.dto.response.TechnicianDTOResponse;
 import it.dedagroup.project_cea.facade.TechnicianFacade;
+import it.dedagroup.project_cea.model.Technician;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,16 +22,16 @@ public class TechnicianController {
 	
 	@Autowired
 	TechnicianFacade techFac;
-	
+
 	@GetMapping(GET_SCAN_PATH)
 	public ResponseEntity<List<ScanDTOResponse>> getScans(){
 		return ResponseEntity.status(HttpStatus.OK).body(techFac.getAllScans());
 	}
 	
-//	@PostMapping(SET_SCAN_PATH)
-//	public ResponseEntity<String> setScan(@RequestBody long id, ScanDtoRequest request){
-//		return ResponseEntity.status(HttpStatus.OK).body(techFac.addScan(request));
-//	}
+	@PostMapping(SET_SCAN_PATH)
+	public ResponseEntity<String> setScan(@Valid @RequestBody ScanDtoRequest request){
+		return ResponseEntity.status(HttpStatus.OK).body(techFac.addScan(request));
+	}
 	
 	@GetMapping(FIND_BY_ID_PATH)
 	public ResponseEntity<TechnicianDTOResponse> findTechnicianById(@RequestParam long idTech){
@@ -36,7 +39,7 @@ public class TechnicianController {
 	}
 	
 	@GetMapping(FIND_BY_USER_PATH)
-	public ResponseEntity<TechnicianDTOResponse> findTechnicianByUtente_Username(@RequestParam String username){
+	public ResponseEntity<TechnicianDTOResponse> findTechnicianByUsername(@RequestParam String username){
 		return ResponseEntity.ok(techFac.findByUsername(username));
 	}
 	
@@ -66,17 +69,27 @@ public class TechnicianController {
 	}
 	
 	@PutMapping(UPDATE_PATH)
-	public ResponseEntity<TechnicianDTOResponse> updateTechnician(@RequestBody TechnicianDTORequest request){
+	public ResponseEntity<TechnicianDTOResponse> updateTechnician(@Valid @RequestBody TechnicianDTORequest request){
 		return ResponseEntity.ok(techFac.update(request));
 	}
-	
+	/**
+	 * Questo metodo simula la cancellazione di un tecnico, tramite il suo ID, dal nostro database evitanto la cancellazione effettiva
+	 * ma semplicemente settando la variabile "isAvailable" dell'oggetto {@link Technician} a false.
+	 * @param username Richiede in input un username del tecnico.
+	 * @return Ritorna una stringa in caso di "cancellazione" effetuata con successo.
+	 */
 	@PostMapping(REMOVE_BY_USER_PATH)
-	public ResponseEntity<String> removeTechnicianByUser(@RequestBody TechnicianDTORequest request){
-		return ResponseEntity.ok(techFac.removeByUsername(request));
+	public ResponseEntity<String> removeTechnicianByUsername(@RequestParam String username){
+		return ResponseEntity.ok(techFac.removeByUsername(username));
 	}
 	
 	@PostMapping(REMOVE_BY_ID_PATH)
-	public ResponseEntity<String> removeTechnicianById(@RequestBody TechnicianDTORequest request){
-		return ResponseEntity.ok(techFac.removeById(request));
+	public ResponseEntity<String> removeTechnicianById(@RequestParam long id){
+		return ResponseEntity.ok(techFac.removeById(id));
+	}
+
+	@PostMapping(REBOOK_INTERVENTION_PATH)
+	public ResponseEntity<InterventionDTOResponse> rebookIntervention(@Valid @RequestBody InterventionRebookDTORequest request){
+		return ResponseEntity.status(HttpStatus.OK).body(techFac.rebookIntervention(request));
 	}
 }

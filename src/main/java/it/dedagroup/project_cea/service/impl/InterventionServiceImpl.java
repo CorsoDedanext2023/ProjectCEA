@@ -39,7 +39,7 @@ public class InterventionServiceImpl implements InterventionServiceDef {
 
 	@Override
 	public List<Intervention> findAllByTechnicianId(long idTechnician) {
-		return null;
+		return intervRepo.findAllByTechnician_Id(idTechnician);
 	}
 
 	@Override

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import it.dedagroup.project_cea.dto.response.*;
+import it.dedagroup.project_cea.model.Condominium;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +19,6 @@ import it.dedagroup.project_cea.dto.request.AdministratorUpdateDTORequest;
 import it.dedagroup.project_cea.dto.request.BillDTORequest;
 import it.dedagroup.project_cea.dto.request.CondominiumDTORequest;
 import it.dedagroup.project_cea.dto.request.RegisterUserDTORequest;
-import it.dedagroup.project_cea.dto.response.AdministratorDtoResponse;
-import it.dedagroup.project_cea.dto.response.ApartmentScanDTOResponse;
-import it.dedagroup.project_cea.dto.response.CondominiumDtoResponse;
-import it.dedagroup.project_cea.dto.response.CustomerExtendedInfoDTOResponse;
 import it.dedagroup.project_cea.mapper.AdministratorMapper;
 import it.dedagroup.project_cea.mapper.ApartmentMapper;
 import it.dedagroup.project_cea.mapper.BillMapper;
@@ -96,7 +94,7 @@ public class AdministratorFacade {
 		return mapper.toDto(service.findByCondominiums_Id(id));
 	}
 
-	public List<BillDTOResponse> billSplitter( AceaBillRequest bill) {
+	public List<BillDTOResponse> billSplitter(AceaBillRequest bill) {
 		List<Bill> splittedBills=new ArrayList<>();
 		Condominium condominium=condominiumService.findById(bill.getIdCondominium());
 		double missingConsumption=bill.getCondominiumConsumption();

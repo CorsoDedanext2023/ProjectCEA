@@ -2,29 +2,26 @@ package it.dedagroup.project_cea.dto.request;
 
 import it.dedagroup.project_cea.model.StatusIntervention;
 import it.dedagroup.project_cea.model.TypeOfIntervention;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import jdk.jfr.Name;
 import lombok.Data;
+import org.aspectj.lang.annotation.After;
+
 import java.time.LocalDate;
 @Data
-public class InterventionUpdateDTORequest {
+public class InterventionRebookDTORequest {
     @Min(value = 1, message = "intervention id must be at least 1")
     private long idIntervention;
     @NotNull(message = "intervention date must not be blank")
     private LocalDate interventionDate;
-    @NotNull(message = "field isAvailable must not be blank")
-    private boolean isAvailable;
+    @NotNull(message = "postponed intervention date must not be blank")
+    @Future(message = "postponed intervention date must be in the future")
+    private LocalDate postponedDate;
     @NotNull(message = "intervention type must not be blank")
     private TypeOfIntervention type;
-    @NotNull(message = "intervention status must not be blank")
-    private StatusIntervention status;
     @Min(value = 1, message = "technician id must be at least 1")
     private long idTechnician;
     @Min(value = 1, message = "apartment id must be at least 1")
     private long idApartment;
-    @Min(value = 1, message = "secretary id must be at least 1")
-    private long secretaryId;
 }

@@ -7,6 +7,8 @@ import it.dedagroup.project_cea.dto.request.BookInterventionDto;
 import it.dedagroup.project_cea.model.StatusIntervention;
 import it.dedagroup.project_cea.model.TypeOfIntervention;
 import it.dedagroup.project_cea.service.def.ApartmentServiceDef;
+import it.dedagroup.project_cea.service.def.InterventionServiceDef;
+import it.dedagroup.project_cea.service.def.TechnicianServiceDef;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,8 @@ import it.dedagroup.project_cea.model.Intervention;
 public class InterventionMapper {
 	@Autowired
 	ApartmentServiceDef apartmentServiceDef;
+	@Autowired
+	TechnicianServiceDef techServ;
 	public InterventionDTOResponse toInterventionDTOResponse(Intervention i) {
 		InterventionDTOResponse intDTOResp = new InterventionDTOResponse();
 		intDTOResp.setDate(i.getInterventionDate());
@@ -52,8 +56,8 @@ public class InterventionMapper {
 		intervention.setInterventionDate(i.getInterventionDate());
 		intervention.setType(i.getType());
 		intervention.setStatus(i.getStatus());
-		intervention.setApartment(i.getApartment());
-		intervention.setTechnician(i.getTechnician());
+		intervention.setApartment(apartmentServiceDef.findById(i.getIdApartment()));
+		intervention.setTechnician(techServ.findById(i.getIdTechnician()));
 		return intervention;
 	}
 	
