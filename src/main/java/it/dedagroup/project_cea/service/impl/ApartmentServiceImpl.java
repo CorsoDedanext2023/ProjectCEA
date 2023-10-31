@@ -1,6 +1,7 @@
 package it.dedagroup.project_cea.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,17 @@ public class ApartmentServiceImpl implements ApartmentServiceDef {
 		apartdelete.setAvailable(false);
 		repo.save(apartdelete);
 	}
-	
+
+	@Override
+	public Apartment findApartmentByIdAndIsAvailableTrue(long id_apartment) {
+		return repo.findApartmentByIdAndIsAvailableTrue(id_apartment).orElseThrow(() -> new NotValidDataException("Apartment not found with id: "+id_apartment));
+	}
+
+	@Override
+	public List<Apartment> findAllAndIsAvailableTrue() {
+		return repo.findAll().stream().filter(Apartment::isAvailable).toList();
+	}
+
 	@Override
 	public Apartment findById(long id_apartment) {
 		return repo.findById(id_apartment).orElseThrow(() -> new NotValidDataException("Apartment not found with id: "+id_apartment));
@@ -51,6 +62,11 @@ public class ApartmentServiceImpl implements ApartmentServiceDef {
 	@Override
 	public List<Apartment> findAll() {
 		return repo.findAll();
+	}
+
+	@Override
+	public Apartment findApartmentByCondominiumIdAndCustomerId(long id_condominium, long id_customer) {
+		return repo.findApartmentByCondominiumIdAndCustomerId(id_condominium,id_customer).orElseThrow(() -> new NotValidDataException("Apartment not found with condominium id and customer id inserted"));
 	}
 
 	@Override
@@ -80,7 +96,28 @@ public class ApartmentServiceImpl implements ApartmentServiceDef {
 	}
 
 	@Override
-	public Apartment findByIdAndIsAvailableTrue(long idApartment) {
-		return repo.findByIdAndIsAvailableTrue(idApartment).orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No apartment found with id " + idApartment + " or apartment set to unavailable"));
+	public Apartment findApartmentByInterventionsIdAndIsAvailableTrue(long id_intervention) {
+		return repo.findApartmentByInterventionsIdAndIsAvailableTrue(id_intervention).orElseThrow(() -> new NotValidDataException("Apartment not found with interventions id: "+id_intervention));
+	}
+
+	@Override
+	public Apartment findApartmentByScansIdAndIsAvailableTrue(long id_meter) {
+		return repo.findApartmentByScansIdAndIsAvailableTrue(id_meter).orElseThrow(() -> new NotValidDataException("Apartment not found with scans id: "+id_meter));
+	}
+
+	@Override
+	public Apartment findApartmentByUnitNumberAndFloorNumberAndCondominiumIdAndIsAvailableTrue(int unit_number, int floor_number, long id_condominium) {
+		return repo.findApartmentByUnitNumberAndFloorNumberAndCondominiumIdAndIsAvailableTrue(unit_number, floor_number, id_condominium).orElseThrow(() -> new NotValidDataException("Apartment not found with unit number and floor number and condominium id inserted"));
+	}
+
+	@Override
+	public List<Apartment> findAllApartmentByCondominiumIdAndIsAvailableTrue(long id_condominium) {
+		return repo.findAllApartmentByCondominiumIdAndIsAvailableTrue(id_condominium);
+	}
+
+	@Override
+	public List<Apartment> findAllApartmentByCustomerIdAndIsAvailableTrue(long id_customer) {
+		return repo.findAllApartmentByCustomerIdAndIsAvailableTrue(id_customer);
+
 	}
 }

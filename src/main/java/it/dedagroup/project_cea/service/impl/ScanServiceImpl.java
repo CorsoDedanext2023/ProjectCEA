@@ -68,4 +68,9 @@ public class ScanServiceImpl implements ScanServiceDef {
 	public List<Scan> findAllScanByCondominiumId(long condominiumId) {
 		return scanRepo.findAllByApartment_Condominium_Id(condominiumId);
 	}
+
+	@Override
+	public List<Scan> findAllScanByApartmentId(long apartmentId) {
+		return scanRepo.findAllByApartmentId(apartmentId);
+	}
 }

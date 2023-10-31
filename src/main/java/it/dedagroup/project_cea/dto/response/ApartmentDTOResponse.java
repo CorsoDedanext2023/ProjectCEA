@@ -8,10 +8,8 @@ import lombok.Data;
 //@NoArgsConstructor
 //@AllArgsConstructor
 public class ApartmentDTOResponse {
-	private long id;
+	private String customerUsername;
+	private String condominiumAddress;
 	private int unitNumber;
 	private int floorNumber;
-	private long  id_customer;
-	private ScanDTOResponse meter;
-	private long id_condominium;
 }
